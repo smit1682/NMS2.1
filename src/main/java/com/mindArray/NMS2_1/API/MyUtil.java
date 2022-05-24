@@ -12,6 +12,7 @@ import io.vertx.ext.web.RoutingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -21,6 +22,7 @@ private static final Vertx vertx = Bootstrap.getVertex();
 
 // private static final Logger LOGGER = LoggerFactory.getLogger(MyUtil.class);
   public static void validate(RoutingContext routingContext,Entity entity){
+
 
     try {
       JsonObject jsonObject = routingContext.getBodyAsJson();
@@ -42,20 +44,45 @@ private static final Vertx vertx = Bootstrap.getVertex();
 
             }
           }
+          routingContext.setBody(jsonObject.toBuffer());
+
           switch (entity){
             case CREDENTIAL:
-              if(jsonObject.containsKey("credential.name") && jsonObject.containsKey("protocol") && jsonObject.containsKey("password") && (jsonObject.getString("protocol").equalsIgnoreCase("snmp") ? jsonObject.containsKey(""): ))
+              if(!jsonObject.containsKey("credential.name") || ! jsonObject.containsKey("protocol") || ! jsonObject.containsKey("password") || jsonObject.getString("credential.name").isEmpty() || jsonObject.getString("protocol").isEmpty())
               {
-                if(jsonObject.getString("protocol").equals("snmp") && jsonObject.containsKey("version"))
-                {
-
-                }else if()
+                  routingContext.response().end("invalid");
+              }
+              else if(!( jsonObject.getString("protocol").equals("snmp") && jsonObject.containsKey("version") && !jsonObject.getString("version").isEmpty()) || !((!jsonObject.getString("protocol").equals("snmp")) && jsonObject.containsKey("username") && !jsonObject.getString("username").isEmpty()))
+              {
+                //protocol wrong
+                routingContext.response().end("invalid");
+              }
+              else
+              {
+                routingContext.next();
               }
             case DISCOVERY:
+
+              if(!jsonObject.containsKey("discovery.name") || ! jsonObject.containsKey("host") || ! jsonObject.containsKey("port") || ! jsonObject.containsKey("metric.type") || ! jsonObject.containsKey("credential.id") )
+              { //contains validation
+                routingContext.response().end("invalid");
+              }
+              else if(! (jsonObject.getValue("discovery.name") instanceof String )|| !(jsonObject.getValue("host")instanceof String ) ||! (jsonObject.getValue("port") instanceof Integer) || ! (jsonObject.getValue("metric.type") instanceof String) || ! (jsonObject.getValue("credential.id") instanceof Integer))
+              { //datatype validation
+                routingContext.response().end("invalid");
+              }
+              else if(jsonObject.getString("discovery.name").isEmpty() || jsonObject.getString("host").isEmpty() || jsonObject.getString("metric.type").isEmpty())
+              { //isEmpty validation
+                routingContext.response().end("invalid");
+              }
+              else
+              {
+                routingContext.next();
+              }
             case MONITOR:
           }
-          routingContext.setBody(jsonObject.toBuffer());
-          routingContext.next();
+
+
         }
 
       } else if (routingContext.currentRoute().getName().equals("put")) {
