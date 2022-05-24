@@ -1,0 +1,1768 @@
+24/May/2022 11:45:14,657- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 11:45:14,779- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 11:45:14,787- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 11:45:14,788- PlatformDependent0: Java version: 17
+24/May/2022 11:45:14,789- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 11:45:14,791- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 11:45:14,791- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 11:45:14,792- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 11:45:14,793- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 11:45:14,795- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 11:45:14,799- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 11:45:14,799- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 11:45:14,801- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 11:45:14,801- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 11:45:14,802- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 11:45:14,803- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 11:45:14,804- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 11:45:14,806- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 11:45:14,807- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 11:45:14,844- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 11:45:14,844- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 11:45:14,868- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 11:45:14,919- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 11:45:14,920- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 11:45:14,941- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 11:45:14,942- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 11:45:14,953- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 11:45:14,997- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 11:45:15,008- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 11:45:15,008- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 11:45:15,010- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 11:45:15,011- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 11:45:15,249- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 11:45:15,249- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 11:45:15,250- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 11:45:15,251- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 11:45:15,251- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 11:45:15,252- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 11:45:15,254- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 11:45:15,254- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 11:45:15,255- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 11:45:15,259- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 11:45:15,259- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 11:45:15,260- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 11:45:15,318- DefaultChannelId: -Dio.netty.processId: 16061 (auto-detected)
+24/May/2022 11:45:15,325- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 11:45:15,354- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 11:45:15,354- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 11:45:15,355- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 11:45:15,426- Bootstrap: All Verticals are Deployed
+24/May/2022 11:47:11,571- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 11:47:11,571- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 11:47:11,571- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 11:47:11,572- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 11:47:11,579- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 11:47:11,579- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 11:47:11,580- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@63b28c3c
+24/May/2022 11:47:11,643- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 11:47:11,644- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 13:56:16,948- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 13:56:17,008- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 13:56:17,013- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 13:56:17,014- PlatformDependent0: Java version: 17
+24/May/2022 13:56:17,016- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 13:56:17,017- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 13:56:17,018- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 13:56:17,020- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 13:56:17,021- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 13:56:17,023- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 13:56:17,024- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 13:56:17,025- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 13:56:17,026- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 13:56:17,026- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 13:56:17,027- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 13:56:17,031- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 13:56:17,031- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 13:56:17,034- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 13:56:17,035- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 13:56:17,049- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 13:56:17,050- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 13:56:17,073- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 13:56:17,092- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 13:56:17,092- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 13:56:17,098- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 13:56:17,098- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 13:56:17,104- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 13:56:17,129- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 13:56:17,135- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 13:56:17,136- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 13:56:17,138- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 13:56:17,139- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 13:56:17,328- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 13:56:17,335- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 13:56:17,336- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 13:56:17,336- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 13:56:17,337- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 13:56:17,338- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 13:56:17,338- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 13:56:17,339- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 13:56:17,339- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 13:56:17,340- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 13:56:17,340- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 13:56:17,341- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 13:56:17,407- DefaultChannelId: -Dio.netty.processId: 22843 (auto-detected)
+24/May/2022 13:56:17,410- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 13:56:17,461- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 13:56:17,474- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 13:56:17,475- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 13:56:17,593- Bootstrap: All Verticals are Deployed
+24/May/2022 13:56:19,583- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 13:56:19,584- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 13:56:19,584- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 13:56:19,584- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 13:56:19,590- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 13:56:19,590- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 13:56:19,592- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@7012e32
+24/May/2022 13:56:19,646- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 13:56:19,647- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 14:01:27,420- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 14:01:27,474- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 14:01:27,480- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 14:01:27,482- PlatformDependent0: Java version: 17
+24/May/2022 14:01:27,484- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 14:01:27,485- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 14:01:27,486- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 14:01:27,487- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 14:01:27,489- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 14:01:27,491- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 14:01:27,494- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 14:01:27,496- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 14:01:27,498- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 14:01:27,499- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 14:01:27,500- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 14:01:27,502- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 14:01:27,502- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 14:01:27,506- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 14:01:27,506- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 14:01:27,523- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 14:01:27,525- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 14:01:27,550- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 14:01:27,572- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 14:01:27,572- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 14:01:27,580- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 14:01:27,580- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 14:01:27,588- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 14:01:27,616- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 14:01:27,628- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 14:01:27,630- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 14:01:27,632- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 14:01:27,634- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 14:01:27,782- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 14:01:27,783- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 14:01:27,783- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 14:01:27,784- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 14:01:27,784- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 14:01:27,784- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 14:01:27,785- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 14:01:27,785- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 14:01:27,785- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 14:01:27,785- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 14:01:27,786- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 14:01:27,786- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 14:01:27,815- DefaultChannelId: -Dio.netty.processId: 23209 (auto-detected)
+24/May/2022 14:01:27,818- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 14:01:27,873- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 14:01:27,874- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 14:01:27,874- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 14:01:27,943- Bootstrap: All Verticals are Deployed
+24/May/2022 14:01:30,347- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 14:01:30,348- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 14:01:30,348- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 14:01:30,348- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 14:01:30,357- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 14:01:30,358- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 14:01:30,363- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@53269105
+24/May/2022 14:01:30,427- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 14:01:30,428- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 14:08:12,282- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 14:08:12,349- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 14:08:12,358- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 14:08:12,360- PlatformDependent0: Java version: 17
+24/May/2022 14:08:12,362- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 14:08:12,363- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 14:08:12,364- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 14:08:12,366- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 14:08:12,367- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 14:08:12,369- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 14:08:12,371- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 14:08:12,372- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 14:08:12,373- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 14:08:12,374- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 14:08:12,376- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 14:08:12,377- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 14:08:12,378- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 14:08:12,380- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 14:08:12,380- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 14:08:12,395- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 14:08:12,396- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 14:08:12,430- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 14:08:12,455- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 14:08:12,456- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 14:08:12,467- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 14:08:12,468- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 14:08:12,476- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 14:08:12,518- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 14:08:12,539- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 14:08:12,544- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 14:08:12,548- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 14:08:12,550- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 14:08:12,724- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 14:08:12,726- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 14:08:12,727- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 14:08:12,727- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 14:08:12,728- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 14:08:12,730- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 14:08:12,731- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 14:08:12,732- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 14:08:12,733- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 14:08:12,733- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 14:08:12,734- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 14:08:12,735- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 14:08:12,773- DefaultChannelId: -Dio.netty.processId: 26447 (auto-detected)
+24/May/2022 14:08:12,779- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 14:08:12,803- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 14:08:12,804- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 14:08:12,805- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 14:08:12,867- Bootstrap: All Verticals are Deployed
+24/May/2022 14:15:54,440- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 14:15:54,496- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 14:15:54,502- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 14:15:54,503- PlatformDependent0: Java version: 17
+24/May/2022 14:15:54,505- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 14:15:54,506- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 14:15:54,507- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 14:15:54,508- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 14:15:54,509- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 14:15:54,510- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 14:15:54,511- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 14:15:54,512- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 14:15:54,513- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 14:15:54,513- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 14:15:54,514- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 14:15:54,514- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 14:15:54,515- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 14:15:54,516- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 14:15:54,516- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 14:15:54,530- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 14:15:54,530- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 14:15:54,551- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 14:15:54,567- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 14:15:54,567- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 14:15:54,574- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 14:15:54,575- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 14:15:54,582- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 14:15:54,609- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 14:15:54,616- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 14:15:54,616- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 14:15:54,619- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 14:15:54,620- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 14:15:54,797- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 14:15:54,798- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 14:15:54,799- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 14:15:54,799- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 14:15:54,800- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 14:15:54,800- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 14:15:54,800- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 14:15:54,801- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 14:15:54,801- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 14:15:54,802- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 14:15:54,802- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 14:15:54,803- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 14:15:54,832- DefaultChannelId: -Dio.netty.processId: 27049 (auto-detected)
+24/May/2022 14:15:54,835- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 14:15:54,859- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 14:15:54,859- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 14:15:54,859- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 14:15:54,904- Bootstrap: All Verticals are Deployed
+24/May/2022 14:15:58,599- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 14:15:58,599- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 14:15:58,600- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 14:15:58,600- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 14:15:58,606- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 14:15:58,606- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 14:15:58,607- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@2914c65f
+24/May/2022 14:15:58,659- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 14:15:58,659- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 14:36:27,623- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 14:36:27,684- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 14:36:27,691- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 14:36:27,695- PlatformDependent0: Java version: 17
+24/May/2022 14:36:27,697- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 14:36:27,698- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 14:36:27,701- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 14:36:27,702- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 14:36:27,703- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 14:36:27,705- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 14:36:27,707- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 14:36:27,708- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 14:36:27,709- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 14:36:27,710- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 14:36:27,710- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 14:36:27,712- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 14:36:27,713- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 14:36:27,717- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 14:36:27,717- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 14:36:27,736- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 14:36:27,737- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 14:36:27,757- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 14:36:27,778- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 14:36:27,778- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 14:36:27,791- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 14:36:27,791- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 14:36:27,803- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 14:36:27,831- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 14:36:27,838- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 14:36:27,839- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 14:36:27,841- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 14:36:27,843- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 14:36:27,985- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 14:36:27,986- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 14:36:27,986- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 14:36:27,987- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 14:36:27,987- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 14:36:27,987- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 14:36:27,988- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 14:36:27,988- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 14:36:27,988- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 14:36:27,989- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 14:36:27,989- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 14:36:27,989- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 14:36:28,026- DefaultChannelId: -Dio.netty.processId: 35751 (auto-detected)
+24/May/2022 14:36:28,032- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 14:36:28,068- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 14:36:28,068- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 14:36:28,069- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 14:36:28,146- Bootstrap: All Verticals are Deployed
+24/May/2022 15:36:33,887- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 15:36:33,941- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 15:36:33,946- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 15:36:33,947- PlatformDependent0: Java version: 17
+24/May/2022 15:36:33,949- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 15:36:33,951- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 15:36:33,952- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 15:36:33,953- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 15:36:33,954- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 15:36:33,956- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 15:36:33,958- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 15:36:33,958- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 15:36:33,959- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 15:36:33,960- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 15:36:33,960- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 15:36:33,966- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 15:36:33,967- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 15:36:33,968- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 15:36:33,969- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 15:36:33,981- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 15:36:33,982- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 15:36:33,998- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 15:36:34,019- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 15:36:34,019- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 15:36:34,026- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 15:36:34,026- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 15:36:34,036- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 15:36:34,063- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 15:36:34,069- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 15:36:34,069- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 15:36:34,072- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 15:36:34,073- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 15:36:34,196- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 15:36:34,198- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 15:36:34,199- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 15:36:34,199- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 15:36:34,200- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 15:36:34,201- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 15:36:34,201- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 15:36:34,202- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 15:36:34,202- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 15:36:34,203- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 15:36:34,203- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 15:36:34,204- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 15:36:34,233- DefaultChannelId: -Dio.netty.processId: 45089 (auto-detected)
+24/May/2022 15:36:34,235- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 15:36:34,251- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 15:36:34,251- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 15:36:34,252- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 15:36:34,279- Bootstrap: All Verticals are Deployed
+24/May/2022 15:38:35,276- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 15:38:35,276- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 15:38:35,276- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 15:38:35,277- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 15:38:35,285- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 15:38:35,286- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 15:38:35,287- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@31b32626
+24/May/2022 15:38:35,357- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 15:38:35,357- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 15:51:06,637- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 15:51:06,697- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 15:51:06,703- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 15:51:06,703- PlatformDependent0: Java version: 17
+24/May/2022 15:51:06,705- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 15:51:06,706- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 15:51:06,707- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 15:51:06,707- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 15:51:06,708- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 15:51:06,710- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 15:51:06,713- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 15:51:06,714- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 15:51:06,715- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 15:51:06,716- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 15:51:06,717- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 15:51:06,719- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 15:51:06,719- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 15:51:06,721- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 15:51:06,722- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 15:51:06,738- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 15:51:06,738- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 15:51:06,761- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 15:51:06,787- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 15:51:06,788- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 15:51:06,795- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 15:51:06,796- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 15:51:06,814- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 15:51:06,840- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 15:51:06,846- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 15:51:06,847- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 15:51:06,852- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 15:51:06,853- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 15:51:07,046- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 15:51:07,047- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 15:51:07,047- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 15:51:07,048- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 15:51:07,048- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 15:51:07,049- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 15:51:07,050- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 15:51:07,051- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 15:51:07,052- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 15:51:07,052- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 15:51:07,053- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 15:51:07,054- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 15:51:07,124- DefaultChannelId: -Dio.netty.processId: 45507 (auto-detected)
+24/May/2022 15:51:07,127- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 15:51:07,167- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 15:51:07,176- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 15:51:07,176- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 15:51:07,284- Bootstrap: All Verticals are Deployed
+24/May/2022 15:51:11,412- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 15:51:11,414- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 15:51:11,415- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 15:51:11,416- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 15:51:11,424- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 15:51:11,424- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 15:51:11,426- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@28b3f72e
+24/May/2022 15:51:11,493- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 15:51:11,494- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 15:51:21,308- ContextImpl: Unhandled exception
+java.lang.NullPointerException: Cannot invoke "io.vertx.core.json.JsonArray.encode()" because the return value of "io.vertx.core.json.JsonObject.getJsonArray(String)" is null
+	at com.mindArray.NMS2_1.API.FetchApi.lambda$getMemory$0(FetchApi.java:24) ~[classes/:?]
+	at io.vertx.core.impl.future.FutureImpl$3.onSuccess(FutureImpl.java:141) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.future.FutureBase.emitSuccess(FutureBase.java:60) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.future.FutureImpl.tryComplete(FutureImpl.java:211) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.future.PromiseImpl.tryComplete(PromiseImpl.java:23) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.Promise.complete(Promise.java:66) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.ReplyHandler.dispatch(ReplyHandler.java:97) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.HandlerRegistration$InboundDeliveryContext.next(HandlerRegistration.java:169) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.HandlerRegistration$InboundDeliveryContext.dispatch(HandlerRegistration.java:134) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:111) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.HandlerRegistration.dispatch(HandlerRegistration.java:105) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.ReplyHandler.doReceive(ReplyHandler.java:81) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.HandlerRegistration.lambda$receive$0(HandlerRegistration.java:56) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:164) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:469) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:503) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:986) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 15:57:40,001- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 15:57:40,056- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 15:57:40,061- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 15:57:40,062- PlatformDependent0: Java version: 17
+24/May/2022 15:57:40,063- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 15:57:40,064- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 15:57:40,065- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 15:57:40,065- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 15:57:40,066- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 15:57:40,067- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 15:57:40,068- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 15:57:40,068- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 15:57:40,069- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 15:57:40,069- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 15:57:40,070- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 15:57:40,071- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 15:57:40,071- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 15:57:40,074- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 15:57:40,074- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 15:57:40,092- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 15:57:40,093- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 15:57:40,112- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 15:57:40,129- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 15:57:40,130- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 15:57:40,137- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 15:57:40,137- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 15:57:40,144- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 15:57:40,168- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 15:57:40,175- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 15:57:40,175- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 15:57:40,178- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 15:57:40,179- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 15:57:40,314- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 15:57:40,316- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 15:57:40,317- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 15:57:40,317- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 15:57:40,317- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 15:57:40,318- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 15:57:40,318- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 15:57:40,318- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 15:57:40,319- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 15:57:40,319- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 15:57:40,321- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 15:57:40,322- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 15:57:40,360- DefaultChannelId: -Dio.netty.processId: 46005 (auto-detected)
+24/May/2022 15:57:40,363- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 15:57:40,389- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 15:57:40,389- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 15:57:40,390- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 15:57:40,457- Bootstrap: All Verticals are Deployed
+24/May/2022 15:57:47,244- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 15:57:47,245- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 15:57:47,245- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 15:57:47,246- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 15:57:47,254- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 15:57:47,254- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 15:57:47,255- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@1fec8a53
+24/May/2022 15:57:47,311- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 15:57:47,311- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 16:54:27,684- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 16:54:27,763- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 16:54:27,774- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 16:54:27,780- PlatformDependent0: Java version: 17
+24/May/2022 16:54:27,781- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 16:54:27,783- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 16:54:27,784- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 16:54:27,785- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 16:54:27,786- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 16:54:27,788- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @290dbf45
+24/May/2022 16:54:27,791- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 16:54:27,792- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 16:54:27,794- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 16:54:27,795- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 16:54:27,795- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 16:54:27,797- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 16:54:27,797- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 16:54:27,800- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 16:54:27,801- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 16:54:27,817- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 16:54:27,818- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 16:54:27,839- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 16:54:27,857- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 16:54:27,857- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 16:54:27,864- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 16:54:27,864- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 16:54:27,870- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 16:54:27,891- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 16:54:27,900- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 16:54:27,902- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 16:54:27,905- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 16:54:27,907- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 16:54:28,112- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 16:54:28,113- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 16:54:28,114- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 16:54:28,114- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 16:54:28,115- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 16:54:28,115- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 16:54:28,115- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 16:54:28,116- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 16:54:28,117- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 16:54:28,117- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 16:54:28,117- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 16:54:28,118- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 16:54:28,163- DefaultChannelId: -Dio.netty.processId: 47744 (auto-detected)
+24/May/2022 16:54:28,166- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 16:54:28,190- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 16:54:28,197- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 16:54:28,197- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 16:54:28,262- Bootstrap: All Verticals are Deployed
+24/May/2022 16:55:28,357- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 16:55:28,428- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 16:55:28,434- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 16:55:28,435- PlatformDependent0: Java version: 17
+24/May/2022 16:55:28,436- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 16:55:28,437- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 16:55:28,438- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 16:55:28,438- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 16:55:28,439- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 16:55:28,441- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 16:55:28,443- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 16:55:28,444- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 16:55:28,446- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 16:55:28,446- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 16:55:28,447- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 16:55:28,448- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 16:55:28,448- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 16:55:28,450- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 16:55:28,450- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 16:55:28,466- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 16:55:28,467- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 16:55:28,490- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 16:55:28,511- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 16:55:28,511- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 16:55:28,518- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 16:55:28,518- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 16:55:28,539- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 16:55:28,597- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 16:55:28,604- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 16:55:28,605- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 16:55:28,607- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 16:55:28,608- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 16:55:28,765- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 16:55:28,767- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 16:55:28,767- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 16:55:28,768- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 16:55:28,768- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 16:55:28,768- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 16:55:28,769- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 16:55:28,770- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 16:55:28,771- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 16:55:28,771- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 16:55:28,771- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 16:55:28,772- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 16:55:28,818- DefaultChannelId: -Dio.netty.processId: 47842 (auto-detected)
+24/May/2022 16:55:28,823- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 16:55:28,852- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 16:55:28,853- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 16:55:28,853- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 16:55:28,929- Bootstrap: All Verticals are Deployed
+24/May/2022 16:56:19,615- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 16:56:19,616- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 16:56:19,616- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 16:56:19,617- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 16:56:19,623- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 16:56:19,623- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 16:56:19,624- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@5e72c98e
+24/May/2022 16:56:19,690- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 16:56:19,691- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:00:23,262- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:00:23,319- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:00:23,325- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:00:23,325- PlatformDependent0: Java version: 17
+24/May/2022 17:00:23,327- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:00:23,328- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:00:23,329- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:00:23,330- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:00:23,331- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:00:23,332- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:00:23,334- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:00:23,334- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:00:23,335- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:00:23,335- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:00:23,336- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:00:23,336- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:00:23,337- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:00:23,338- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:00:23,339- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:00:23,350- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:00:23,350- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:00:23,364- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:00:23,381- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:00:23,382- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:00:23,388- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:00:23,389- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:00:23,396- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:00:23,426- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:00:23,434- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:00:23,434- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:00:23,436- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:00:23,438- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:00:23,613- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:00:23,614- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:00:23,615- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:00:23,615- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:00:23,616- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:00:23,616- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:00:23,617- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:00:23,617- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:00:23,618- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:00:23,618- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:00:23,618- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:00:23,619- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:00:23,653- DefaultChannelId: -Dio.netty.processId: 48174 (auto-detected)
+24/May/2022 17:00:23,660- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:00:23,690- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:00:23,690- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:00:23,691- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:00:23,762- Bootstrap: All Verticals are Deployed
+24/May/2022 17:00:32,510- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:00:32,510- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:00:32,510- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:00:32,511- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:00:32,517- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:00:32,517- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:00:32,518- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@3e9746b9
+24/May/2022 17:00:32,576- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:00:32,576- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:00:57,983- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:00:58,037- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:00:58,044- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:00:58,045- PlatformDependent0: Java version: 17
+24/May/2022 17:00:58,046- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:00:58,047- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:00:58,048- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:00:58,049- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:00:58,050- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:00:58,051- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:00:58,052- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:00:58,056- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:00:58,057- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:00:58,057- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:00:58,057- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:00:58,059- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:00:58,059- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:00:58,061- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:00:58,061- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:00:58,076- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:00:58,077- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:00:58,103- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:00:58,128- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:00:58,128- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:00:58,136- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:00:58,136- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:00:58,144- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:00:58,179- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:00:58,185- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:00:58,186- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:00:58,188- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:00:58,190- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:00:58,388- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:00:58,390- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:00:58,390- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:00:58,390- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:00:58,392- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:00:58,392- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:00:58,393- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:00:58,393- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:00:58,395- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:00:58,395- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:00:58,396- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:00:58,397- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:00:58,445- DefaultChannelId: -Dio.netty.processId: 48283 (auto-detected)
+24/May/2022 17:00:58,448- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:00:58,476- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:00:58,477- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:00:58,477- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:00:58,520- Bootstrap: All Verticals are Deployed
+24/May/2022 17:01:02,135- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:01:02,135- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:01:02,135- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:01:02,136- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:01:02,146- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:01:02,146- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:01:02,148- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@556dc60e
+24/May/2022 17:01:02,212- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:01:02,213- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:01:02,265- ContextImpl: Unhandled exception
+java.lang.IllegalStateException: Illegal type in Json: class java.sql.Timestamp
+	at io.vertx.core.json.impl.JsonUtil.lambda$static$0(JsonUtil.java:89) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.json.impl.JsonUtil.deepCopy(JsonUtil.java:122) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.json.JsonObject.copy(JsonObject.java:778) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.json.JsonObject.copy(JsonObject.java:758) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.codecs.JsonObjectMessageCodec.transform(JsonObjectMessageCodec.java:39) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.codecs.JsonObjectMessageCodec.transform(JsonObjectMessageCodec.java:21) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.MessageImpl.<init>(MessageImpl.java:65) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.MessageImpl.copyBeforeReceive(MessageImpl.java:71) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.EventBusImpl.deliverMessageLocally(EventBusImpl.java:341) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.EventBusImpl.sendLocally(EventBusImpl.java:319) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.EventBusImpl.sendOrPub(EventBusImpl.java:307) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.OutboundDeliveryContext.next(OutboundDeliveryContext.java:131) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.EventBusImpl.sendOrPubInternal(EventBusImpl.java:394) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.EventBusImpl.sendReply(EventBusImpl.java:302) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.MessageImpl.reply(MessageImpl.java:105) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.Message.reply(Message.java:81) ~[vertx-core-4.2.7.jar:4.2.7]
+	at com.mindArray.NMS2_1.Database.lambda$start$19(Database.java:248) ~[classes/:?]
+	at io.vertx.core.impl.future.FutureImpl$3.onSuccess(FutureImpl.java:141) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.future.FutureBase.lambda$emitSuccess$0(FutureBase.java:54) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:164) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:469) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:503) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:986) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 17:02:13,517- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:02:13,605- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:02:13,610- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:02:13,611- PlatformDependent0: Java version: 17
+24/May/2022 17:02:13,612- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:02:13,614- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:02:13,614- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:02:13,615- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:02:13,617- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:02:13,618- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:02:13,620- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:02:13,621- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:02:13,622- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:02:13,622- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:02:13,623- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:02:13,624- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:02:13,624- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:02:13,626- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:02:13,626- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:02:13,645- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:02:13,646- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:02:13,664- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:02:13,685- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:02:13,685- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:02:13,693- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:02:13,693- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:02:13,699- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:02:13,724- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:02:13,732- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:02:13,732- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:02:13,735- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:02:13,736- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:02:13,895- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:02:13,896- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:02:13,897- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:02:13,897- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:02:13,897- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:02:13,898- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:02:13,898- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:02:13,898- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:02:13,899- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:02:13,899- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:02:13,899- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:02:13,900- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:02:13,939- DefaultChannelId: -Dio.netty.processId: 48386 (auto-detected)
+24/May/2022 17:02:13,944- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:02:13,982- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:02:13,983- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:02:13,983- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:02:14,047- Bootstrap: All Verticals are Deployed
+24/May/2022 17:02:15,377- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:02:15,378- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:02:15,378- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:02:15,382- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:02:15,394- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:02:15,395- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:02:15,396- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@3ac8c7aa
+24/May/2022 17:02:15,448- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:02:15,449- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:03:22,150- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:03:22,210- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:03:22,216- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:03:22,217- PlatformDependent0: Java version: 17
+24/May/2022 17:03:22,219- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:03:22,220- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:03:22,221- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:03:22,222- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:03:22,224- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:03:22,226- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:03:22,228- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:03:22,228- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:03:22,229- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:03:22,230- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:03:22,230- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:03:22,232- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:03:22,232- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:03:22,236- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:03:22,236- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:03:22,262- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:03:22,263- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:03:22,282- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:03:22,302- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:03:22,302- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:03:22,307- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:03:22,308- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:03:22,316- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:03:22,360- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:03:22,379- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:03:22,379- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:03:22,382- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:03:22,383- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:03:22,537- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:03:22,538- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:03:22,538- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:03:22,551- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:03:22,552- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:03:22,552- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:03:22,553- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:03:22,553- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:03:22,553- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:03:22,553- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:03:22,554- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:03:22,554- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:03:22,604- DefaultChannelId: -Dio.netty.processId: 48499 (auto-detected)
+24/May/2022 17:03:22,606- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:03:22,635- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:03:22,635- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:03:22,636- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:03:22,713- Bootstrap: All Verticals are Deployed
+24/May/2022 17:03:30,952- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:03:30,952- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:03:30,953- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:03:30,953- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:03:30,961- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:03:30,962- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:03:30,963- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@11e77d62
+24/May/2022 17:03:31,026- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:03:31,027- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:04:47,095- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:04:47,181- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:04:47,197- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:04:47,197- PlatformDependent0: Java version: 17
+24/May/2022 17:04:47,199- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:04:47,201- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:04:47,202- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:04:47,203- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:04:47,204- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:04:47,206- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @7fad8c79
+24/May/2022 17:04:47,209- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:04:47,210- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:04:47,212- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:04:47,213- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:04:47,213- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:04:47,215- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:04:47,216- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:04:47,219- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:04:47,220- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:04:47,237- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:04:47,238- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:04:47,262- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:04:47,297- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:04:47,297- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:04:47,337- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:04:47,341- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:04:47,351- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:04:47,390- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:04:47,412- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:04:47,412- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:04:47,415- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:04:47,417- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:04:47,619- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:04:47,620- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:04:47,621- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:04:47,621- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:04:47,622- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:04:47,622- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:04:47,622- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:04:47,623- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:04:47,623- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:04:47,623- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:04:47,624- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:04:47,624- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:04:47,661- DefaultChannelId: -Dio.netty.processId: 48652 (auto-detected)
+24/May/2022 17:04:47,664- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:04:47,693- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:04:47,693- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:04:47,693- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:04:47,926- Bootstrap: All Verticals are Deployed
+24/May/2022 17:04:49,917- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:04:49,922- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:04:49,925- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:04:49,926- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:04:49,934- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:04:49,935- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:04:49,936- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@5a07be23
+24/May/2022 17:04:50,007- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:04:50,007- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:08:54,489- BlockedThreadChecker: Thread Thread[vert.x-worker-thread-1,5,main] has been blocked for 244462 ms, time limit is 60000 ms
+io.vertx.core.VertxException: Thread blocked
+	at com.mindArray.NMS2_1.Database.getLastInstance(Database.java:285) ~[classes/:?]
+	at com.mindArray.NMS2_1.Database.lambda$start$18(Database.java:241) ~[classes/:?]
+	at com.mindArray.NMS2_1.Database$$Lambda$270/0x0000000800f1e018.handle(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.ContextImpl.lambda$null$0(ContextImpl.java:159) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl$$Lambda$201/0x0000000800e0a610.handle(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:100) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl.lambda$executeBlocking$1(ContextImpl.java:157) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl$$Lambda$200/0x0000000800e0a1d8.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.TaskQueue.run(TaskQueue.java:76) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.TaskQueue$$Lambda$126/0x0000000800d9b9c8.run(Unknown Source) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 17:13:10,450- BlockedThreadChecker: Thread Thread[vert.x-worker-thread-1,5,main] has been blocked for 500422 ms, time limit is 60000 ms
+io.vertx.core.VertxException: Thread blocked
+	at com.mysql.cj.result.SqlTimestampValueFactory.localCreateFromTimestamp(SqlTimestampValueFactory.java:161) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.result.SqlTimestampValueFactory.localCreateFromTimestamp(SqlTimestampValueFactory.java:51) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.result.AbstractDateTimeValueFactory.createFromTimestamp(AbstractDateTimeValueFactory.java:89) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.protocol.a.MysqlTextValueDecoder.decodeTimestamp(MysqlTextValueDecoder.java:85) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.protocol.result.AbstractResultsetRow.decodeAndCreateReturnValue(AbstractResultsetRow.java:89) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.protocol.result.AbstractResultsetRow.getValueFromBytes(AbstractResultsetRow.java:243) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.protocol.a.result.TextBufferRow.getValue(TextBufferRow.java:132) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.result.ResultSetImpl.getTimestamp(ResultSetImpl.java:947) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mysql.cj.jdbc.result.ResultSetImpl.getTimestamp(ResultSetImpl.java:985) ~[mysql-connector-java-8.0.28.jar:8.0.28]
+	at com.mindArray.NMS2_1.Database.getLastInstance(Database.java:291) ~[classes/:?]
+	at com.mindArray.NMS2_1.Database.lambda$start$18(Database.java:241) ~[classes/:?]
+	at com.mindArray.NMS2_1.Database$$Lambda$270/0x0000000800f1e018.handle(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.ContextImpl.lambda$null$0(ContextImpl.java:159) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl$$Lambda$201/0x0000000800e0a610.handle(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:100) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl.lambda$executeBlocking$1(ContextImpl.java:157) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl$$Lambda$200/0x0000000800e0a1d8.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.TaskQueue.run(TaskQueue.java:76) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.TaskQueue$$Lambda$126/0x0000000800d9b9c8.run(Unknown Source) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 17:14:04,207- BlockedThreadChecker: Thread Thread[vert.x-worker-thread-1,5,main] has been blocked for 552246 ms, time limit is 60000 ms
+io.vertx.core.VertxException: Thread blocked
+	at com.mindArray.NMS2_1.Database.getLastInstance(Database.java:278) ~[classes/:?]
+	at com.mindArray.NMS2_1.Database.lambda$start$18(Database.java:241) ~[classes/:?]
+	at com.mindArray.NMS2_1.Database$$Lambda$270/0x0000000800f1e018.handle(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.ContextImpl.lambda$null$0(ContextImpl.java:159) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl$$Lambda$201/0x0000000800e0a610.handle(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:100) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl.lambda$executeBlocking$1(ContextImpl.java:157) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl$$Lambda$200/0x0000000800e0a1d8.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.TaskQueue.run(TaskQueue.java:76) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.TaskQueue$$Lambda$126/0x0000000800d9b9c8.run(Unknown Source) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 17:14:21,296- BlockedThreadChecker: Thread Thread[vert.x-worker-thread-1,5,main] has been blocked for 571266 ms, time limit is 60000 ms
+io.vertx.core.VertxException: Thread blocked
+	at com.mindArray.NMS2_1.Database.getLastInstance(Database.java:298) ~[classes/:?]
+	at com.mindArray.NMS2_1.Database.lambda$start$18(Database.java:241) ~[classes/:?]
+	at com.mindArray.NMS2_1.Database$$Lambda$270/0x0000000800f1e018.handle(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.ContextImpl.lambda$null$0(ContextImpl.java:159) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl$$Lambda$201/0x0000000800e0a610.handle(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:100) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl.lambda$executeBlocking$1(ContextImpl.java:157) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.ContextImpl$$Lambda$200/0x0000000800e0a1d8.run(Unknown Source) ~[?:?]
+	at io.vertx.core.impl.TaskQueue.run(TaskQueue.java:76) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.TaskQueue$$Lambda$126/0x0000000800d9b9c8.run(Unknown Source) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 17:14:28,588- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:14:28,657- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:14:28,663- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:14:28,664- PlatformDependent0: Java version: 17
+24/May/2022 17:14:28,666- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:14:28,667- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:14:28,668- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:14:28,672- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:14:28,674- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:14:28,676- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @7fad8c79
+24/May/2022 17:14:28,680- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:14:28,681- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:14:28,684- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:14:28,684- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:14:28,685- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:14:28,687- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:14:28,688- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:14:28,691- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:14:28,691- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:14:28,711- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:14:28,711- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:14:28,732- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:14:28,761- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:14:28,761- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:14:28,772- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:14:28,773- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:14:28,782- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:14:28,821- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:14:28,831- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:14:28,831- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:14:28,836- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:14:28,838- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:14:29,052- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:14:29,053- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:14:29,055- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:14:29,055- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:14:29,056- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:14:29,056- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:14:29,057- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:14:29,057- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:14:29,057- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:14:29,057- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:14:29,059- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:14:29,059- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:14:29,104- DefaultChannelId: -Dio.netty.processId: 49014 (auto-detected)
+24/May/2022 17:14:29,108- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:14:29,141- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:14:29,142- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:14:29,142- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:14:29,243- Bootstrap: All Verticals are Deployed
+24/May/2022 17:14:32,577- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:14:32,578- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:14:32,578- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:14:32,578- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:14:32,586- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:14:32,586- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:14:32,588- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@76d1f55b
+24/May/2022 17:14:32,661- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:14:32,661- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:15:17,913- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:15:17,996- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:15:18,002- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:15:18,005- PlatformDependent0: Java version: 17
+24/May/2022 17:15:18,008- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:15:18,009- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:15:18,010- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:15:18,011- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:15:18,012- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:15:18,014- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:15:18,017- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:15:18,018- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:15:18,019- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:15:18,021- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:15:18,022- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:15:18,023- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:15:18,026- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:15:18,028- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:15:18,028- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:15:18,046- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:15:18,047- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:15:18,073- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:15:18,096- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:15:18,097- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:15:18,105- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:15:18,105- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:15:18,113- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:15:18,142- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:15:18,152- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:15:18,152- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:15:18,155- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:15:18,156- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:15:18,342- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:15:18,343- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:15:18,343- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:15:18,344- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:15:18,344- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:15:18,344- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:15:18,344- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:15:18,345- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:15:18,345- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:15:18,345- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:15:18,345- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:15:18,346- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:15:18,426- DefaultChannelId: -Dio.netty.processId: 49212 (auto-detected)
+24/May/2022 17:15:18,429- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:15:18,458- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:15:18,458- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:15:18,458- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:15:18,540- Bootstrap: All Verticals are Deployed
+24/May/2022 17:15:21,084- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:15:21,084- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:15:21,084- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:15:21,085- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:15:21,092- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:15:21,093- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:15:21,094- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@11e77d62
+24/May/2022 17:15:21,154- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:15:21,154- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:18:00,695- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:18:00,769- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:18:00,778- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:18:00,779- PlatformDependent0: Java version: 17
+24/May/2022 17:18:00,781- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:18:00,782- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:18:00,783- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:18:00,784- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:18:00,786- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:18:00,788- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:18:00,790- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:18:00,792- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:18:00,795- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:18:00,796- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:18:00,796- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:18:00,798- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:18:00,801- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:18:00,804- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:18:00,804- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:18:00,827- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:18:00,828- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:18:00,863- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:18:00,885- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:18:00,886- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:18:00,897- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:18:00,898- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:18:00,907- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:18:00,966- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:18:00,974- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:18:00,974- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:18:00,976- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:18:00,978- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:18:01,204- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:18:01,209- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:18:01,210- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:18:01,210- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:18:01,211- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:18:01,212- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:18:01,212- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:18:01,213- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:18:01,215- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:18:01,215- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:18:01,216- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:18:01,217- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:18:01,287- DefaultChannelId: -Dio.netty.processId: 49364 (auto-detected)
+24/May/2022 17:18:01,299- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:18:01,354- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:18:01,354- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:18:01,354- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:18:01,505- Bootstrap: All Verticals are Deployed
+24/May/2022 17:18:03,617- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:18:03,617- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:18:03,618- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:18:03,618- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:18:03,629- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:18:03,629- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:18:03,631- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@11e77d62
+24/May/2022 17:18:03,697- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:18:03,698- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:20:57,348- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:20:57,419- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:20:57,425- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:20:57,425- PlatformDependent0: Java version: 17
+24/May/2022 17:20:57,427- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:20:57,428- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:20:57,429- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:20:57,430- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:20:57,431- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:20:57,433- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:20:57,435- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:20:57,435- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:20:57,436- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:20:57,437- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:20:57,437- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:20:57,439- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:20:57,439- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:20:57,441- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:20:57,441- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:20:57,457- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:20:57,457- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:20:57,477- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:20:57,499- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:20:57,499- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:20:57,508- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:20:57,508- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:20:57,516- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:20:57,543- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:20:57,549- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:20:57,550- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:20:57,552- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:20:57,554- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:20:57,713- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:20:57,714- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:20:57,715- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:20:57,715- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:20:57,716- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:20:57,716- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:20:57,716- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:20:57,717- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:20:57,717- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:20:57,718- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:20:57,718- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:20:57,718- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:20:57,760- DefaultChannelId: -Dio.netty.processId: 49537 (auto-detected)
+24/May/2022 17:20:57,765- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:20:57,791- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:20:57,792- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:20:57,792- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:20:57,861- Bootstrap: All Verticals are Deployed
+24/May/2022 17:21:05,553- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:21:05,554- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:21:05,554- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:21:05,554- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:21:05,564- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:21:05,564- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:21:05,565- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@11e77d62
+24/May/2022 17:21:05,626- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:21:05,626- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:21:54,273- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:21:54,480- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:21:54,515- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:21:54,523- PlatformDependent0: Java version: 17
+24/May/2022 17:21:54,525- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:21:54,528- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:21:54,529- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:21:54,547- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:21:54,548- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:21:54,550- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:21:54,560- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:21:54,565- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:21:54,570- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:21:54,570- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:21:54,571- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:21:54,586- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:21:54,590- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:21:54,594- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:21:54,594- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:21:54,629- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:21:54,630- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:21:54,659- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:21:54,681- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:21:54,682- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:21:54,696- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:21:54,696- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:21:54,705- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:21:54,732- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:21:54,739- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:21:54,744- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:21:54,746- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:21:54,747- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:21:55,203- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:21:55,204- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:21:55,204- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:21:55,205- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:21:55,205- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:21:55,205- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:21:55,206- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:21:55,206- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:21:55,206- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:21:55,207- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:21:55,207- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:21:55,211- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:21:55,303- DefaultChannelId: -Dio.netty.processId: 49654 (auto-detected)
+24/May/2022 17:21:55,306- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:21:55,375- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:21:55,376- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:21:55,376- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:21:55,481- Bootstrap: All Verticals are Deployed
+24/May/2022 17:22:40,009- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:22:40,009- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:22:40,009- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:22:40,010- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:22:40,019- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:22:40,020- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:22:40,021- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@3ef968c0
+24/May/2022 17:22:40,080- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:22:40,080- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:31:41,433- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:31:41,503- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:31:41,509- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:31:41,510- PlatformDependent0: Java version: 17
+24/May/2022 17:31:41,511- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:31:41,524- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:31:41,525- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:31:41,526- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:31:41,527- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:31:41,531- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:31:41,533- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:31:41,534- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:31:41,535- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:31:41,535- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:31:41,536- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:31:41,537- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:31:41,538- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:31:41,540- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:31:41,540- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:31:41,556- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:31:41,557- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:31:41,579- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:31:41,601- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:31:41,602- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:31:41,613- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:31:41,613- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:31:41,622- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:31:41,675- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:31:41,689- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:31:41,690- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:31:41,694- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:31:41,698- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:31:41,844- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:31:41,845- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:31:41,845- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:31:41,846- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:31:41,846- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:31:41,846- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:31:41,847- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:31:41,847- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:31:41,847- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:31:41,847- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:31:41,848- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:31:41,848- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:31:41,879- DefaultChannelId: -Dio.netty.processId: 49995 (auto-detected)
+24/May/2022 17:31:41,882- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:31:41,932- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:31:41,933- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:31:41,934- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:31:42,009- Bootstrap: All Verticals are Deployed
+24/May/2022 17:31:45,031- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:31:45,031- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:31:45,032- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:31:45,033- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:31:45,041- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:31:45,041- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:31:45,042- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@3ac8c7aa
+24/May/2022 17:31:45,095- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:31:45,096- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:31:45,120- RoutingContext: RoutingContext failure (500)
+java.lang.NullPointerException: Cannot invoke "io.vertx.core.json.JsonObject.put(String, Object)" because "insertData" is null
+	at com.mindArray.NMS2_1.API.RestAPI.create(RestAPI.java:55) ~[classes/:?]
+	at io.vertx.ext.web.impl.RouteState.handleContext(RouteState.java:1212) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.impl.RoutingContextImplBase.iterateNext(RoutingContextImplBase.java:126) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.impl.RoutingContextWrapper.next(RoutingContextWrapper.java:201) ~[vertx-web-4.2.7.jar:4.2.7]
+	at com.mindArray.NMS2_1.API.MyUtil.validate(MyUtil.java:47) ~[classes/:?]
+	at com.mindArray.NMS2_1.API.RestAPI.validate(RestAPI.java:48) ~[classes/:?]
+	at io.vertx.ext.web.impl.RouteState.handleContext(RouteState.java:1212) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.impl.RoutingContextImplBase.iterateNext(RoutingContextImplBase.java:163) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.impl.RoutingContextWrapper.next(RoutingContextWrapper.java:201) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.handler.impl.BodyHandlerImpl$BHandler.doEnd(BodyHandlerImpl.java:313) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.handler.impl.BodyHandlerImpl$BHandler.end(BodyHandlerImpl.java:290) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.handler.impl.BodyHandlerImpl.lambda$handle$0(BodyHandlerImpl.java:86) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:100) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:63) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.HttpEventHandler.handleEnd(HttpEventHandler.java:76) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerRequest.onEnd(Http1xServerRequest.java:561) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerRequest.handleEnd(Http1xServerRequest.java:544) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.EventLoopContext.execute(EventLoopContext.java:71) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.DuplicatedContext.execute(DuplicatedContext.java:163) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerConnection.onEnd(Http1xServerConnection.java:191) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerConnection.handleMessage(Http1xServerConnection.java:147) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.net.impl.ConnectionBase.read(ConnectionBase.java:155) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.net.impl.VertxHandler.channelRead(VertxHandler.java:153) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelRead(ChannelInboundHandlerAdapter.java:93) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.handler.codec.http.websocketx.extensions.WebSocketServerExtensionHandler.channelRead(WebSocketServerExtensionHandler.java:99) ~[netty-codec-http-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327) ~[netty-codec-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299) ~[netty-codec-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.vertx.core.http.impl.Http1xOrH2CHandler.end(Http1xOrH2CHandler.java:61) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xOrH2CHandler.channelRead(Http1xOrH2CHandler.java:38) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:986) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 17:31:45,126- RoutingContext: Unhandled exception in router
+java.lang.NullPointerException: Cannot invoke "io.vertx.core.json.JsonObject.put(String, Object)" because "insertData" is null
+	at com.mindArray.NMS2_1.API.RestAPI.create(RestAPI.java:55) ~[classes/:?]
+	at io.vertx.ext.web.impl.RouteState.handleContext(RouteState.java:1212) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.impl.RoutingContextImplBase.iterateNext(RoutingContextImplBase.java:126) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.impl.RoutingContextWrapper.next(RoutingContextWrapper.java:201) ~[vertx-web-4.2.7.jar:4.2.7]
+	at com.mindArray.NMS2_1.API.MyUtil.validate(MyUtil.java:47) ~[classes/:?]
+	at com.mindArray.NMS2_1.API.RestAPI.validate(RestAPI.java:48) ~[classes/:?]
+	at io.vertx.ext.web.impl.RouteState.handleContext(RouteState.java:1212) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.impl.RoutingContextImplBase.iterateNext(RoutingContextImplBase.java:163) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.impl.RoutingContextWrapper.next(RoutingContextWrapper.java:201) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.handler.impl.BodyHandlerImpl$BHandler.doEnd(BodyHandlerImpl.java:313) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.handler.impl.BodyHandlerImpl$BHandler.end(BodyHandlerImpl.java:290) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.ext.web.handler.impl.BodyHandlerImpl.lambda$handle$0(BodyHandlerImpl.java:86) ~[vertx-web-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:100) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:63) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.HttpEventHandler.handleEnd(HttpEventHandler.java:76) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerRequest.onEnd(Http1xServerRequest.java:561) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerRequest.handleEnd(Http1xServerRequest.java:544) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.EventLoopContext.execute(EventLoopContext.java:71) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.DuplicatedContext.execute(DuplicatedContext.java:163) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerConnection.onEnd(Http1xServerConnection.java:191) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerConnection.handleMessage(Http1xServerConnection.java:147) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.net.impl.ConnectionBase.read(ConnectionBase.java:155) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.net.impl.VertxHandler.channelRead(VertxHandler.java:153) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelRead(ChannelInboundHandlerAdapter.java:93) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.handler.codec.http.websocketx.extensions.WebSocketServerExtensionHandler.channelRead(WebSocketServerExtensionHandler.java:99) ~[netty-codec-http-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327) ~[netty-codec-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299) ~[netty-codec-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.vertx.core.http.impl.Http1xOrH2CHandler.end(Http1xOrH2CHandler.java:61) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xOrH2CHandler.channelRead(Http1xOrH2CHandler.java:38) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:986) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 17:57:01,574- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:57:01,625- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:57:01,630- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:57:01,630- PlatformDependent0: Java version: 17
+24/May/2022 17:57:01,632- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:57:01,633- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:57:01,634- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:57:01,634- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:57:01,635- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:57:01,636- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:57:01,638- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:57:01,638- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:57:01,639- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:57:01,640- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:57:01,640- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:57:01,642- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:57:01,642- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:57:01,644- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:57:01,645- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:57:01,662- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:57:01,662- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:57:01,698- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:57:01,723- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:57:01,724- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:57:01,734- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:57:01,735- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:57:01,742- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:57:01,771- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:57:01,778- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:57:01,778- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:57:01,783- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:57:01,784- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:57:01,993- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:57:01,995- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:57:01,996- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:57:01,996- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:57:01,998- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:57:01,999- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:57:01,999- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:57:02,000- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:57:02,002- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:57:02,002- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:57:02,004- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:57:02,005- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:57:02,065- DefaultChannelId: -Dio.netty.processId: 58735 (auto-detected)
+24/May/2022 17:57:02,068- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:57:02,101- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:57:02,101- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:57:02,102- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:57:02,164- Bootstrap: All Verticals are Deployed
+24/May/2022 17:57:03,982- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:57:03,983- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:57:03,983- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:57:03,983- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:57:03,993- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:57:03,993- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:57:03,995- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@3ac8c7aa
+24/May/2022 17:57:04,067- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:57:04,068- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 17:58:51,009- RoutingContext: Unhandled exception in router
+24/May/2022 17:58:51,093- ContextImpl: Unhandled exception
+java.lang.IllegalStateException: Response has already been written
+	at io.vertx.core.http.impl.Http1xServerResponse.end(Http1xServerResponse.java:400) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerResponse.end(Http1xServerResponse.java:388) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.http.impl.Http1xServerResponse.end(Http1xServerResponse.java:367) ~[vertx-core-4.2.7.jar:4.2.7]
+	at com.mindArray.NMS2_1.API.RestAPI.lambda$eventBusToDB$3(RestAPI.java:131) ~[classes/:?]
+	at io.vertx.core.impl.future.FutureImpl$3.onSuccess(FutureImpl.java:141) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.future.FutureBase.emitSuccess(FutureBase.java:60) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.future.FutureImpl.tryComplete(FutureImpl.java:211) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.future.PromiseImpl.tryComplete(PromiseImpl.java:23) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.Promise.complete(Promise.java:66) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.ReplyHandler.dispatch(ReplyHandler.java:97) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.HandlerRegistration$InboundDeliveryContext.next(HandlerRegistration.java:169) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.HandlerRegistration$InboundDeliveryContext.dispatch(HandlerRegistration.java:134) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.impl.AbstractContext.dispatch(AbstractContext.java:111) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.HandlerRegistration.dispatch(HandlerRegistration.java:105) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.ReplyHandler.doReceive(ReplyHandler.java:81) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.vertx.core.eventbus.impl.HandlerRegistration.lambda$receive$0(HandlerRegistration.java:56) ~[vertx-core-4.2.7.jar:4.2.7]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:164) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:469) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:503) ~[netty-transport-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:986) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.74.Final.jar:4.1.74.Final]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+24/May/2022 17:59:44,937- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 17:59:45,000- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 17:59:45,005- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 17:59:45,006- PlatformDependent0: Java version: 17
+24/May/2022 17:59:45,007- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 17:59:45,008- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 17:59:45,009- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 17:59:45,010- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 17:59:45,011- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 17:59:45,014- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @12028586
+24/May/2022 17:59:45,015- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 17:59:45,016- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 17:59:45,017- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 17:59:45,017- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 17:59:45,026- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 17:59:45,029- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 17:59:45,029- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 17:59:45,031- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 17:59:45,032- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 17:59:45,047- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 17:59:45,048- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 17:59:45,070- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 17:59:45,090- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 17:59:45,090- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 17:59:45,098- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 17:59:45,098- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 17:59:45,104- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 17:59:45,124- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 17:59:45,129- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 17:59:45,130- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 17:59:45,132- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 17:59:45,133- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 17:59:45,315- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 17:59:45,316- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 17:59:45,316- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 17:59:45,317- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 17:59:45,317- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 17:59:45,317- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 17:59:45,318- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 17:59:45,318- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 17:59:45,319- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 17:59:45,319- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 17:59:45,319- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 17:59:45,320- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 17:59:45,352- DefaultChannelId: -Dio.netty.processId: 58926 (auto-detected)
+24/May/2022 17:59:45,354- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 17:59:45,379- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 17:59:45,380- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 17:59:45,380- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 17:59:45,437- Bootstrap: All Verticals are Deployed
+24/May/2022 17:59:53,942- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 17:59:53,942- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 17:59:53,942- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 17:59:53,942- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 17:59:53,950- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 17:59:53,951- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 17:59:53,952- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@3ac8c7aa
+24/May/2022 17:59:54,022- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 17:59:54,022- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 18:04:36,173- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 18:04:36,232- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 18:04:36,238- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 18:04:36,238- PlatformDependent0: Java version: 17
+24/May/2022 18:04:36,240- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 18:04:36,241- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 18:04:36,242- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 18:04:36,243- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 18:04:36,244- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 18:04:36,246- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @290dbf45
+24/May/2022 18:04:36,248- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 18:04:36,248- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 18:04:36,249- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 18:04:36,250- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 18:04:36,250- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 18:04:36,252- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 18:04:36,253- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 18:04:36,254- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 18:04:36,255- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 18:04:36,273- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 18:04:36,273- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 18:04:36,299- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 18:04:36,323- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 18:04:36,323- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 18:04:36,331- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 18:04:36,331- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 18:04:36,340- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 18:04:36,370- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 18:04:36,377- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 18:04:36,377- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 18:04:36,381- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 18:04:36,382- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 18:04:36,573- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 18:04:36,576- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 18:04:36,577- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 18:04:36,577- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 18:04:36,581- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 18:04:36,581- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 18:04:36,582- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 18:04:36,583- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 18:04:36,584- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 18:04:36,585- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 18:04:36,586- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 18:04:36,588- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 18:04:36,683- DefaultChannelId: -Dio.netty.processId: 59143 (auto-detected)
+24/May/2022 18:04:36,689- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 18:04:36,729- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 18:04:36,730- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 18:04:36,730- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 18:04:36,777- Bootstrap: All Verticals are Deployed
+24/May/2022 18:04:39,914- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 18:04:39,915- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 18:04:39,915- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 18:04:39,915- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 18:04:39,922- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 18:04:39,922- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 18:04:39,924- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@13596e41
+24/May/2022 18:04:39,978- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 18:04:39,978- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false
+24/May/2022 18:05:51,969- LoggerFactory: Using io.vertx.core.logging.SLF4JLogDelegateFactory
+24/May/2022 18:05:52,051- InternalLoggerFactory: Using SLF4J as the default logging framework
+24/May/2022 18:05:52,057- PlatformDependent0: -Dio.netty.noUnsafe: false
+24/May/2022 18:05:52,058- PlatformDependent0: Java version: 17
+24/May/2022 18:05:52,060- PlatformDependent0: sun.misc.Unsafe.theUnsafe: available
+24/May/2022 18:05:52,061- PlatformDependent0: sun.misc.Unsafe.copyMemory: available
+24/May/2022 18:05:52,062- PlatformDependent0: java.nio.Buffer.address: available
+24/May/2022 18:05:52,063- PlatformDependent0: direct buffer constructor: unavailable: Reflective setAccessible(true) disabled
+24/May/2022 18:05:52,064- PlatformDependent0: java.nio.Bits.unaligned: available, true
+24/May/2022 18:05:52,065- PlatformDependent0: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable: class io.netty.util.internal.PlatformDependent0$6 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @290dbf45
+24/May/2022 18:05:52,067- PlatformDependent0: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+24/May/2022 18:05:52,067- PlatformDependent: sun.misc.Unsafe: available
+24/May/2022 18:05:52,068- PlatformDependent: maxDirectMemory: 4162846720 bytes (maybe)
+24/May/2022 18:05:52,069- PlatformDependent: -Dio.netty.tmpdir: /tmp (java.io.tmpdir)
+24/May/2022 18:05:52,069- PlatformDependent: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+24/May/2022 18:05:52,070- PlatformDependent: -Dio.netty.maxDirectMemory: -1 bytes
+24/May/2022 18:05:52,071- PlatformDependent: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+24/May/2022 18:05:52,072- CleanerJava9: java.nio.ByteBuffer.cleaner(): available
+24/May/2022 18:05:52,073- PlatformDependent: -Dio.netty.noPreferDirect: false
+24/May/2022 18:05:52,085- ResourceLeakDetector: -Dio.netty.leakDetection.level: simple
+24/May/2022 18:05:52,086- ResourceLeakDetector: -Dio.netty.leakDetection.targetRecords: 4
+24/May/2022 18:05:52,106- MultithreadEventLoopGroup: -Dio.netty.eventLoopThreads: 8
+24/May/2022 18:05:52,125- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+24/May/2022 18:05:52,125- InternalThreadLocalMap: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+24/May/2022 18:05:52,131- NioEventLoop: -Dio.netty.noKeySetOptimization: false
+24/May/2022 18:05:52,131- NioEventLoop: -Dio.netty.selectorAutoRebuildThreshold: 512
+24/May/2022 18:05:52,139- PlatformDependent: org.jctools-core.MpscChunkedArrayQueue: available
+24/May/2022 18:05:52,165- DefaultDnsServerAddressStreamProvider: Default DNS servers: [/127.0.0.53:53] (sun.net.dns.ResolverConfiguration)
+24/May/2022 18:05:52,171- NetUtil: -Djava.net.preferIPv4Stack: false
+24/May/2022 18:05:52,172- NetUtil: -Djava.net.preferIPv6Addresses: false
+24/May/2022 18:05:52,175- NetUtilInitializations: Loopback interface: lo (lo, 0:0:0:0:0:0:0:1%lo)
+24/May/2022 18:05:52,176- NetUtil: /proc/sys/net/core/somaxconn: 4096
+24/May/2022 18:05:52,308- PooledByteBufAllocator: -Dio.netty.allocator.numHeapArenas: 8
+24/May/2022 18:05:52,309- PooledByteBufAllocator: -Dio.netty.allocator.numDirectArenas: 8
+24/May/2022 18:05:52,309- PooledByteBufAllocator: -Dio.netty.allocator.pageSize: 8192
+24/May/2022 18:05:52,309- PooledByteBufAllocator: -Dio.netty.allocator.maxOrder: 11
+24/May/2022 18:05:52,310- PooledByteBufAllocator: -Dio.netty.allocator.chunkSize: 16777216
+24/May/2022 18:05:52,310- PooledByteBufAllocator: -Dio.netty.allocator.smallCacheSize: 256
+24/May/2022 18:05:52,310- PooledByteBufAllocator: -Dio.netty.allocator.normalCacheSize: 64
+24/May/2022 18:05:52,310- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+24/May/2022 18:05:52,311- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimInterval: 8192
+24/May/2022 18:05:52,311- PooledByteBufAllocator: -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+24/May/2022 18:05:52,311- PooledByteBufAllocator: -Dio.netty.allocator.useCacheForAllThreads: true
+24/May/2022 18:05:52,312- PooledByteBufAllocator: -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+24/May/2022 18:05:52,339- DefaultChannelId: -Dio.netty.processId: 59266 (auto-detected)
+24/May/2022 18:05:52,341- DefaultChannelId: -Dio.netty.machineId: 64:80:99:ff:fe:c5:4d:e2 (auto-detected)
+24/May/2022 18:05:52,363- ByteBufUtil: -Dio.netty.allocator.type: pooled
+24/May/2022 18:05:52,363- ByteBufUtil: -Dio.netty.threadLocalDirectBufferSize: 0
+24/May/2022 18:05:52,364- ByteBufUtil: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+24/May/2022 18:05:52,421- Bootstrap: All Verticals are Deployed
+24/May/2022 18:05:55,649- Recycler: -Dio.netty.recycler.maxCapacityPerThread: 4096
+24/May/2022 18:05:55,650- Recycler: -Dio.netty.recycler.ratio: 8
+24/May/2022 18:05:55,650- Recycler: -Dio.netty.recycler.chunkSize: 32
+24/May/2022 18:05:55,651- Recycler: -Dio.netty.recycler.blocking: false
+24/May/2022 18:05:55,658- AbstractByteBuf: -Dio.netty.buffer.checkAccessible: true
+24/May/2022 18:05:55,658- AbstractByteBuf: -Dio.netty.buffer.checkBounds: true
+24/May/2022 18:05:55,659- ResourceLeakDetectorFactory: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@35d28707
+24/May/2022 18:05:55,718- ZlibCodecFactory: -Dio.netty.noJdkZlibDecoder: false
+24/May/2022 18:05:55,718- ZlibCodecFactory: -Dio.netty.noJdkZlibEncoder: false

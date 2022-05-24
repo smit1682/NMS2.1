@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+  <Properties>
+    <Property name="log-path">logs/</Property>
+  </Properties>
+  <Appenders >
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%blue{%d{HH:mm:ss.SSS}} [%t] %highlight{%-5level} %magenta{%c{1.}} - %msg%n"/>
+    </Console>
+
+    <RollingFile name="RollingFile" fileName="${log-path}/myexample.log"
+                 filePattern="${log-path}/myexample-%d{yyyy-MM-dd}-%i.log.zip" >
+      <PatternLayout>
+        <pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS}- %c{1}: %m%n</pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="2" modulate="true" />
+      </Policies>
+      <DefaultRolloverStrategy max="4"/>
+    </RollingFile>
+  </Appenders>
+
+
+
+  <Loggers>
+
+    <Logger name = "com.mindArray.NMS2_1" level="DEBUG"/>
+    <Root level="DEBUG">
+      <AppenderRef ref="Console"/>
+      <appender-ref ref="RollingFile" />
+    </Root>
+
+  </Loggers>
+</Configuration>
+
