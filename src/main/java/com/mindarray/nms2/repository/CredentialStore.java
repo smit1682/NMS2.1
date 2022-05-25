@@ -1,6 +1,7 @@
-package com.mindArray.NMS2_1.Repository;
+package com.mindarray.nms2.repository;
 
-import com.mindArray.NMS2_1.Constant;
+import com.mindarray.nms2.util.Constant;
+import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
@@ -8,11 +9,11 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
-public class CredentialStore implements Crudable{
+public class CredentialStore implements CrudRepository {
   private static final Logger LOGGER = LoggerFactory.getLogger(CredentialStore.class);
 
   @Override
-  public JsonObject create(JsonObject jsonObject) {
+  public void create(JsonObject jsonObject, Promise<Object> databaseHandler) {
 
 
     try (Connection connection = createConnection()){
@@ -42,18 +43,20 @@ public class CredentialStore implements Crudable{
       }
 
       System.out.println(id);
-      return new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.MESSAGE,id);
+      databaseHandler.complete(new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.MESSAGE,id));
+
 
 
     } catch (SQLException e) {
-      return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage());
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
+     // return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage());
 
     }
 
   }
 
   @Override
-  public JsonObject read(JsonObject jsonObject) {
+  public void read(JsonObject jsonObject,Promise<Object> databaseHandler) {
     try (Connection connection = createConnection()){
       ResultSet resultSet = connection.createStatement().executeQuery("select * from credential where `credential.id` = " + jsonObject.getString("id"));
       JsonObject data = new JsonObject();
@@ -68,17 +71,16 @@ public class CredentialStore implements Crudable{
         data.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
 
       }
-      return data;
+      databaseHandler.complete( data);
     }catch (SQLException exception)
     {
 
-      return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage());
-
+      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
     }
   }
 
   @Override
-  public JsonObject readAll(JsonObject jsonObject) {
+  public void readAll(JsonObject jsonObject,Promise<Object> databaseHandler) {
     try (Connection connection = createConnection()){
       ResultSet resultSet = connection.createStatement().executeQuery("select * from credential");
       JsonArray jsonArray = new JsonArray();
@@ -95,18 +97,18 @@ public class CredentialStore implements Crudable{
         jsonArray.add(data);
 
       }
-      return new JsonObject().put("credential",jsonArray);
+      databaseHandler.complete( new JsonObject().put("credential",jsonArray));
     }catch (SQLException exception)
     {
 
 
-      return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage());
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
 
     }
   }
 
   @Override
-  public JsonObject update(JsonObject jsonObject) {
+  public void update(JsonObject jsonObject,Promise<Object> databaseHandler) {
     try (Connection connection = createConnection()){
       StringBuilder queryInit = new StringBuilder();
       for(var data : jsonObject)
@@ -122,27 +124,70 @@ public class CredentialStore implements Crudable{
 
       if(affectedRows==0)throw new SQLException("id not exist");
     }catch (SQLException exception){
-      return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage());
+      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
 
     }
 
     // System.out.println(query);
-    return new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK);
+    databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
 
   }
 
   @Override
-  public JsonObject delete(JsonObject string) {
+  public void delete(JsonObject string,Promise<Object> databaseHandler) {
     try (Connection connection = createConnection()){
       int master = connection.createStatement().executeUpdate("delete from credential where `credential.id` = "+string.getString("id"));
       System.out.println("delete from credential where credential.id = "+string);
-      return new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK);
+      databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
 
     }catch (SQLException exception){
-      return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage());
+      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
 
     }
   }
+
+  public void intialRead(JsonObject body,Promise<Object> databaseHandler) {
+
+    try (Connection connection = createConnection()){
+      ResultSet resultSet = connection.createStatement().executeQuery("select * from monitor left join credential on monitor.`credential.id` = credential.`credential.id` ");
+      JsonArray jsonArray = new JsonArray();
+      while (resultSet.next())
+      {
+        JsonObject data = new JsonObject();
+        data.put("monitor.id",resultSet.getInt("monitor.id"));
+        data.put("monitor.name",resultSet.getString("monitor.name"));
+        data.put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST));
+        data.put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT));
+        data.put(Constant.CREDENTIAL_ID,resultSet.getString(Constant.CREDENTIAL_ID));
+        data.put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE));
+        data.put(Constant.CPU,resultSet.getInt(Constant.CPU));
+        data.put(Constant.MEMORY,resultSet.getInt(Constant.MEMORY));
+        data.put(Constant.DISK,resultSet.getInt(Constant.DISK));
+        data.put(Constant.SYSTEM,resultSet.getInt(Constant.SYSTEM));
+        data.put(Constant.PROCESS,resultSet.getInt(Constant.PROCESS));
+        data.put(Constant.INTERFACE,resultSet.getInt(Constant.INTERFACE));
+        data.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
+        data.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
+        data.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
+
+        jsonArray.add(data);
+
+      }
+
+      if (!jsonArray.isEmpty())
+      {
+        databaseHandler.complete(jsonArray);
+      }
+      else {
+        databaseHandler.fail(jsonArray.encodePrettily());
+      }
+    }catch (SQLException exception)
+    {
+      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
+
+    }
+  }
+
   private static Connection createConnection() throws SQLException {
 
     try{

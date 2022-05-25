@@ -24,7 +24,7 @@
 
   <Loggers>
 
-    <Logger name = "com.mindArray.NMS2_1" level="DEBUG"/>
+    <Logger name = "com.mindarray.nms2" level="DEBUG"/>
     <Root level="DEBUG">
       <AppenderRef ref="Console"/>
       <appender-ref ref="RollingFile" />

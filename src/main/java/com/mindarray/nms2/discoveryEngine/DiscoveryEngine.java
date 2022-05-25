@@ -1,5 +1,6 @@
-package com.mindArray.NMS2_1;
+package com.mindarray.nms2.discoveryEngine;
 
+import com.mindarray.nms2.util.Constant;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.json.DecodeException;
@@ -28,7 +29,9 @@ public class DiscoveryEngine extends AbstractVerticle {
 
       try {
         JsonObject discoveryData = message.body();  //may throw nullPointerException or DecodeException
+
         System.out.println(discoveryData);
+
         String ipAddress = discoveryData.getString(Constant.JSON_KEY_HOST);
 
         vertx.executeBlocking(pingEvent -> {
@@ -50,7 +53,7 @@ public class DiscoveryEngine extends AbstractVerticle {
               System.out.println("dis =" + discoveryData);
               System.out.println("disS =" + discoveryStatus);
               if (discoveryStatus.getString(Constant.STATUS).equals(Constant.SUCCESS)) {
-                event.complete(discoveryData.mergeIn(discoveryStatus));
+                event.complete(discoveryData.mergeIn(discoveryStatus).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
               } else {
                 event.fail(discoveryStatus.toString());
               }
@@ -59,7 +62,8 @@ public class DiscoveryEngine extends AbstractVerticle {
 
               if (discoveryAsyncResult.succeeded()) {
 
-                vertx.eventBus().request(Constant.EVENTBUS_ADDRESS_DISCOVERY_DATABASE, discoveryAsyncResult.result(), databaseReply -> {
+
+                vertx.eventBus().request(Constant.INSERT_TO_DATABASE, discoveryAsyncResult.result(), databaseReply -> {
 
                   if (databaseReply.succeeded()) {
 
@@ -86,7 +90,7 @@ public class DiscoveryEngine extends AbstractVerticle {
                 });
 
               } else {
-                //System.out.println("heelo");
+
                 message.fail(696, discoveryAsyncResult.cause().getMessage());
               }
             });
@@ -113,10 +117,10 @@ public class DiscoveryEngine extends AbstractVerticle {
 
   }
 
-  private JsonObject discovery(JsonObject jsonObject) {
+  private JsonObject discovery(JsonObject dataToDiscover) {
 
-    jsonObject.put("category","discovery");
-    String encodedJsonString = Base64.getEncoder().encodeToString(jsonObject.toString().getBytes());
+    dataToDiscover.put("category","discovery");
+    String encodedJsonString = Base64.getEncoder().encodeToString(dataToDiscover.toString().getBytes());
 
     ProcessBuilder processBuilder = new ProcessBuilder().command(Constant.PLUGIN_PATH, encodedJsonString);
 
@@ -146,10 +150,11 @@ public class DiscoveryEngine extends AbstractVerticle {
 
     } catch (Exception exception)
     {
-      return new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.STATUS, "error");
+      return new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, exception.getMessage());
     }
 
   }
+
 
   Boolean pingDiscovery(String ip) {
     List<String> listOfCommand = new ArrayList<>();          // list because in future multiple ip can be passed

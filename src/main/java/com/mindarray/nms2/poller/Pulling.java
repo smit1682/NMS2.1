@@ -1,5 +1,6 @@
-package com.mindArray.NMS2_1;
+package com.mindarray.nms2.poller;
 
+import com.mindarray.nms2.util.Constant;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
@@ -18,15 +19,27 @@ public class Pulling extends AbstractVerticle {
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
 
-    vertx.eventBus().<JsonObject>consumer("pulling",message -> {
+    vertx.eventBus().<JsonObject>consumer(Constant.EA_PULLING, message -> {
       vertx.executeBlocking(event->{
-        JsonObject jsonObject =  message.body();
-          String pullingData = pollingFunc(jsonObject);
-        if(!pullingData.equals("fail")){
-          vertx.eventBus().request("metricDatabase",jsonObject.put("data",pullingData));
-          event.complete("done pulling");
+
+          JsonObject pullingData = pollingFunc(message.body());
+
+        if(pullingData.getString(Constant.STATUS).equals(Constant.SUCCESS)){
+
+          vertx.eventBus().request(Constant.INSERT_TO_DATABASE,pullingData.mergeIn(message.body()).put(Constant.IDENTITY,Constant.DUMP_METRIC_DATA),replyHandler->{
+            if(replyHandler.succeeded())
+            { LOGGER.info("Pulling Data Dumped in DB ,host: {} ,metric.group:{} ",message.body().getString("host"),message.body().getString("metric.group"));
+              event.complete("done pulling");
+            }
+          });
+
+
         }else
-          event.fail("fail");
+        {
+          LOGGER.error("Pulling Fail -> {}",message.body());
+
+          event.fail(Constant.PULLING_FAIL);
+        }
 
       },result->{
         if(result.succeeded())
@@ -40,8 +53,9 @@ public class Pulling extends AbstractVerticle {
     startPromise.complete();
   }
 
-  private String pollingFunc(JsonObject jsonObject){
-jsonObject.put("category","pulling");
+  private JsonObject pollingFunc(JsonObject jsonObject){
+
+    jsonObject.put("category","pulling");
 
     String encodedJsonStringARG1 = Base64.getEncoder().encodeToString(jsonObject.toString().getBytes());
 
@@ -56,9 +70,10 @@ jsonObject.put("category","pulling");
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
       String output;
-      while ((output = bufferedReader.readLine()) != null) {
-        return output;
-        //vertx.eventBus().request("metricDatabase",output,)
+      if ((output = bufferedReader.readLine()) != null) {
+
+
+        return new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.DATA,output);
 
       }
 
@@ -69,11 +84,11 @@ jsonObject.put("category","pulling");
 
 
     } catch (InterruptedException | IOException e) {
-
+      return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.ERROR,e.getMessage());
     }
 
 
-    return "fail";
-    //return true;
+    return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.ERROR,Constant.PULLING_FAIL);
+
   }
 }

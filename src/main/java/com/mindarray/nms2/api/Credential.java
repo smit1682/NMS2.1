@@ -1,4 +1,4 @@
-package com.mindArray.NMS2_1.API;
+package com.mindarray.nms2.api;
 
 import io.vertx.ext.web.Router;
 import org.slf4j.Logger;

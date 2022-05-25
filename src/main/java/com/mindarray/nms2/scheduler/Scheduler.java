@@ -1,5 +1,6 @@
-package com.mindArray.NMS2_1;
+package com.mindarray.nms2.scheduler;
 
+import com.mindarray.nms2.util.Constant;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -22,7 +23,7 @@ public class Scheduler extends AbstractVerticle {
      List<JsonObject> schedulingQueue = Collections.synchronizedList(new ArrayList<>());
 
 
-    vertx.eventBus().<JsonObject>consumer(Constant.EA_SCHEDULING,message -> {
+    vertx.eventBus().<JsonObject>consumer(Constant.EA_SCHEDULING, message -> {
       schedulingQueue.add(message.body());
     });
 
@@ -59,13 +60,7 @@ public class Scheduler extends AbstractVerticle {
         //System.out.println(newValue);
         if(newValue == 0 ){
           //System.out.println("Going for pulling  monitor.id = " + metricData.getString("monitor.id") + " metric.group= " + metricData.getString("metric.group"));
-          vertx.eventBus().request(Constant.EA_PULLING,metricData,replyMessage->{
-            if(replyMessage.succeeded()){
-              System.out.println("success");
-            }else {
-              System.out.println("fail");
-            }
-          });
+          vertx.eventBus().send(Constant.EA_PULLING,metricData);
           metricData.put("time",metricData.getInteger("default.time"));
 
         }
@@ -74,7 +69,8 @@ public class Scheduler extends AbstractVerticle {
         }
 
       }
-      System.out.println("******************");
+      LOGGER.info("********** Done 10 seconds **********");
+
     });
 
   startPromise.complete();

@@ -1,6 +1,4 @@
-package com.mindArray.NMS2_1;
-
-import java.net.PortUnreachableException;
+package com.mindarray.nms2.util;
 
 public class Constant {
  public static final int HTTP_PORT = 8888;
@@ -110,7 +108,7 @@ public static final String PROTOCOL = "protocol";
   public static final String DELETE_SCHEDULING = "deleteScheduling";
   public static final String DISCOVERY_ID = "discovery.id";
 
-  public static final String EA_RUN_DISCOVERY_DATA_COLLECT = "needData";
+  public static final String RUN_DISCOVERY_DATA_COLLECT = "needData";
   public static final String CREATE_MONITOR = "createMonitor";
   public static final String PROVISION_VALIDATION = "discoveryStatus";
   public static final String TIME = "time";
@@ -119,8 +117,8 @@ public static final String PROTOCOL = "protocol";
   public static final String PATH_PROVISION_WITH_ID ="/provision/:id" ;
   public static final String EA_SCHEDULING = "scheduling";
   public static final String EA_PULLING = "pulling";
-  public static final String TOP_FIVE_CPU = "topFiveCpu";
-  public static final String TOP_FIVE_MEMORY = "topFiveMemory";
+  public static final String TOP_FIVE = "topFive";
+
 
 
   public static final String GET_LAST_INSTANCE = "getLastInstance";
@@ -128,4 +126,17 @@ public static final String PROTOCOL = "protocol";
   public static final String MONITOR_NAME = "monitor.name";
   public static final String DATA = "data";
   public static final String TIME_STAMP = "timestamp";
+  public static final String VALIDATE_ID = "validateID";
+  public static final String UPDATE_AFTER_RUN_DISCOVERY = "updateAfterRunDiscovery";
+  public static final String PICK_UP_DATA_INITAL = "pickupData";
+  public static final String DUMP_METRIC_DATA = "dumpMetricData";
+  public static final String PULLING_FAIL = "Pulling Failed";
+
+  public static final String INVALID_METRIC_GROUP = "Invalid metric group";
+  public static final String SNMP = "snmp";
+  public static final String TABLE_NAME = "table.name";
+
+  public static final String PATH_DISCOVERY_WITH_ID = "/discovery/:id";
+  public static final String MUST_BE_INTEGER = "All value must be in Integer And multiple of 10";
+  public static final String NOT_VALID = "Not Valid ID";
 }

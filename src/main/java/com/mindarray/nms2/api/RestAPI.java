@@ -1,16 +1,20 @@
-package com.mindArray.NMS2_1.API;
+package com.mindarray.nms2.api;
 
-import com.mindArray.NMS2_1.Bootstrap;
-import com.mindArray.NMS2_1.Constant;
+import com.mindarray.nms2.Bootstrap;
+import com.mindarray.nms2.util.Constant;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
 public abstract class RestAPI {
+
   private final Vertx vertx = Bootstrap.getVertex();
+
   public RestAPI() {}
-  public RestAPI(Router router){
+
+   public RestAPI(Router router)
+   {
 
     router.post(getEntity().getPath()).setName("post").handler(this::validate).handler(this::create);
 
@@ -24,31 +28,39 @@ public abstract class RestAPI {
 
   }
 
-  protected abstract Entity getEntity();
+   protected abstract Entity getEntity();
 
+   public void validateId(RoutingContext routingContext)
+   {
 
-  public void validateId(RoutingContext routingContext) {
+    Util.validateId(routingContext.pathParam(Constant.ID),getEntity()).onComplete(result->{
 
-    MyUtil.validateId(routingContext.pathParam(Constant.ID),getEntity()).onComplete(result->{
-
-      if(result.succeeded()){
-        routingContext.next();
-      }else
+      if(result.succeeded())
       {
-        routingContext.response().end(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.ERROR,"not valid(not-available)").toString());
+
+        routingContext.next();
+
+      }
+      else
+      {
+
+        routingContext.response().end(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.ERROR,Constant.NOT_VALID).toString());
+
       }
 
     });
 
   }
 
+   public void validate(RoutingContext routingContext)
+   {
 
- public void validate(RoutingContext routingContext) {
+   Util.validate(routingContext,getEntity());
 
-    MyUtil.validate(routingContext,getEntity());
-  }
+ }
 
-  private void create( RoutingContext routingContext) {
+   private void create( RoutingContext routingContext)
+   {
 
       JsonObject insertData = routingContext.getBodyAsJson();
 
@@ -59,12 +71,16 @@ public abstract class RestAPI {
       eventBusToDB(insertData, routingContext);
 
   }
-   private void readAll(RoutingContext routingContext){
 
-   eventBusToDB(new JsonObject().put(Constant.IDENTITY,getEntity()+ Constant.READ_ALL),routingContext);
+   private void readAll(RoutingContext routingContext)
+   {
 
-    }
-  private void read(RoutingContext routingContext) {
+    eventBusToDB(new JsonObject().put(Constant.IDENTITY,getEntity()+ Constant.READ_ALL),routingContext);
+
+  }
+
+   private void read(RoutingContext routingContext)
+   {
 
     JsonObject readData = new JsonObject();
 
@@ -73,6 +89,7 @@ public abstract class RestAPI {
     routingContext.setBody(readData.toBuffer());
 
     eventBusToDB(readData,routingContext);
+
   }
 
    private void update(RoutingContext routingContext)
@@ -80,7 +97,7 @@ public abstract class RestAPI {
 
      JsonObject updateData = routingContext.getBodyAsJson();
 
-     updateData.put(getEntity().getId(), routingContext.pathParam("id"));
+     updateData.put(getEntity().getId(), routingContext.pathParam(Constant.ID));
 
      updateData.put(Constant.IDENTITY,getEntity() +Constant.UPDATE);
 
@@ -89,20 +106,23 @@ public abstract class RestAPI {
      eventBusToDB(updateData,routingContext);
 
    }
-   private void delete(RoutingContext routingContext){
 
-    JsonObject deleteData = new JsonObject();
+   private void delete(RoutingContext routingContext)
+   {
 
-    deleteData.put(Constant.ID,routingContext.pathParam(Constant.ID)).put(Constant.IDENTITY,getEntity() + Constant.DELETE);
+     JsonObject deleteData = new JsonObject();
 
-    routingContext.setBody(deleteData.toBuffer());
+     deleteData.put(Constant.ID,routingContext.pathParam(Constant.ID)).put(Constant.IDENTITY,getEntity() + Constant.DELETE);
 
-    eventBusToDB(deleteData,routingContext);
+     routingContext.setBody(deleteData.toBuffer());
 
-    }
+     eventBusToDB(deleteData,routingContext);
+
+   }
 
 
-  private void eventBusToDB(JsonObject data,RoutingContext routingContext){
+   private void eventBusToDB(JsonObject data,RoutingContext routingContext)
+   {
 
      vertx.eventBus().request(Constant.INSERT_TO_DATABASE ,data,replayMessage->{
 
@@ -111,6 +131,7 @@ public abstract class RestAPI {
 
          if(Constant.MONITOR_UPDATE.equals(data.getString(Constant.IDENTITY)))
          {
+
            vertx.eventBus().request(Constant.UPDATE_SCHEDULING,data,replayFromScheduler->{
 
              if(replayFromScheduler.succeeded()){System.out.println("updated in Arraylist");}
@@ -133,7 +154,9 @@ public abstract class RestAPI {
        }
        else
        {
-       routingContext.response().end("not done");
+
+       routingContext.response().end(replayMessage.cause().getMessage());
+
        }
 
      });

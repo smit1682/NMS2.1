@@ -1,7 +1,7 @@
-package com.mindArray.NMS2_1.API;
+package com.mindarray.nms2.api;
 
-import com.mindArray.NMS2_1.Bootstrap;
-import com.mindArray.NMS2_1.Constant;
+import com.mindarray.nms2.Bootstrap;
+import com.mindarray.nms2.util.Constant;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
@@ -14,11 +14,12 @@ public class Discovery extends RestAPI
   private static final Logger LOGGER = LoggerFactory.getLogger(Discovery.class);
 
   private final Vertx vertx = Bootstrap.getVertex();
-  public Discovery(Router router) {
 
+  public Discovery(Router router)
+  {
     super(router);
 
-    router.post("/discovery/:id").setName("runDiscovery").handler(this::validate).handler(this::createApi);
+    router.post(Constant.PATH_DISCOVERY_WITH_ID).setName("RunDiscovery").handler(this::validate).handler(this::createApi);
 
   }
 
@@ -28,15 +29,17 @@ public class Discovery extends RestAPI
   }
 
   @Override
-  public void validate(RoutingContext routingContext) {
-    MyUtil.validate(routingContext,getEntity());
+  public void validate(RoutingContext routingContext)
+  {
+    Util.validate(routingContext,getEntity());
   }
 
-  private void createApi(RoutingContext routingContext) {
+  private void createApi(RoutingContext routingContext)
+  {
 
    JsonObject runDiscoveryData = new JsonObject().put(Constant.DISCOVERY_ID,routingContext.pathParam(Constant.ID));
 
-    vertx.eventBus().<JsonObject>request(Constant.EA_RUN_DISCOVERY_DATA_COLLECT,runDiscoveryData,replyMessage->{
+    vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,runDiscoveryData.put(Constant.IDENTITY,Constant.RUN_DISCOVERY_DATA_COLLECT),replyMessage->{
 
       if(replyMessage.succeeded())
           {
@@ -44,7 +47,7 @@ public class Discovery extends RestAPI
 
               if(messageAsyncResult.succeeded())
               {
-                routingContext.response().end(messageAsyncResult.result().body().toString());
+                routingContext.response().end(messageAsyncResult.result().body().encodePrettily());
               }
               else {
                 routingContext.response().end(messageAsyncResult.cause().getMessage());
@@ -59,8 +62,6 @@ public class Discovery extends RestAPI
     });
 
 
-
   }
-
 
 }

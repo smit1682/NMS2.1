@@ -1,8 +1,12 @@
-package com.mindArray.NMS2_1;
+package com.mindarray.nms2;
 
-import com.mindArray.NMS2_1.API.APIRouter;
+import com.mindarray.nms2.api.APIRouter;
 
-import com.mindArray.NMS2_1.API.MyUtil;
+import com.mindarray.nms2.api.Util;
+import com.mindarray.nms2.discoveryEngine.DiscoveryEngine;
+import com.mindarray.nms2.poller.Pulling;
+import com.mindarray.nms2.repository.DataStoreHandler;
+import com.mindarray.nms2.scheduler.Scheduler;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -23,7 +27,7 @@ public class Bootstrap {
 
     start(APIRouter.class.getName())
 
-      .compose(future -> start(Database.class.getName()))
+      .compose(future -> start(DataStoreHandler.class.getName()))
 
       .compose(future -> start(Scheduler.class.getName()))
 
@@ -37,7 +41,7 @@ public class Bootstrap {
         {
           //System.out.println("All Verticals are Deployed");
           LOGGER.info("All Verticals are Deployed");
-          MyUtil.init();
+          Util.init();
         }
         else
         {
