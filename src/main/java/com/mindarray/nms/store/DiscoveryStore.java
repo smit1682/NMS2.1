@@ -1,4 +1,4 @@
-package com.mindarray.nms.repository;
+package com.mindarray.nms.store;
 
 import com.mindarray.nms.util.Constant;
 import io.vertx.core.Promise;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.Map;
 
-public class DiscoveryStore implements CrudRepository {
+public class DiscoveryStore implements CrudStore {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DiscoveryStore.class);
 

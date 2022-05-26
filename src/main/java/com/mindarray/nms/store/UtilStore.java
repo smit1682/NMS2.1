@@ -1,4 +1,4 @@
-package com.mindarray.nms.repository;
+package com.mindarray.nms.store;
 
 import com.mindarray.nms.util.Constant;
 import io.vertx.core.Promise;
@@ -56,7 +56,7 @@ public class UtilStore {
     try(Connection connection = createConnection()){
       PreparedStatement preparedStatement = connection.prepareStatement("select `monitor.id`,`monitor.name`,`metric.group`,`data`,`timestamp` from metric  where `metric.group` =  ?  AND  `monitor.id` = ? order by `metric.id` DESC limit 1;");
 
-      preparedStatement.setString(1,jsonMessage.getString(Constant.JSON_KEY_METRIC_GROUP));
+      preparedStatement.setString(1,jsonMessage.getString(Constant.METRIC_GROUP));
       preparedStatement.setString(2,jsonMessage.getString(Constant.ID));
 
       ResultSet resultSet = preparedStatement.executeQuery();
@@ -82,10 +82,10 @@ public class UtilStore {
 
     try (Connection connection = createConnection()){
       String query = "";
-      if(jsonMessage.getString(Constant.JSON_KEY_METRIC_GROUP).equals(Constant.CPU)){
+      if(jsonMessage.getString(Constant.METRIC_GROUP).equals(Constant.CPU)){
         query = "select  `monitor.name`,max(`data` -> '$.\"cpu.all.user.percentage\"') AS `cpu.all.user.percentage` from metric group by `monitor.name`  order by `cpu.all.user.percentage`*1 DESC limit 5";
       }
-      else if(jsonMessage.getString(Constant.JSON_KEY_METRIC_GROUP).equals(Constant.MEMORY)){
+      else if(jsonMessage.getString(Constant.METRIC_GROUP).equals(Constant.MEMORY)){
         query = "select  `monitor.name`,max(`data` -> '$.\"memory.free.bytes\"') AS `free.memory.bytes`  from metric group by `monitor.name` order by `free.memory.bytes`*1 DESC limit 5 ";
       }
       else{

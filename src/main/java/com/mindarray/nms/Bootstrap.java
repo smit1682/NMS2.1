@@ -4,8 +4,8 @@ import com.mindarray.nms.api.APIRouter;
 
 import com.mindarray.nms.api.Util;
 import com.mindarray.nms.discovery.DiscoveryEngine;
-import com.mindarray.nms.poller.Pulling;
-import com.mindarray.nms.repository.DataStoreHandler;
+import com.mindarray.nms.poller.Polling;
+import com.mindarray.nms.store.DataStoreHandler;
 import com.mindarray.nms.poller.Scheduler;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -33,7 +33,7 @@ public class Bootstrap {
 
       .compose(future -> start(Scheduler.class.getName()))
 
-      .compose(future -> start(Pulling.class.getName()))
+      .compose(future -> start(Polling.class.getName()))
 
       .compose(future -> start(DiscoveryEngine.class.getName()))
 

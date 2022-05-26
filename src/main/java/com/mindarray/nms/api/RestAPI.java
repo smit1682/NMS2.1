@@ -142,7 +142,7 @@ public abstract class RestAPI {
 
          if(Constant.MONITOR_DELETE.equals(data.getString(Constant.IDENTITY)))
          {
-           vertx.eventBus().request(Constant.DELETE_SCHEDULING,data,replyMessage->{
+           vertx.eventBus().request(Constant.DELETE_SCHEDULING, data, replyMessage -> {
 
              if(replyMessage.succeeded()) System.out.println("deleted in arraylist");
            });

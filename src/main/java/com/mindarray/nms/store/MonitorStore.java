@@ -1,4 +1,4 @@
-package com.mindarray.nms.repository;
+package com.mindarray.nms.store;
 
 import com.mindarray.nms.util.Constant;
 import io.vertx.core.Promise;
@@ -8,7 +8,7 @@ import io.vertx.core.json.JsonObject;
 import java.sql.*;
 import java.util.Map;
 
-public class MonitorStore implements CrudRepository {
+public class MonitorStore implements CrudStore {
 
   @Override
   public void create(JsonObject body, Promise<Object> databaseHandler) {
@@ -35,7 +35,7 @@ public class MonitorStore implements CrudRepository {
       }
 
       System.out.println(id);
-      JsonObject jsonObject = new JsonObject();
+      JsonObject jsonObject = new JsonObject().put("monitor.id",id).put("metric.type",body.getString("metric.type")); //can be removed
       resultSet = connection.createStatement().executeQuery("select `cpu`, `memory`, `disk`, `system`, `process`, `interface` from monitor where `monitor.id` = " + id);
       while (resultSet.next()){
         jsonObject.put("cpu",resultSet.getInt("cpu"))
@@ -45,7 +45,7 @@ public class MonitorStore implements CrudRepository {
           .put("process",resultSet.getInt("process"))
           .put("interface",resultSet.getInt("interface"));
       }
-       databaseHandler.complete(body.mergeIn(jsonObject.put(Constant.STATUS,Constant.SUCCESS).put("monitor.id",id)));
+       databaseHandler.complete(jsonObject.put(Constant.STATUS,Constant.SUCCESS));
 
 
     } catch (SQLException e) {
@@ -169,10 +169,11 @@ databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Co
   public void discoveryCheck(JsonObject body,Promise<Object> databaseHandler) {
     System.out.println("body" + body);
     try (Connection connection = createConnection()){
-      ResultSet resultSet = connection.createStatement().executeQuery("select `discovery.status`,`monitor.name` from discovery where `discovery.id` = "+ body.getString("discovery.id"));
+      ResultSet resultSet = connection.createStatement().executeQuery("select `discovery.status`,`monitor.name`,`metric.type` from discovery where `discovery.id` = "+ body.getString("discovery.id"));
       while (resultSet.next()){
         body.put("discovery.status",resultSet.getString("discovery.status"))
-          .put("monitor.name",resultSet.getString("monitor.name"));
+          .put("monitor.name",resultSet.getString("monitor.name"))
+          .put("metric.type",resultSet.getString("metric.type"));
 
       }
       body.mergeIn(mergeData(body));
@@ -259,6 +260,38 @@ databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Co
 
     catch (SQLException sqlException){
       throw new SQLException(Constant.CONNECTION_REFUSED);
+    }
+  }
+
+  public void createContext(JsonObject dataMessage, Promise<Object> databaseHandler) {
+
+    try(Connection connection = createConnection()){
+
+      PreparedStatement preparedStatement = connection.prepareStatement("select * from monitor left join credential on monitor.`credential.id` =  credential.`credential.id` where `monitor.id` = ? ");
+      preparedStatement.setInt(1,dataMessage.getInteger("monitor.id"));
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+      while (resultSet.next())
+      {
+
+        dataMessage.put(Constant.MONITOR_ID,resultSet.getInt(Constant.MONITOR_ID));
+        dataMessage.put(Constant.MONITOR_NAME,resultSet.getString(Constant.MONITOR_NAME));
+        dataMessage.put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST));
+        dataMessage.put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT));
+        dataMessage.put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE));
+        dataMessage.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
+        dataMessage.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
+        dataMessage.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
+
+      }
+
+      databaseHandler.complete(dataMessage);
+
+
+    }catch (SQLException e){
+      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
+
     }
   }
 }

@@ -113,7 +113,7 @@ public static final String PROTOCOL = "protocol";
   public static final String PROVISION_VALIDATION = "discoveryStatus";
   public static final String TIME = "time";
   public static final String DEFAULT_TIME = "default.time";
-  public static final String JSON_KEY_METRIC_GROUP = "metric.group";
+  public static final String METRIC_GROUP = "metric.group";
   public static final String PATH_PROVISION_WITH_ID ="/provision/:id" ;
   public static final String EA_SCHEDULING = "scheduling";
   public static final String EA_PULLING = "pulling";
@@ -146,4 +146,6 @@ public static final String PROTOCOL = "protocol";
   public static final String DISCOVERY = "discovery";
 
     public static final String PULLING = "pulling";
+  public static final String CREATE_CONTEXT = "createContext";
+  public static final String PING = "ping";
 }

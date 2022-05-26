@@ -22,7 +22,7 @@ public class ReportingApi {
   private void getLastInstance(RoutingContext routingContext)
   {
 
-    vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,new JsonObject().put(Constant.IDENTITY,Constant.GET_LAST_INSTANCE).put(Constant.JSON_KEY_METRIC_GROUP,routingContext.pathParam("metricGroup")).put(Constant.ID,routingContext.pathParam(Constant.ID)),replyMessage->{
+    vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,new JsonObject().put(Constant.IDENTITY,Constant.GET_LAST_INSTANCE).put(Constant.METRIC_GROUP,routingContext.pathParam("metricGroup")).put(Constant.ID,routingContext.pathParam(Constant.ID)), replyMessage->{
 
       if(replyMessage.succeeded())
       {
@@ -46,7 +46,7 @@ public class ReportingApi {
   private void getTop(RoutingContext routingContext)
   {
 
-    vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,new JsonObject().put(Constant.IDENTITY,Constant.TOP_FIVE).put(Constant.JSON_KEY_METRIC_GROUP,routingContext.pathParam("metricGroup")), replyHandler->{
+    vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,new JsonObject().put(Constant.IDENTITY,Constant.TOP_FIVE).put(Constant.METRIC_GROUP,routingContext.pathParam("metricGroup")), replyHandler->{
 
       if(replyHandler.succeeded())
       {

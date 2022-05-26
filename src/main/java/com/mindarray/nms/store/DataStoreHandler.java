@@ -1,4 +1,4 @@
-package com.mindarray.nms.repository;
+package com.mindarray.nms.store;
 
 
 import com.mindarray.nms.util.Constant;
@@ -129,9 +129,11 @@ public class DataStoreHandler extends AbstractVerticle {
           case Constant.RUN_DISCOVERY_DATA_COLLECT:
               discoveryStore.mergeData(dataMessage,databaseHandler);
               break;
+          case Constant.CREATE_CONTEXT:
+            monitorStore.createContext(dataMessage,databaseHandler);
         }
 
-      },insertResult->{
+      }, insertResult->{
 
         if(insertResult.succeeded())
         {

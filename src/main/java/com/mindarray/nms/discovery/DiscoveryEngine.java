@@ -3,20 +3,11 @@ package com.mindarray.nms.discovery;
 import com.mindarray.nms.util.Constant;
 import com.mindarray.nms.util.UtilMethod;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
 import io.vertx.core.Promise;
-import io.vertx.core.json.DecodeException;
 import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
 
 
 public class DiscoveryEngine extends AbstractVerticle {
@@ -37,7 +28,7 @@ public class DiscoveryEngine extends AbstractVerticle {
 
         vertx.executeBlocking(pingEvent -> {
 
-          if (pingDiscovery(ipAddress))
+          if (UtilMethod.pingStatus(ipAddress))
           {
 
             pingEvent.complete(Constant.PING_UP);
@@ -55,26 +46,21 @@ public class DiscoveryEngine extends AbstractVerticle {
 
             LOGGER.debug(Constant.PING_UP);
 
-            vertx.executeBlocking(event -> {
+            vertx.executeBlocking(event -> UtilMethod.pluginEngine(discoveryData.put(Constant.CATEGORY,Constant.DISCOVERY)).onComplete(discoveryEvent->{
 
-              UtilMethod.pluginEngine(discoveryData.put(Constant.CATEGORY,Constant.DISCOVERY)).onComplete(discoveryEvent->{
+              if(discoveryEvent.succeeded())
+              {
 
-                if(discoveryEvent.succeeded())
-                {
+                event.complete(discoveryData.mergeIn(discoveryEvent.result().getJsonObject("data")).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
 
-                  event.complete(discoveryData.mergeIn(discoveryEvent.result().getJsonObject("data")).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
+              }
+              else
+              {
 
-                }
-                else
-                {
+                event.fail(discoveryEvent.cause().getMessage());
 
-                  event.fail(discoveryEvent.cause().getMessage());
-
-                }
-              });
-
-
-            }, discoveryAsyncResult -> {
+              }
+            }), discoveryAsyncResult -> {
 
               if (discoveryAsyncResult.succeeded()) {
 
@@ -132,96 +118,5 @@ public class DiscoveryEngine extends AbstractVerticle {
 
 
   }
-
-
-  private Future<JsonObject> discovery(JsonObject dataToDiscover) {
-
-    Promise<JsonObject> promise = Promise.promise();
-    dataToDiscover.put(Constant.CATEGORY,Constant.DISCOVERY);
-      String encodedJsonString = Base64.getEncoder().encodeToString(dataToDiscover.toString().getBytes());
-
-      ProcessBuilder processBuilder = new ProcessBuilder().command(Constant.PLUGIN_PATH, encodedJsonString);
-
-      try {
-        Process process = processBuilder.start();
-
-        InputStreamReader inputStreamReader = new InputStreamReader(process.getErrorStream()); //read the output
-
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-        String outputString = bufferedReader.readLine();
-
-        String outputJsonString = new String(Base64.getDecoder().decode(outputString.getBytes())); //IllegalArgumentException
-
-        JsonObject discoveryStatus;
-
-        process.waitFor();
-
-        try {
-
-          discoveryStatus = new JsonObject(outputJsonString);   //DecodeException
-          promise.complete( discoveryStatus);
-
-        } catch (DecodeException exception) {
-          promise.fail(new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.STATUS, outputJsonString).encodePrettily());
-        }
-
-      } catch (Exception exception)
-      {
-        promise.fail( new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, exception.getMessage()).encodePrettily());
-      }
-
-
-   return promise.future();
-
-
-  }
-
-
-  Boolean pingDiscovery(String ip) {
-    List<String> listOfCommand = new ArrayList<>();          // list because in future multiple ip can be passed
-
-    listOfCommand.add("fping");
-    listOfCommand.add("-q");
-    listOfCommand.add("-c");
-    listOfCommand.add("3");
-    listOfCommand.add("-t");
-    listOfCommand.add("3000");
-    listOfCommand.add(ip);
-
-    ProcessBuilder processBuilder = new ProcessBuilder(listOfCommand);
-
-    try {
-
-      Process process = processBuilder.start();
-
-      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-      String output = bufferedReader.readLine();
-
-      String[] parts = output.split(":");
-
-     // vertx.executeBlocking()
-
-      String[] partsOfPats = parts[1].split(" ");
-
-      if (partsOfPats.length == 7) {
-
-        String[] finalParts = partsOfPats[3].split("/");
-
-        return finalParts[0].equals(finalParts[1]);
-
-      } else {
-        return false;
-      }
-
-    } catch (IOException e) {
-     // LOGGER.debug(e.getMessage());
-      System.out.println(e.getMessage());
-    }
-
-    return false;
-  }
-
 
 }

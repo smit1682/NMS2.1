@@ -100,7 +100,7 @@ public class Monitor extends RestAPI {
     {
 
       jsonObject.put(Constant.TIME, jsonObject.getInteger(Constant.INTERFACE))
-        .put(Constant.JSON_KEY_METRIC_GROUP, Constant.INTERFACE)
+        .put(Constant.METRIC_GROUP, Constant.INTERFACE)
         .put(Constant.DEFAULT_TIME, jsonObject.getInteger(Constant.INTERFACE));
 
       callScheduler(jsonObject);
@@ -108,35 +108,41 @@ public class Monitor extends RestAPI {
     } else {
 
       jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.CPU))
-        .put(Constant.JSON_KEY_METRIC_GROUP,Constant.CPU)
+        .put(Constant.METRIC_GROUP,Constant.CPU)
         .put(Constant.DEFAULT_TIME,jsonObject.getInteger(Constant.CPU));
 
       callScheduler(jsonObject);
 
       jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.MEMORY))
-        .put(Constant.JSON_KEY_METRIC_GROUP,Constant.MEMORY)
+        .put(Constant.METRIC_GROUP,Constant.MEMORY)
         .put(Constant.DEFAULT_TIME,jsonObject.getInteger(Constant.MEMORY));
 
       callScheduler(jsonObject);
 
       jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.DISK))
-        .put(Constant.JSON_KEY_METRIC_GROUP,Constant.DISK)
+        .put(Constant.METRIC_GROUP,Constant.DISK)
         .put(Constant.DEFAULT_TIME,jsonObject.getInteger(Constant.DISK));
 
       callScheduler(jsonObject);
 
       jsonObject.put(Constant.TIME, jsonObject.getInteger(Constant.PROCESS))
-        .put(Constant.JSON_KEY_METRIC_GROUP, Constant.PROCESS)
+        .put(Constant.METRIC_GROUP, Constant.PROCESS)
         .put(Constant.DEFAULT_TIME, jsonObject.getInteger(Constant.PROCESS));
 
       callScheduler(jsonObject);
 
     }
     jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.SYSTEM))
-      .put(Constant.JSON_KEY_METRIC_GROUP,Constant.SYSTEM)
+      .put(Constant.METRIC_GROUP,Constant.SYSTEM)
       .put(Constant.DEFAULT_TIME,jsonObject.getInteger(Constant.SYSTEM));
 
     callScheduler(jsonObject);
+
+    jsonObject.put(Constant.TIME,0)
+      .put(Constant.METRIC_GROUP,Constant.PING)
+      .put(Constant.DEFAULT_TIME,60);
+    callScheduler(jsonObject);
+
 promise.complete();
 return promise.future();
 

@@ -12,10 +12,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Base64;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class Pulling extends AbstractVerticle {
+public class Polling extends AbstractVerticle {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(Pulling.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Polling.class);
+
+  ConcurrentHashMap<String,Boolean> hashMap = new ConcurrentHashMap<>();
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
@@ -24,43 +27,44 @@ public class Pulling extends AbstractVerticle {
 
       vertx.executeBlocking(event->{
 
-       // JsonObject pullingData = pollingFunc(message.body());
 
-        UtilMethod.pluginEngine(message.body().put(Constant.CATEGORY,Constant.PULLING)).onComplete(pullingEvent->{
-          if(pullingEvent.succeeded())
-          {
-            vertx.eventBus().request(Constant.INSERT_TO_DATABASE,pullingEvent.result().mergeIn(message.body()).put(Constant.IDENTITY,Constant.DUMP_METRIC_DATA),replyHandler->{
-              if(replyHandler.succeeded())
-              { LOGGER.info("Pulling Data Dumped in DB ,host: {} ,metric.group:{} ",message.body().getString("host"),message.body().getString("metric.group"));
-                event.complete("done pulling");
-              }
-            });
-          }
-          else
-          {
-            LOGGER.error("Pulling Fail -> {}",message.body());
+        System.out.println("hashMap--" + hashMap);
+        if(message.body().getString(Constant.METRIC_GROUP).equals(Constant.PING))
+        {
 
-            event.fail(Constant.PULLING_FAIL);
+            hashMap.put(message.body().getString("host"),UtilMethod.pingStatus(message.body().getString("host")));
 
-          }
-        });
-       /* if(pullingData.getString(Constant.STATUS).equals(Constant.SUCCESS)){
+          event.complete();
+        }
 
-          vertx.eventBus().request(Constant.INSERT_TO_DATABASE,pullingData.mergeIn(message.body()).put(Constant.IDENTITY,Constant.DUMP_METRIC_DATA),replyHandler->{
-            if(replyHandler.succeeded())
-            { LOGGER.info("Pulling Data Dumped in DB ,host: {} ,metric.group:{} ",message.body().getString("host"),message.body().getString("metric.group"));
-              event.complete("done pulling");
+        else if(!hashMap.get(message.body().getString("host")) )
+        {
+
+          LOGGER.error(Constant.PING_DOWN);
+
+          event.fail(Constant.PING_DOWN);
+
+        }
+        else {
+
+
+          UtilMethod.pluginEngine(message.body().put(Constant.CATEGORY, Constant.PULLING)).onComplete(pullingEvent -> {
+            if (pullingEvent.succeeded()) {
+              vertx.eventBus().request(Constant.INSERT_TO_DATABASE, pullingEvent.result().mergeIn(message.body()).put(Constant.IDENTITY, Constant.DUMP_METRIC_DATA), replyHandler -> {
+                if (replyHandler.succeeded()) {
+                  LOGGER.info("Pulling Data Dumped in DB ,host: {} ,metric.group:{} ", message.body().getString("host"), message.body().getString("metric.group"));
+                  event.complete("done pulling");
+                }
+              });
+            } else {
+              LOGGER.error("Pulling Fail -> {}", message.body());
+
+              event.fail(Constant.PULLING_FAIL);
+
             }
           });
-
-
-        }else
-        {
-          LOGGER.error("Pulling Fail -> {}",message.body());
-
-          event.fail(Constant.PULLING_FAIL);
         }
-*/
+
       },result->{
         if(result.succeeded())
           message.reply(result.result());
