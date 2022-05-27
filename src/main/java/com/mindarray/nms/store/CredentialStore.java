@@ -1,5 +1,6 @@
 package com.mindarray.nms.store;
 
+import com.mindarray.nms.Bootstrap;
 import com.mindarray.nms.util.Constant;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
@@ -110,6 +111,7 @@ public class CredentialStore implements CrudStore {
 
   @Override
   public void update(JsonObject jsonObject,Promise<Object> databaseHandler) {
+    JsonObject jsonObject1 = new JsonObject();
     try (Connection connection = createConnection()){
       StringBuilder queryInit = new StringBuilder();
       for(Map.Entry<String,Object> data : jsonObject)
@@ -124,13 +126,29 @@ public class CredentialStore implements CrudStore {
       System.out.println("affected rows  "+ affectedRows);
 
       if(affectedRows==0)throw new SQLException("id not exist");
+
+      PreparedStatement preparedStatement = connection.prepareStatement("select * from credential where `credential.id` = ?");
+        preparedStatement.setString(1,jsonObject.getString("credential.id"));
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()){
+          jsonObject1.put("credential.id",resultSet.getInt("credential.id"));
+          jsonObject1.put("credential.name",resultSet.getString("credential.name"));
+          jsonObject1.put(Constant.PROTOCOL,resultSet.getString(Constant.PROTOCOL));
+          jsonObject1.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
+          jsonObject1.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
+          jsonObject1.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
+        }
     }catch (SQLException exception){
       databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
 
     }
 
+    Bootstrap.getVertex().eventBus().send(Constant.STORE_INITIAL_MAP,jsonObject1);
+
     // System.out.println(query);
-    databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+    databaseHandler.complete( jsonObject1.put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+
 
   }
 

@@ -5,6 +5,7 @@ import com.mindarray.nms.util.Constant;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
@@ -13,13 +14,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class Monitor extends RestAPI {
+public class Monitor extends RestAPI
+{
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Monitor.class);
 
   private final Vertx vertx = Bootstrap.getVertex();
 
-  public Monitor(Router router) {
+  public Monitor(Router router)
+  {
 
     super(router);
 
@@ -27,23 +30,29 @@ public class Monitor extends RestAPI {
 
   }
 
-  public Monitor(JsonArray monitorArray){   //will trigger at start of the Application
+  public Monitor(JsonArray monitorArray)   //will trigger at start of the Application
+  {
 
     for(Object data : monitorArray)
     {
+
+      JsonObject d = (JsonObject)data;
+
+      d.put("credential.id",Integer.parseInt(d.getString("credential.id")));
+
       divideAndSchedule((JsonObject) data);
+
     }
 
   }
 
-  private void createMonitor(RoutingContext routingContext) {
-
+  private void createMonitor(RoutingContext routingContext)
+  {
 
     vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,routingContext.getBodyAsJson().put(Constant.IDENTITY,Constant.CREATE_MONITOR), messageAsyncResult -> {
 
       if(messageAsyncResult.succeeded())
       {
-
         divideAndSchedule(messageAsyncResult.result().body()).onComplete(event->{
           routingContext.response().end(messageAsyncResult.result().body().encodePrettily());
         });
@@ -63,20 +72,23 @@ public class Monitor extends RestAPI {
 
   }
 
-  private void validateDiscoveryStatus(RoutingContext routingContext) {
+  private void validateDiscoveryStatus(RoutingContext routingContext)
+  {
 
     JsonObject provisionData = new JsonObject().put(Constant.DISCOVERY_ID,routingContext.pathParam(Constant.ID)).put(Constant.IDENTITY,Constant.PROVISION_VALIDATION);
 
     vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,provisionData,replyMessage->{
 
-      if(replyMessage.succeeded()){
+      if(replyMessage.succeeded())
+      {
 
         routingContext.setBody(replyMessage.result().body().toBuffer());
 
         routingContext.next();
 
       }
-      else {
+      else
+      {
 
         LOGGER.error(Constant.NOT_DISCOVERED);
 
@@ -92,7 +104,8 @@ public class Monitor extends RestAPI {
     return Entity.MONITOR;
   }
 
-  public Future<Void> divideAndSchedule(JsonObject jsonObject){
+  public Future<Void> divideAndSchedule(JsonObject jsonObject)
+  {
 
     Promise<Void> promise = Promise.promise();
 
@@ -105,7 +118,9 @@ public class Monitor extends RestAPI {
 
       callScheduler(jsonObject);
 
-    } else {
+    }
+    else
+    {
 
       jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.CPU))
         .put(Constant.METRIC_GROUP,Constant.CPU)
@@ -148,11 +163,12 @@ return promise.future();
 
   }
 
-  private void callScheduler(JsonObject jsonObject) {
+  private void callScheduler(JsonObject jsonObject)
+  {
 
     LOGGER.info("Trigger Scheduler -> {} ",jsonObject);
-    vertx.eventBus().send(Constant.EA_SCHEDULING,jsonObject);
 
+    vertx.eventBus().send(Constant.EA_SCHEDULING,jsonObject);
 
   }
 

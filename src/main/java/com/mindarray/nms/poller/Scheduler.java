@@ -4,6 +4,7 @@ import com.mindarray.nms.util.Constant;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Scheduler extends AbstractVerticle
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
 
+  ConcurrentHashMap<Integer,JsonObject> credentialData  = new ConcurrentHashMap<>();
   private static final int SCHEDULING_TIME_PERIOD_SEC = 10;
 
   @Override
@@ -24,6 +27,8 @@ public class Scheduler extends AbstractVerticle
     List<JsonObject> schedulingQueue = Collections.synchronizedList(new ArrayList<>());
 
     vertx.eventBus().<JsonObject>consumer(Constant.EA_SCHEDULING, message -> schedulingQueue.add(message.body()));
+
+    vertx.eventBus().<JsonObject>consumer(Constant.STORE_INITIAL_MAP,message -> credentialData.put(message.body().getInteger(Constant.CREDENTIAL_ID),message.body()));
 
     vertx.eventBus().<JsonObject>consumer(Constant.UPDATE_SCHEDULING, message -> {
 
@@ -59,17 +64,18 @@ public class Scheduler extends AbstractVerticle
         {
           //System.out.println("Going for pulling  monitor.id = " + metricData.getString("monitor.id") + " metric.group= " + metricData.getString("metric.group"));
 
-          vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE, metricData.put(Constant.IDENTITY, Constant.CREATE_CONTEXT), replyHandler -> {
+          metricData.mergeIn(credentialData.get(metricData.getInteger("credential.id")));
+          /*vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE, metricData.put(Constant.IDENTITY, Constant.CREATE_CONTEXT), replyHandler -> {
 
             if (replyHandler.succeeded())
-            {
-              vertx.eventBus().send(Constant.EA_PULLING, replyHandler.result().body());
-            }
+            {*/
+              vertx.eventBus().send(Constant.EA_PULLING, metricData);
+            /*}
             else
             {
               LOGGER.error(replyHandler.cause().getMessage());
-            }
-          });
+            }*/
+          //});
 
           metricData.put(Constant.TIME, metricData.getInteger(Constant.DEFAULT_TIME));
 

@@ -7,7 +7,8 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
-public abstract class RestAPI {
+public abstract class RestAPI
+{
 
   private final Vertx vertx = Bootstrap.getVertex();
 

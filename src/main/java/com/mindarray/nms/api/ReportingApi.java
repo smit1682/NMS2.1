@@ -7,7 +7,8 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 
-public class ReportingApi {
+public class ReportingApi
+{
   private final Vertx vertx = Bootstrap.getVertex();
 
   public ReportingApi(Router router)

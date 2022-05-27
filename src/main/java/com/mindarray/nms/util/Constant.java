@@ -148,4 +148,5 @@ public static final String PROTOCOL = "protocol";
     public static final String PULLING = "pulling";
   public static final String CREATE_CONTEXT = "createContext";
   public static final String PING = "ping";
+  public static final String STORE_INITIAL_MAP = "store.in.map";
 }

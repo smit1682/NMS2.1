@@ -35,7 +35,7 @@ public class MonitorStore implements CrudStore {
       }
 
       System.out.println(id);
-      JsonObject jsonObject = new JsonObject().put("monitor.id",id).put("metric.type",body.getString("metric.type")); //can be removed
+      JsonObject jsonObject = new JsonObject().put("monitor.id",id); //can be removed
       resultSet = connection.createStatement().executeQuery("select `cpu`, `memory`, `disk`, `system`, `process`, `interface` from monitor where `monitor.id` = " + id);
       while (resultSet.next()){
         jsonObject.put("cpu",resultSet.getInt("cpu"))
@@ -45,7 +45,8 @@ public class MonitorStore implements CrudStore {
           .put("process",resultSet.getInt("process"))
           .put("interface",resultSet.getInt("interface"));
       }
-       databaseHandler.complete(jsonObject.put(Constant.STATUS,Constant.SUCCESS));
+
+       databaseHandler.complete(jsonObject.put(Constant.STATUS,Constant.SUCCESS).mergeIn(body));
 
 
     } catch (SQLException e) {
