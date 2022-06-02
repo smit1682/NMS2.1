@@ -21,8 +21,6 @@ public class CredentialStore implements CrudStore {
     try (Connection connection = createConnection();PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_CREDENTIAL_INSERT))
     {
 
-     // PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_CREDENTIAL_INSERT);
-
       preparedStatement.setString(1,entries.getString(Constant.CREDENTIAL_NAME));
       preparedStatement.setString(2,entries.getString(Constant.PROTOCOL));
       preparedStatement.setString(3,entries.getString(Constant.JSON_KEY_USERNAME));
@@ -32,14 +30,13 @@ public class CredentialStore implements CrudStore {
 
       preparedStatement.executeUpdate();
 
-      ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_ID);
+      int id = 0;
+      try(ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_ID)) {
 
-      int id=0;
-      while (resultSet.next())
-      {
-        id = resultSet .getInt(1);
+        while (resultSet.next()) {
+          id = resultSet.getInt(1);
+        }
       }
-
       databaseHandler.complete(new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.MESSAGE,id));
 
       Bootstrap.getVertex().eventBus().send(Constant.STORE_INITIAL_MAP,entries.put(Constant.CREDENTIAL_ID,id));  // notification for credential Cache in Scheduler
@@ -65,8 +62,6 @@ public class CredentialStore implements CrudStore {
 
     try (Connection connection = createConnection();ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ + entries.getString("id")))
     {
-
-     // ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ + entries.getString("id"));
 
       JsonObject data = new JsonObject();
 
@@ -103,8 +98,6 @@ public class CredentialStore implements CrudStore {
 
     try (Connection connection = createConnection();ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ_ALL))
     {
-
-     // ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ_ALL);
 
       JsonArray credentialData = new JsonArray();
 
@@ -163,24 +156,25 @@ public class CredentialStore implements CrudStore {
 
       if(affectedRows==0)throw new SQLException("id not exist");
 
-      //PreparedStatement preparedStatement = connection.prepareStatement("select * from credential where `credential.id` = ?");
-
       preparedStatement.setString(1,entries.getString(Constant.CREDENTIAL_ID));
 
-      ResultSet resultSet = preparedStatement.executeQuery();
+      try(ResultSet resultSet = preparedStatement.executeQuery()) {
 
-        while (resultSet.next())
-        {
+        while (resultSet.next()) {
 
-          credentialData.put(Constant.CREDENTIAL_ID,resultSet.getInt(Constant.CREDENTIAL_ID));
-          credentialData.put(Constant.CREDENTIAL_NAME,resultSet.getString(Constant.CREDENTIAL_NAME));
-          credentialData.put(Constant.PROTOCOL,resultSet.getString(Constant.PROTOCOL));
-          credentialData.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
-          credentialData.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
-          credentialData.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
-          credentialData.put(Constant.COMMUNITY,resultSet.getString(Constant.COMMUNITY));
+          credentialData.put(Constant.CREDENTIAL_ID, resultSet.getInt(Constant.CREDENTIAL_ID));
+          credentialData.put(Constant.CREDENTIAL_NAME, resultSet.getString(Constant.CREDENTIAL_NAME));
+          credentialData.put(Constant.PROTOCOL, resultSet.getString(Constant.PROTOCOL));
+          credentialData.put(Constant.JSON_KEY_USERNAME, resultSet.getString(Constant.JSON_KEY_USERNAME));
+          credentialData.put(Constant.JSON_KEY_PASSWORD, resultSet.getString(Constant.JSON_KEY_PASSWORD));
+          credentialData.put(Constant.JSON_KEY_VERSION, resultSet.getString(Constant.JSON_KEY_VERSION));
+          credentialData.put(Constant.COMMUNITY, resultSet.getString(Constant.COMMUNITY));
 
         }
+      }
+      Bootstrap.getVertex().eventBus().send(Constant.STORE_INITIAL_MAP,credentialData); // notification for credential Cache in Scheduler
+
+      databaseHandler.complete( credentialData.put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
 
     }
     catch (SQLException exception)
@@ -192,9 +186,6 @@ public class CredentialStore implements CrudStore {
 
     }
 
-    Bootstrap.getVertex().eventBus().send(Constant.STORE_INITIAL_MAP,credentialData); // notification for credential Cache in Scheduler
-
-    databaseHandler.complete( credentialData.put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
 
 
   }
@@ -203,10 +194,11 @@ public class CredentialStore implements CrudStore {
   public void delete(JsonObject entries,Promise<Object> databaseHandler)
   {
 
-    try (Connection connection = createConnection())
+    try (Connection connection = createConnection();Statement statement = connection.createStatement())
     {
 
-      connection.createStatement().executeUpdate("delete from credential where `credential.id` = "+entries.getString("id"));
+
+      statement.executeUpdate("delete from credential where `credential.id` = "+entries.getString("id"));
 
       databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
 
@@ -224,10 +216,11 @@ public class CredentialStore implements CrudStore {
   public void intialRead(Promise<Object> databaseHandler)
   {
 
-    try (Connection connection = createConnection())
+    try (Connection connection = createConnection();
+         ResultSet resultSet = connection.createStatement().executeQuery("select * from metric left join monitor on metric.`monitor.id` = monitor.`monitor.id`"))
     {
 
-      ResultSet resultSet = connection.createStatement().executeQuery("select * from metric left join monitor on metric.`monitor.id` = monitor.`monitor.id`");
+
       JsonArray array = new JsonArray();
       while (resultSet.next()){
         JsonObject data = new JsonObject();
@@ -268,16 +261,16 @@ public class CredentialStore implements CrudStore {
 
   private static Connection createConnection() throws SQLException
   {
-
-    try{
+    try
+    {
       return DriverManager.getConnection(Constant.DATABASE_CONNECTION_URL, Constant.DATABASE_CONNECTION_USER, Constant.DATABASE_CONNECTION_PASSWORD);
     }
-
-    catch (SQLException sqlException){
-
+    catch (SQLException sqlException)
+    {
       throw new SQLException(Constant.CONNECTION_REFUSED);
     }
 
   }
+
 
 }

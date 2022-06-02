@@ -2,36 +2,31 @@ package com.mindarray.nms.poller;
 
 import com.mindarray.nms.util.Constant;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
 
 public class Scheduler extends AbstractVerticle
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
 
-  ConcurrentHashMap<Integer,JsonObject> credentialData  = new ConcurrentHashMap<>();
   private static final int SCHEDULING_TIME_PERIOD_SEC = 10;
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception
   {
-    List<JsonObject> schedulingQueue = Collections.synchronizedList(new ArrayList<>());
+    List<JsonObject> schedulingQueue = new ArrayList<>();
+
+    HashMap<Integer,JsonObject> credentialCache  = new HashMap<>();
 
     vertx.eventBus().<JsonObject>localConsumer(Constant.EA_SCHEDULING, message -> schedulingQueue.add(message.body()));
 
-    vertx.eventBus().<JsonObject>localConsumer(Constant.STORE_INITIAL_MAP,message -> credentialData.put(message.body().getInteger(Constant.CREDENTIAL_ID),message.body()));
+    vertx.eventBus().<JsonObject>localConsumer(Constant.STORE_INITIAL_MAP,message -> credentialCache.put(message.body().getInteger(Constant.CREDENTIAL_ID),message.body()));
 
     vertx.eventBus().<JsonObject>localConsumer(Constant.UPDATE_SCHEDULING, message -> {
-
-      System.out.println( "update : " + message.body());
 
       for(JsonObject metricData : schedulingQueue)
       {
@@ -63,36 +58,36 @@ public class Scheduler extends AbstractVerticle
 
     });
 
-    vertx.eventBus().<JsonObject>localConsumer(Constant.DELETE_SCHEDULING, message -> removeFromQueue(schedulingQueue, message.body())
-      .onComplete(event -> {
-      for (JsonObject metricData : event.result())
+    vertx.eventBus().<JsonObject>localConsumer(Constant.DELETE_SCHEDULING, message->{
+      try
       {
-        schedulingQueue.remove(metricData);
+        schedulingQueue.removeIf(metricData -> metricData.getString(Constant.MONITOR_ID).equals(message.body().getString(Constant.ID)));
       }
-    }));
+      catch (Exception exception)
+      {
+        LOGGER.error(exception.getMessage(),exception);
+      }
+
+    });
 
 
     vertx.setPeriodic(SCHEDULING_TIME_PERIOD_SEC * 1000, id -> {
-      System.out.println("container is :  " + schedulingQueue);
+
       for (JsonObject metricData : schedulingQueue)
       {
-
         int waitTime = metricData.getInteger(Constant.TIME) - SCHEDULING_TIME_PERIOD_SEC;
 
         if (waitTime <= 0)
         {
+            metricData.mergeIn(credentialCache.get(metricData.getInteger(Constant.CREDENTIAL_ID)));
 
-          metricData.mergeIn(credentialData.get(metricData.getInteger(Constant.CREDENTIAL_ID)));
+            vertx.eventBus().send(Constant.EA_PULLING, metricData);
 
-              vertx.eventBus().send(Constant.EA_PULLING, metricData);
-
-
-          metricData.put(Constant.TIME, metricData.getInteger(Constant.DEFAULT_TIME));
-
+            metricData.put(Constant.TIME, metricData.getInteger(Constant.DEFAULT_TIME));
         }
         else
         {
-          metricData.put(Constant.TIME, waitTime);
+            metricData.put(Constant.TIME, waitTime);
         }
 
       }
@@ -102,19 +97,4 @@ public class Scheduler extends AbstractVerticle
     startPromise.complete();
   }
 
-  public static Future<List<JsonObject>> removeFromQueue(List<JsonObject> schedulingQueue, JsonObject obj)
-  {
-    Promise<List<JsonObject>> promise = Promise.promise();
-    List<JsonObject> removeingQueue = Collections.synchronizedList(new ArrayList<>());
-
-    for (JsonObject data : schedulingQueue) {
-      if (data.getString(Constant.MONITOR_ID).equals(obj.getString(Constant.ID))) {
-        removeingQueue.add(data);
-      }
-    }
-
-    promise.complete(removeingQueue);
-    return promise.future();
-
-  }
 }

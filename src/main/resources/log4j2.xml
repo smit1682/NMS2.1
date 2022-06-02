@@ -5,7 +5,7 @@
   </Properties>
   <Appenders >
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="%blue{%d{HH:mm:ss.SSS}} [%t] %highlight{%-5level} %magenta{%c{1.}} - %msg%n"/>
+      <PatternLayout pattern="%blue{%d{HH:mm:ss.SSS}} [%t] %highlight{%-5level} %magenta{%logger{36}} - %msg%n"/>
     </Console>
 
     <RollingFile name="RollingFile" fileName="${log-path}/myexample.log"

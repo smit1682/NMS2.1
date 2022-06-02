@@ -40,15 +40,11 @@ public class APIRouter extends AbstractVerticle
 
       if (http.succeeded())
       {
-
         LOGGER.info("HTTP server started on port {}",Constant.HTTP_PORT);
-
       }
       else
       {
-
         LOGGER.error("HTTP server not started");
-
       }
 
     });

@@ -18,10 +18,9 @@ public class DiscoveryStore implements CrudStore {
   public void create(JsonObject jsonObject, Promise<Object> databaseHandler)
   {
 
-    try (Connection connection = createConnection();PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_DISCOVERY_INSERT))
+    try (Connection connection = createConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_DISCOVERY_INSERT))
     {
-
-     // PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_DISCOVERY_INSERT);
 
       preparedStatement.setString(1, jsonObject.getString(Constant.DISCOVERY_NAME));
       preparedStatement.setString(2,jsonObject.getString(Constant.JSON_KEY_HOST));
@@ -30,17 +29,16 @@ public class DiscoveryStore implements CrudStore {
       preparedStatement.setString(5,jsonObject.getString(Constant.CREDENTIAL_ID));
 
       preparedStatement.executeUpdate();
-
-      ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_DISCOVERY_ID);
-
-      int id=0;
-      while (resultSet.next()){
-        id = resultSet .getInt(1);
+      int id = 0;
+      try(ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_DISCOVERY_ID))
+      {
+        while (resultSet.next())
+        {
+          id = resultSet.getInt(1);
+        }
       }
-
       databaseHandler.complete(new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.MESSAGE,id));
 
-      preparedStatement.close();
     }
     catch (Exception e)
     {

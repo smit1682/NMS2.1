@@ -299,7 +299,7 @@ public class Util {
 
     JsonObject jsonObject = new JsonObject().put(Constant.ID, id).put(Constant.TABLE_NAME, table).put(Constant.IDENTITY, Constant.VALIDATE_ID);
 
-    vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE, jsonObject, messageAsyncResult -> {
+    vertx.eventBus().<JsonObject>request(Constant.DATABASE_HANDLER, jsonObject, messageAsyncResult -> {
 
       if (messageAsyncResult.succeeded() && messageAsyncResult.result().body().containsKey(Constant.METRIC_TYPE_VALIDATION) )
       {
@@ -327,7 +327,7 @@ public class Util {
     Promise<Void> promise = Promise.promise();
 
 
-    vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE, new JsonObject().put(Constant.IDENTITY, Constant.CREDENTIAL_READ_ALL), replyHandler -> {
+    vertx.eventBus().<JsonObject>request(Constant.DATABASE_HANDLER, new JsonObject().put(Constant.IDENTITY, Constant.CREDENTIAL_READ_ALL), replyHandler -> {
 
       if (replyHandler.succeeded() && replyHandler.result().body() != null && replyHandler.result().body().containsKey("credential")) {
 
@@ -348,7 +348,7 @@ public class Util {
 
       if (handler.succeeded()) {
 
-        vertx.eventBus().<JsonArray>request(Constant.INSERT_TO_DATABASE, new JsonObject().put(Constant.IDENTITY, Constant.PICK_UP_DATA_INITAL), messageAsyncResult -> {
+        vertx.eventBus().<JsonArray>request(Constant.DATABASE_HANDLER, new JsonObject().put(Constant.IDENTITY, Constant.PICK_UP_DATA_INITAL), messageAsyncResult -> {
           if (messageAsyncResult.succeeded()) {
 
             new Monitor(messageAsyncResult.result().body());

@@ -94,7 +94,7 @@ public static final String PROTOCOL = "protocol";
   public static final String ID = "id";
 
   public static final String IDENTITY = "identity";
-  public static final String INSERT_TO_DATABASE ="InsertToDatabase" ;
+  public static final String DATABASE_HANDLER ="InsertToDatabase" ;
   public static final String INSERT = "Insert";
   public static final String READ_ALL = "ReadAll";
   public static final String READ = "Read";
@@ -162,4 +162,5 @@ public static final String PROTOCOL = "protocol";
   public static final String METRIC_READ = "METRICRead";
   public static final String PROTOCOL_VALIDATION = "protocolValidation";
   public static final String METRIC_TYPE_VALIDATION = "metric.typeValidation";
+    public static final String RESULT = "result";
 }

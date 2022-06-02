@@ -14,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class Bootstrap {
-
+public class Bootstrap
+{
   private static final Vertx vertex = Vertx.vertx();
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Bootstrap.class);
@@ -25,8 +25,8 @@ public class Bootstrap {
     return Bootstrap.vertex;
   }
 
-  public static void main(String[] args) {
-
+  public static void main(String[] args)
+  {
     start(APIRouter.class.getName())
 
       .compose(future -> start(DataStoreHandler.class.getName()))
@@ -41,17 +41,15 @@ public class Bootstrap {
 
         if (result.succeeded())
         {
-
           LOGGER.info("All Verticals are Deployed");
 
           Util.init();
-
         }
         else
         {
-
           LOGGER.error("Error occurs while deploying Verticals");
 
+          System.exit(0);
         }
 
       });
@@ -67,21 +65,16 @@ public class Bootstrap {
 
       if (result.succeeded())
       {
-
         promise.complete();
-
       }
       else
       {
-
         promise.fail(result.cause());
-
       }
 
     });
 
     return promise.future();
-
   }
 
 }

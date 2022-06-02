@@ -7,16 +7,13 @@ public class Metric extends RestAPI{
 
   public Metric(Router router)
   {
-
     super(router);
-
   }
 
   @Override
   protected Entity getEntity()
   {
-
     return Entity.METRIC;
-
   }
+
 }

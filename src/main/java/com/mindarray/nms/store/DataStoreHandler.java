@@ -10,8 +10,8 @@ import io.vertx.core.json.JsonObject;
 
 public class DataStoreHandler extends AbstractVerticle {
 
-
   private final DiscoveryStore discoveryStore = new DiscoveryStore();
+
   private final MetricStore metricStore = new MetricStore();
 
   private final CredentialStore credentialStore = new CredentialStore();
@@ -24,9 +24,7 @@ public class DataStoreHandler extends AbstractVerticle {
   public void start(Promise<Void> startPromise)
   {
 
-
-
-    vertx.eventBus().<JsonObject>localConsumer(Constant.INSERT_TO_DATABASE, message->{
+    vertx.eventBus().<JsonObject>localConsumer(Constant.DATABASE_HANDLER, message->{
 
       JsonObject dataMessage = message.body();
 
@@ -84,9 +82,11 @@ public class DataStoreHandler extends AbstractVerticle {
           case Constant.MONITOR_READ:
               monitorStore.read(dataMessage,databaseHandler);
               break;
+
           case Constant.METRIC_READ:
             metricStore.read(dataMessage,databaseHandler);
               break;
+
           case Constant.MONITOR_READ_ALL:
               monitorStore.readAll(dataMessage,databaseHandler);
               break;
@@ -138,20 +138,19 @@ public class DataStoreHandler extends AbstractVerticle {
 
         }
 
-      }, insertResult->{
+      }, databaseHandlerResult->{
 
-        if(insertResult.succeeded())
+        if(databaseHandlerResult.succeeded())
         {
-          message.reply(insertResult.result());
+          message.reply(databaseHandlerResult.result());
         }
         else
         {
-          message.fail(300,insertResult.cause().getMessage());
+          message.fail(300,databaseHandlerResult.cause().getMessage());
         }
 
       });
     });
-
 
     startPromise.complete();
 
