@@ -2,7 +2,7 @@ package com.mindarray.nms;
 
 import com.mindarray.nms.api.APIRouter;
 
-import com.mindarray.nms.api.Util;
+import com.mindarray.nms.util.Util;
 import com.mindarray.nms.discovery.DiscoveryEngine;
 import com.mindarray.nms.poller.Polling;
 import com.mindarray.nms.store.DataStoreHandler;

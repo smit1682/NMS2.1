@@ -11,11 +11,13 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Scheduler extends AbstractVerticle
 {
   private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
 
+  ConcurrentHashMap<Integer,JsonObject> credentialData  = new ConcurrentHashMap<>();
   private static final int SCHEDULING_TIME_PERIOD_SEC = 10;
 
   @Override
@@ -23,23 +25,45 @@ public class Scheduler extends AbstractVerticle
   {
     List<JsonObject> schedulingQueue = Collections.synchronizedList(new ArrayList<>());
 
-    vertx.eventBus().<JsonObject>consumer(Constant.EA_SCHEDULING, message -> schedulingQueue.add(message.body()));
+    vertx.eventBus().<JsonObject>localConsumer(Constant.EA_SCHEDULING, message -> schedulingQueue.add(message.body()));
 
-    vertx.eventBus().<JsonObject>consumer(Constant.UPDATE_SCHEDULING, message -> {
+    vertx.eventBus().<JsonObject>localConsumer(Constant.STORE_INITIAL_MAP,message -> credentialData.put(message.body().getInteger(Constant.CREDENTIAL_ID),message.body()));
 
-      for (String metricGroup : message.body().fieldNames())
+    vertx.eventBus().<JsonObject>localConsumer(Constant.UPDATE_SCHEDULING, message -> {
+
+      System.out.println( "update : " + message.body());
+
+      for(JsonObject metricData : schedulingQueue)
       {
-        for (JsonObject metricData : schedulingQueue)
+        if(metricData.getString(Constant.MONITOR_ID).equals(message.body().getString(Constant.MONITOR_ID)))
         {
-          if (metricGroup.equals(metricData.getString(Constant.METRIC_GROUP)))
-          {
-            metricData.put(Constant.DEFAULT_TIME, message.body().getInteger(metricGroup));
-          }
+           if(message.body().containsKey(Constant.JSON_KEY_PORT) && message.body().containsKey(Constant.CREDENTIAL_ID))
+           {
+              metricData.put(Constant.JSON_KEY_PORT,message.body().getInteger(Constant.JSON_KEY_PORT));
+              metricData.put(Constant.CREDENTIAL_ID,message.body().getInteger(Constant.CREDENTIAL_ID));
+           }
+           else if(message.body().containsKey(Constant.CREDENTIAL_ID))
+           {
+             metricData.put(Constant.CREDENTIAL_ID,message.body().getInteger(Constant.CREDENTIAL_ID));
+
+           }
+           else if(message.body().containsKey(Constant.JSON_KEY_PORT))
+           {
+             metricData.put(Constant.JSON_KEY_PORT,message.body().getInteger(Constant.JSON_KEY_PORT));
+
+           }
+           else if(message.body().containsKey(Constant.METRIC_GROUP) && message.body().getString(Constant.METRIC_GROUP).equals(metricData.getString(Constant.METRIC_GROUP)))
+           {
+              metricData.put(Constant.DEFAULT_TIME,message.body().getInteger(Constant.TIME));
+              break;
+           }
         }
       }
+
+
     });
 
-    vertx.eventBus().<JsonObject>consumer(Constant.DELETE_SCHEDULING, message -> removeFromQueue(schedulingQueue, message.body())
+    vertx.eventBus().<JsonObject>localConsumer(Constant.DELETE_SCHEDULING, message -> removeFromQueue(schedulingQueue, message.body())
       .onComplete(event -> {
       for (JsonObject metricData : event.result())
       {
@@ -49,7 +73,7 @@ public class Scheduler extends AbstractVerticle
 
 
     vertx.setPeriodic(SCHEDULING_TIME_PERIOD_SEC * 1000, id -> {
-
+      System.out.println("container is :  " + schedulingQueue);
       for (JsonObject metricData : schedulingQueue)
       {
 
@@ -57,19 +81,11 @@ public class Scheduler extends AbstractVerticle
 
         if (waitTime <= 0)
         {
-          //System.out.println("Going for pulling  monitor.id = " + metricData.getString("monitor.id") + " metric.group= " + metricData.getString("metric.group"));
 
-          vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE, metricData.put(Constant.IDENTITY, Constant.CREATE_CONTEXT), replyHandler -> {
+          metricData.mergeIn(credentialData.get(metricData.getInteger(Constant.CREDENTIAL_ID)));
 
-            if (replyHandler.succeeded())
-            {
-              vertx.eventBus().send(Constant.EA_PULLING, replyHandler.result().body());
-            }
-            else
-            {
-              LOGGER.error(replyHandler.cause().getMessage());
-            }
-          });
+              vertx.eventBus().send(Constant.EA_PULLING, metricData);
+
 
           metricData.put(Constant.TIME, metricData.getInteger(Constant.DEFAULT_TIME));
 
@@ -92,7 +108,7 @@ public class Scheduler extends AbstractVerticle
     List<JsonObject> removeingQueue = Collections.synchronizedList(new ArrayList<>());
 
     for (JsonObject data : schedulingQueue) {
-      if (data.getString("monitor.id").equals(obj.getString("id"))) {
+      if (data.getString(Constant.MONITOR_ID).equals(obj.getString(Constant.ID))) {
         removeingQueue.add(data);
       }
     }

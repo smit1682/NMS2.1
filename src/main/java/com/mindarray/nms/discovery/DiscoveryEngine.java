@@ -1,7 +1,7 @@
 package com.mindarray.nms.discovery;
 
 import com.mindarray.nms.util.Constant;
-import com.mindarray.nms.util.UtilMethod;
+import com.mindarray.nms.util.UtilPlugin;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
@@ -18,7 +18,7 @@ public class DiscoveryEngine extends AbstractVerticle {
   public void start(Promise<Void> startPromise) {
 
 
-    vertx.eventBus().<JsonObject>consumer(Constant.EVENTBUS_ADDRESS_DISCOVERY, message -> {
+    vertx.eventBus().<JsonObject>localConsumer(Constant.EVENTBUS_ADDRESS_DISCOVERY, message -> {
 
       try {
 
@@ -28,7 +28,7 @@ public class DiscoveryEngine extends AbstractVerticle {
 
         vertx.executeBlocking(pingEvent -> {
 
-          if (UtilMethod.pingStatus(ipAddress))
+          if (UtilPlugin.pingStatus(ipAddress))
           {
 
             pingEvent.complete(Constant.PING_UP);
@@ -38,6 +38,8 @@ public class DiscoveryEngine extends AbstractVerticle {
           {
 
             pingEvent.fail(Constant.PING_DOWN);
+            vertx.eventBus().send(Constant.INSERT_TO_DATABASE,discoveryData.put("result",Constant.PING_DOWN).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY).put(Constant.STATUS,Constant.ERROR));
+
 
           }
         }, pingResult -> {
@@ -46,25 +48,26 @@ public class DiscoveryEngine extends AbstractVerticle {
 
             LOGGER.debug(Constant.PING_UP);
 
-            vertx.executeBlocking(event -> UtilMethod.pluginEngine(discoveryData.put(Constant.CATEGORY,Constant.DISCOVERY)).onComplete(discoveryEvent->{
+            vertx.executeBlocking(event -> UtilPlugin.pluginEngine(discoveryData.put(Constant.CATEGORY,Constant.DISCOVERY)).onComplete(discoveryEvent->{
 
-              if(discoveryEvent.succeeded())
+              if(discoveryEvent.succeeded() && discoveryEvent.result().getString(Constant.STATUS).equals(Constant.SUCCESS))
               {
 
-                event.complete(discoveryData.mergeIn(discoveryEvent.result().getJsonObject("data")).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
+                event.complete(discoveryData.mergeIn(discoveryEvent.result()).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
 
               }
               else
               {
 
-                event.fail(discoveryEvent.cause().getMessage());
-
+                event.fail(discoveryData.put("result",discoveryEvent.result()).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY).encodePrettily());
+              //  discoveryData.mergeIn(discoveryEvent.result().getJsonObject("data")).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY);
+                vertx.eventBus().send(Constant.INSERT_TO_DATABASE,discoveryData.put("result",discoveryEvent.result()).put(Constant.STATUS,Constant.ERROR).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
               }
             }), discoveryAsyncResult -> {
 
               if (discoveryAsyncResult.succeeded()) {
 
-
+                System.out.println("data is " + discoveryAsyncResult.result());
                 vertx.eventBus().request(Constant.INSERT_TO_DATABASE, discoveryAsyncResult.result(), databaseReply -> {
 
                   if (databaseReply.succeeded()) {
@@ -93,14 +96,16 @@ public class DiscoveryEngine extends AbstractVerticle {
 
               } else {
 
+                  LOGGER.error(discoveryAsyncResult.cause().getMessage());
+
                 message.fail(696, discoveryAsyncResult.cause().getMessage());
               }
             });
 
 
           } else {
-            LOGGER.debug("Ping Down");
-            System.out.println("ping down");
+            LOGGER.debug(Constant.PING_DOWN);
+
             message.fail(400, new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, pingResult.cause().getMessage()).put(Constant.STATUS_CODE, Constant.BAD_REQUEST).toString());
           }
         });
@@ -109,6 +114,8 @@ public class DiscoveryEngine extends AbstractVerticle {
       }
       catch (Exception exception)
       {
+        LOGGER.error(exception.getMessage());
+
           message.fail(500,new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, exception.getMessage()).toString());
       }
     });

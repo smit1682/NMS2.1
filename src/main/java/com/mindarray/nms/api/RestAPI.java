@@ -2,14 +2,22 @@ package com.mindarray.nms.api;
 
 import com.mindarray.nms.Bootstrap;
 import com.mindarray.nms.util.Constant;
+import com.mindarray.nms.util.Entity;
+import com.mindarray.nms.util.Util;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public abstract class RestAPI {
+
+public abstract class RestAPI
+{
 
   private final Vertx vertx = Bootstrap.getVertex();
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(RestAPI.class);
 
   public RestAPI() {}
 
@@ -18,7 +26,7 @@ public abstract class RestAPI {
 
     router.post(getEntity().getPath()).setName("post").handler(this::validate).handler(this::create);
 
-    router.put(getEntity().getPath() + "/:id").setName("put").handler(this::validate).handler(this::update);
+    router.put(getEntity().getPath() + "/:id").setName("put").handler(this::validateId).handler(this::validate).handler(this::update);
 
     router.get(getEntity().getPath()).setName("getAll").handler(this::validate).handler(this::readAll);
 
@@ -33,22 +41,38 @@ public abstract class RestAPI {
    public void validateId(RoutingContext routingContext)
    {
 
-    Util.validateId(routingContext.pathParam(Constant.ID),getEntity()).onComplete(result->{
+       Util.validateId(routingContext.pathParam(Constant.ID), getEntity()).onComplete(result -> {
 
-      if(result.succeeded())
-      {
+         try {
 
-        routingContext.next();
+           if (result.succeeded() && getEntity().equals(Entity.METRIC) && routingContext.getBodyAsJson() != null) {  //for monitor id validation which also fetch metric.type
+             routingContext.setBody(routingContext.getBodyAsJson().mergeIn(result.result()).toBuffer());
 
-      }
-      else
-      {
+             routingContext.next();
 
-        routingContext.response().end(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.ERROR,Constant.NOT_VALID).toString());
+           } else if (result.succeeded() && getEntity().equals(Entity.CREDENTIAL) && routingContext.getBodyAsJson() != null) {  //for credential id validation which also fetch protocol to validate update field
+             routingContext.setBody(routingContext.getBodyAsJson().mergeIn(result.result()).toBuffer());
 
-      }
+             routingContext.next();
+           } else if (result.succeeded()) {  //for get and getAll validation
+             routingContext.next();
+           } else {
 
-    });
+             routingContext.response().end(new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, Constant.NOT_VALID).encodePrettily());
+
+           }
+         }
+         catch (Exception exception)
+
+         {
+           LOGGER.error(exception.getMessage());
+
+           routingContext.response().setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, exception.getMessage()).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
+
+         }
+
+       });
+
 
   }
 
@@ -100,6 +124,7 @@ public abstract class RestAPI {
      updateData.put(getEntity().getId(), routingContext.pathParam(Constant.ID));
 
      updateData.put(Constant.IDENTITY,getEntity() +Constant.UPDATE);
+     System.out.println("in update" + updateData);
 
      routingContext.setBody(updateData.toBuffer());
 
@@ -125,18 +150,22 @@ public abstract class RestAPI {
    {
 
      vertx.eventBus().request(Constant.INSERT_TO_DATABASE ,data,replayMessage->{
-
-       if(replayMessage.succeeded())
+       //System.out.println("database replay" +replayMessage.succeeded() + "result" + replayMessage.result().body());
+       if(replayMessage.succeeded() && replayMessage.result().body() != null)
        {
+
+         if(Constant.METRIC_UPDATE.equals(data.getString(Constant.IDENTITY)))
+         {
+           System.out.println("ff");
+           //data.remove(Constant.IDENTITY);
+           vertx.eventBus().send(Constant.UPDATE_SCHEDULING,data);
+
+         }
 
          if(Constant.MONITOR_UPDATE.equals(data.getString(Constant.IDENTITY)))
          {
 
-           vertx.eventBus().request(Constant.UPDATE_SCHEDULING,data,replayFromScheduler->{
-
-             if(replayFromScheduler.succeeded()){System.out.println("updated in Arraylist");}
-
-           });
+           vertx.eventBus().send(Constant.UPDATE_SCHEDULING, data);
 
          }
 
@@ -144,7 +173,7 @@ public abstract class RestAPI {
          {
            vertx.eventBus().request(Constant.DELETE_SCHEDULING, data, replyMessage -> {
 
-             if(replyMessage.succeeded()) System.out.println("deleted in arraylist");
+             if(replyMessage.succeeded()){ LOGGER.info("deleted in arraylist");}
            });
 
          }

@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class UtilStore {
 
-  public  void checkIP(String ip, String identity, Promise<Object> databaseHandler) {
+  public  void checkId(String ip, String identity, Promise<Object> databaseHandler) {
     System.out.println(ip);
     boolean output ;
 
@@ -21,22 +21,32 @@ public class UtilStore {
           preparedStatement.setString(1,ip);
           break;
         case "CREDENTIAL":
-          preparedStatement = connection.prepareStatement("select * from credential where `credential.id` = ?");
+          preparedStatement = connection.prepareStatement("select protocol from credential where `credential.id` = ?");
           preparedStatement.setString(1,ip);
           break;
         case "MONITOR":
-          preparedStatement = connection.prepareStatement("select * from monitor where `monitor.id` = ?");
+        case "METRIC":
+          preparedStatement = connection.prepareStatement("select `metric.type` from monitor where `monitor.id` = ?");
           preparedStatement.setString(1,ip);
           break;
+
 
       }
       if(preparedStatement !=null) {
         ResultSet resultSet = preparedStatement.executeQuery();
         output = resultSet.next();
 
-        if (output) {
-          databaseHandler.complete( new JsonObject().put(Constant.STATUS, Constant.DISCOVERED).put(Constant.STATUS_CODE, Constant.OK));
-        } else {
+        if (output && identity.equals("METRIC")) {
+          databaseHandler.complete( new JsonObject().put(Constant.METRIC_TYPE_VALIDATION,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE)));
+        }
+        else if(output && identity.equals("CREDENTIAL")){
+          databaseHandler.complete( new JsonObject().put(Constant.PROTOCOL_VALIDATION, resultSet.getString(Constant.PROTOCOL)));
+
+        }
+        else if(output){
+            databaseHandler.complete( new JsonObject().put(Constant.STATUS, Constant.DISCOVERED).put(Constant.STATUS_CODE, Constant.OK));
+          }
+        else {
           databaseHandler.fail( new JsonObject().put(Constant.STATUS, Constant.NOT_DISCOVERED).put(Constant.STATUS_CODE, Constant.OK).encodePrettily());
         }
       }else{
@@ -54,7 +64,7 @@ public class UtilStore {
 
   public void getLastInstance(JsonObject jsonMessage,Promise<Object> databaseHandler) {
     try(Connection connection = createConnection()){
-      PreparedStatement preparedStatement = connection.prepareStatement("select `monitor.id`,`monitor.name`,`metric.group`,`data`,`timestamp` from metric  where `metric.group` =  ?  AND  `monitor.id` = ? order by `metric.id` DESC limit 1;");
+      PreparedStatement preparedStatement = connection.prepareStatement("select `monitor.id`,`monitor.name`,`metric.group`,`data`,`timestamp` from metric_store  where `metric.group` =  ?  AND  `monitor.id` = ? order by `metric.store.id` DESC limit 1;");
 
       preparedStatement.setString(1,jsonMessage.getString(Constant.METRIC_GROUP));
       preparedStatement.setString(2,jsonMessage.getString(Constant.ID));
@@ -71,6 +81,7 @@ public class UtilStore {
       }
       System.out.println("last data===== " + lastData);
       databaseHandler.complete( lastData);
+      preparedStatement.close();
     }
     catch (Exception e){
       databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
@@ -83,10 +94,10 @@ public class UtilStore {
     try (Connection connection = createConnection()){
       String query = "";
       if(jsonMessage.getString(Constant.METRIC_GROUP).equals(Constant.CPU)){
-        query = "select  `monitor.name`,max(`data` -> '$.\"cpu.all.user.percentage\"') AS `cpu.all.user.percentage` from metric group by `monitor.name`  order by `cpu.all.user.percentage`*1 DESC limit 5";
+        query = "select  `monitor.name`,max(`data` -> '$.\"cpu.all.user.percentage\"') AS `cpu.all.user.percentage` from metric_store group by `monitor.name`  order by `cpu.all.user.percentage`*1 DESC limit 5";
       }
       else if(jsonMessage.getString(Constant.METRIC_GROUP).equals(Constant.MEMORY)){
-        query = "select  `monitor.name`,max(`data` -> '$.\"memory.free.bytes\"') AS `free.memory.bytes`  from metric group by `monitor.name` order by `free.memory.bytes`*1 DESC limit 5 ";
+        query = "select  `monitor.name`,max(`data` -> '$.\"memory.free.bytes\"') AS `free.memory.bytes`  from metric_store group by `monitor.name` order by `free.memory.bytes`*1 DESC limit 5 ";
       }
       else{
         databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS,Constant.INVALID_METRIC_GROUP).encodePrettily());
@@ -119,6 +130,7 @@ public class UtilStore {
     }
 
     catch (SQLException sqlException){
+
       throw new SQLException(Constant.CONNECTION_REFUSED);
     }
   }

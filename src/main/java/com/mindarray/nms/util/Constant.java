@@ -52,7 +52,7 @@ public static final Integer ALREADY_AVAILABLE = 600;
 
 public static final String QUERY_INSERT_TO_DISCOVERY_TABLE = "INSERT INTO credentials VALUES (?,?,?,?,?,?)";
 public static final String QUERY_CHECK_IP = "select * from credentials where host = ?";
-public static final String DATABASE_CONNECTION_URL = "jdbc:mysql://localhost:3306/NMS2.1";
+public static final String DATABASE_CONNECTION_URL = "jdbc:mysql://localhost:3306/NMS2.2";
 public static final String DATABASE_CONNECTION_USER = "root";
 public static final String DATABASE_CONNECTION_PASSWORD = "smit1682";
 public static final String CONNECTION_REFUSED = "Connection Refused";
@@ -61,8 +61,7 @@ public static final String CONNECTION_REFUSED = "Connection Refused";
 
  public static final String REGEX_IP = zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255;
 
-public static final String VERSION_1 = "v1";
-public static final String VERSION_2C = "v2c";
+
 
 public static final String CREDENTIAL_NAME = "credential.name";
 public static final String PROTOCOL = "protocol";
@@ -88,12 +87,10 @@ public static final String PROTOCOL = "protocol";
   public static final String MONITOR_READ = "MONITORRead";
   public static final String CPU = "cpu";
   public static final String MEMORY ="memory" ;
-  public static final String DISK = "disk";
-  public static final String SYSTEM = "system";
-  public static final String PROCESS = "process";
-  public static final String INTERFACE = "interface";
+
   public static final String MONITOR_READ_ALL = "MONITORReadAll";
   public static final String MONITOR_UPDATE ="MONITORUpdate" ;
+  public static final String METRIC_UPDATE ="METRICUpdate" ;
   public static final String ID = "id";
 
   public static final String IDENTITY = "identity";
@@ -146,6 +143,23 @@ public static final String PROTOCOL = "protocol";
   public static final String DISCOVERY = "discovery";
 
     public static final String PULLING = "pulling";
-  public static final String CREATE_CONTEXT = "createContext";
+
   public static final String PING = "ping";
+  public static final String STORE_INITIAL_MAP = "store.in.map";
+  public static final String METRIC_TIME = "metric.time";
+  public static final String QUERY_CREDENTIAL_INSERT = "INSERT INTO `NMS2.2`.`credential`\n" + "(`credential.name`,\n" + "`protocol`,\n" + "`username`,\n" + "`password`,\n" + "`version` ,`community`) VALUES (?,?,?,?,?,?)";
+  public static final String QUERY_DISCOVERY_INSERT = "INSERT INTO `NMS2.2`.`discovery`\n" + "(`discovery.name`,\n" + "`host`,\n" + "`port`,\n" + "`metric.type`,\n" + "`credential.id`) VALUES (?,?,?,?,?)";
+
+  public static final String QUERY_CREDENTIAL_ID = "SELECT MAX(`credential.id`) FROM credential;";
+
+  public static final String QUERY_DISCOVERY_ID = "SELECT MAX(`discovery.id`) FROM discovery;";
+  public static final String QUERY_CREDENTIAL_READ = "select * from credential where `credential.id` = ";
+  public static final String QUERY_CREDENTIAL_READ_ALL = "select * from credential";
+
+  public static final String DISCOVERY_STATUS = "discovery.status";
+  public static final String COMMUNITY = "community";
+  public static final String METRIC_ID = "metric.id";
+  public static final String METRIC_READ = "METRICRead";
+  public static final String PROTOCOL_VALIDATION = "protocolValidation";
+  public static final String METRIC_TYPE_VALIDATION = "metric.typeValidation";
 }

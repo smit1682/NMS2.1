@@ -4,29 +4,30 @@ import com.mindarray.nms.util.Constant;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.Map;
+
 
 public class MonitorStore implements CrudStore {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(MonitorStore.class);
 
   @Override
   public void create(JsonObject body, Promise<Object> databaseHandler) {
 
     try (Connection connection = createConnection()){
 
-      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `NMS2.1`.`monitor` (`monitor.name`,`host`,`port`,`credential.id`,`metric.type`) VALUES (?,?,?,?,?)");
+      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `NMS2.2`.`monitor` (`monitor.name`, `host`, `port`, `metric.type`, `credential.id`) VALUES (?,?,?,?,?)");
 
-      System.out.println(body.getString(Constant.CREDENTIAL_NAME));
-      // System.out.println("hello misfortune ..." + jsonObject.getString("smit"));
-      preparedStatement.setString(1,body.getString("monitor.name"));
-      preparedStatement.setString(2,body.getString("host"));
-      preparedStatement.setString(3,body.getString("port"));
-      preparedStatement.setInt(4,body.getInteger("credential.id"));
-      preparedStatement.setString(5,body.getString("metric.type"));
+      preparedStatement.setString(1,body.getString(Constant.MONITOR_NAME));
+      preparedStatement.setString(2,body.getString(Constant.JSON_KEY_HOST));
+      preparedStatement.setString(3,body.getString(Constant.JSON_KEY_PORT));
+      preparedStatement.setString(4,body.getString(Constant.JSON_KEY_METRIC_TYPE));
+      preparedStatement.setInt(5,body.getInteger(Constant.CREDENTIAL_ID));
 
       preparedStatement.executeUpdate();
-
 
       ResultSet resultSet = connection.createStatement().executeQuery("SELECT MAX(`monitor.id`) FROM monitor;");
       int id=0;
@@ -34,21 +35,43 @@ public class MonitorStore implements CrudStore {
         id = resultSet .getInt(1);
       }
 
-      System.out.println(id);
-      JsonObject jsonObject = new JsonObject().put("monitor.id",id).put("metric.type",body.getString("metric.type")); //can be removed
-      resultSet = connection.createStatement().executeQuery("select `cpu`, `memory`, `disk`, `system`, `process`, `interface` from monitor where `monitor.id` = " + id);
+      resultSet = connection.createStatement().executeQuery("select * from metric left join monitor on metric.`monitor.id` = monitor.`monitor.id` where metric.`monitor.id` = " + id);
+      JsonArray array = new JsonArray();
+
       while (resultSet.next()){
-        jsonObject.put("cpu",resultSet.getInt("cpu"))
-          .put("memory",resultSet.getInt("memory"))
-          .put("disk",resultSet.getInt("disk"))
-          .put("system",resultSet.getInt("system"))
-          .put("process",resultSet.getInt("process"))
-          .put("interface",resultSet.getInt("interface"));
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.put(Constant.MONITOR_ID,resultSet.getInt(Constant.MONITOR_ID))
+          .put(Constant.METRIC_GROUP,resultSet.getString(Constant.METRIC_GROUP))
+          .put(Constant.DEFAULT_TIME,resultSet.getInt(Constant.METRIC_TIME))
+          .put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST))
+          .put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT))
+          .put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE))
+          .put(Constant.CREDENTIAL_ID,resultSet.getInt(Constant.CREDENTIAL_ID))
+        .put(Constant.MONITOR_NAME,resultSet.getString(Constant.MONITOR_NAME));
+
+        if(resultSet.getString(Constant.METRIC_GROUP).equals(Constant.PING))
+        {
+          jsonObject.put(Constant.TIME,0);
+        }
+        else
+        {
+          jsonObject.put(Constant.TIME,resultSet.getInt(Constant.METRIC_TIME));
+        }
+
+        array.add(jsonObject);
+
       }
-       databaseHandler.complete(jsonObject.put(Constant.STATUS,Constant.SUCCESS));
 
+       databaseHandler.complete(array);
+      preparedStatement.close();
 
-    } catch (SQLException e) {
+    }
+    catch (Exception e)
+    {
+
+      LOGGER.error(e.getMessage());
+
       databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
 
     }
@@ -70,17 +93,15 @@ public class MonitorStore implements CrudStore {
         data.put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT));
         data.put(Constant.CREDENTIAL_ID,resultSet.getString(Constant.CREDENTIAL_ID));
         data.put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE));
-        data.put(Constant.CPU,resultSet.getString(Constant.CPU));
-        data.put(Constant.MEMORY,resultSet.getString(Constant.MEMORY));
-        data.put(Constant.DISK,resultSet.getString(Constant.DISK));
-        data.put(Constant.SYSTEM,resultSet.getString(Constant.SYSTEM));
-        data.put(Constant.PROCESS,resultSet.getString(Constant.PROCESS));
-        data.put(Constant.INTERFACE,resultSet.getString(Constant.INTERFACE));
+
 
       }
       databaseHandler.complete( data);
-    }catch (SQLException exception)
+    }
+    catch (Exception exception)
     {
+
+      LOGGER.error(exception.getMessage());
 
       databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
 
@@ -98,18 +119,13 @@ public class MonitorStore implements CrudStore {
       while (resultSet.next())
       {
         JsonObject data = new JsonObject();
-        data.put("monitor.id",resultSet.getInt("monitor.id"));
-        data.put("monitor.name",resultSet.getString("monitor.name"));
+        data.put(Constant.MONITOR_ID,resultSet.getInt(Constant.MONITOR_ID));
+        data.put(Constant.MONITOR_NAME,resultSet.getString(Constant.MONITOR_NAME));
         data.put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST));
         data.put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT));
         data.put(Constant.CREDENTIAL_ID,resultSet.getString(Constant.CREDENTIAL_ID));
         data.put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE));
-        data.put(Constant.CPU,resultSet.getString(Constant.CPU));
-        data.put(Constant.MEMORY,resultSet.getString(Constant.MEMORY));
-        data.put(Constant.DISK,resultSet.getString(Constant.DISK));
-        data.put(Constant.SYSTEM,resultSet.getString(Constant.SYSTEM));
-        data.put(Constant.PROCESS,resultSet.getString(Constant.PROCESS));
-        data.put(Constant.INTERFACE,resultSet.getString(Constant.INTERFACE));
+
         jsonArray.add(data);
 
       }
@@ -124,39 +140,42 @@ databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Co
 
   @Override
   public void update(JsonObject jsonObject, Promise<Object> databaseHandler) {
+    System.out.println("monitor update : "+ jsonObject);
 
-    try (Connection connection = createConnection()){
-      StringBuilder queryInit = new StringBuilder();
-      for(Map.Entry<String,Object> data : jsonObject)
-      {
-        queryInit.append("`").append(data.getKey()).append("`").append(" = ").append("\"").append(data.getValue()).append("\"").append(",");
-      }
-      queryInit.deleteCharAt(queryInit.length()-1);
-      String query = "UPDATE monitor SET " + queryInit + " WHERE `monitor.id` = " + jsonObject.getString("monitor.id");
+
+    String query="";
+    if(jsonObject.containsKey(Constant.JSON_KEY_PORT))
+    {
+       query = "update monitor set `port` = "+jsonObject.getInteger(Constant.JSON_KEY_PORT)+" where `monitor.id` = "+jsonObject.getString(Constant.MONITOR_ID);
+    }
+    else if(jsonObject.containsKey(Constant.CREDENTIAL_ID))
+    {
+       query = "update monitor set `credential.id` = "+jsonObject.getInteger(Constant.CREDENTIAL_ID)+" where `monitor.id` = "+jsonObject.getString(Constant.MONITOR_ID);
+    }
+
+    try (Connection connection = createConnection()) {
+      System.out.println("In store: " + jsonObject);
+
+
       System.out.println(query);
       int affectedRows = connection.createStatement().executeUpdate(query);
-
-      System.out.println("affected rows  "+ affectedRows);
-
       if(affectedRows==0)throw new SQLException("id not exist");
-    }catch (SQLException exception){
+
+
+    }
+    catch (Exception exception)
+    {
       databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
-
     }
-    catch (ClassCastException exception){
-      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.MUST_BE_INTEGER).put(Constant.ERROR,exception.getMessage()).encodePrettily());
-
-    }
-
-    // System.out.println(query);
     databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+
 
   }
 
   @Override
   public void delete(JsonObject jsonObject, Promise<Object> databaseHandler) {
     try (Connection connection = createConnection()){
-      int master = connection.createStatement().executeUpdate("delete from monitor where `monitor.id` = "+jsonObject.getString("id"));
+      connection.createStatement().executeUpdate("delete from monitor where `monitor.id` = "+jsonObject.getString("id"));
 
       databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
 
@@ -204,6 +223,7 @@ databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Co
         jsonObject.put("protocol",resultSet.getString(Constant.PROTOCOL));
         jsonObject.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
         jsonObject.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
+        jsonObject.put(Constant.COMMUNITY,resultSet.getString(Constant.COMMUNITY));
         jsonObject.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
 
         jsonObject.put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST));
@@ -226,7 +246,7 @@ databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Co
   public void dumpInDB(JsonObject body,Promise<Object> databaseHandler) {
     try (Connection connection = createConnection()){
 
-      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `NMS2.1`.`metric`\n" +
+      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `NMS2.2`.`metric_store`\n" +
         "(`monitor.id`,\n" +
         "`metric.group`,\n" +
         "`metric.type`,\n" +
@@ -234,19 +254,25 @@ databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Co
         "`timestamp`,`monitor.name`) VALUES (?,?,?,?,?,?)");
 
 
-      preparedStatement.setString(1,body.getString("monitor.id"));
-      preparedStatement.setString(2,body.getString("metric.group"));
-      preparedStatement.setString(3,body.getString("metric.type"));
-      preparedStatement.setString(4,body.getString("data"));
+      preparedStatement.setString(1,body.getString(Constant.MONITOR_ID));
+      preparedStatement.setString(2,body.getString(Constant.METRIC_GROUP));
+      preparedStatement.setString(3,body.getString(Constant.JSON_KEY_METRIC_TYPE));
+      preparedStatement.setString(4,body.getString(Constant.DATA));
       preparedStatement.setTimestamp(5,new Timestamp(System.currentTimeMillis()));
-      preparedStatement.setString(6,body.getString("monitor.name"));
+      preparedStatement.setString(6,body.getString(Constant.MONITOR_NAME));
 
       preparedStatement.executeUpdate();
 
       databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS));
 
+      preparedStatement.close();
 
-    } catch (SQLException e) {
+    }
+    catch (Exception e)
+    {
+
+      LOGGER.error(e.getMessage());
+
       databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
 
     }
@@ -263,35 +289,5 @@ databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Co
     }
   }
 
-  public void createContext(JsonObject dataMessage, Promise<Object> databaseHandler) {
 
-    try(Connection connection = createConnection()){
-
-      PreparedStatement preparedStatement = connection.prepareStatement("select * from monitor left join credential on monitor.`credential.id` =  credential.`credential.id` where `monitor.id` = ? ");
-      preparedStatement.setInt(1,dataMessage.getInteger("monitor.id"));
-
-      ResultSet resultSet = preparedStatement.executeQuery();
-
-      while (resultSet.next())
-      {
-
-        dataMessage.put(Constant.MONITOR_ID,resultSet.getInt(Constant.MONITOR_ID));
-        dataMessage.put(Constant.MONITOR_NAME,resultSet.getString(Constant.MONITOR_NAME));
-        dataMessage.put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST));
-        dataMessage.put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT));
-        dataMessage.put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE));
-        dataMessage.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
-        dataMessage.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
-        dataMessage.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
-
-      }
-
-      databaseHandler.complete(dataMessage);
-
-
-    }catch (SQLException e){
-      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
-
-    }
-  }
 }

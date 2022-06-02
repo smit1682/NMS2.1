@@ -2,8 +2,8 @@ package com.mindarray.nms.api;
 
 import com.mindarray.nms.Bootstrap;
 import com.mindarray.nms.util.Constant;
-import io.vertx.core.Future;
-import io.vertx.core.Promise;
+
+import com.mindarray.nms.util.Entity;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -13,13 +13,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class Monitor extends RestAPI {
+public class Monitor extends RestAPI
+{
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Monitor.class);
 
   private final Vertx vertx = Bootstrap.getVertex();
 
-  public Monitor(Router router) {
+  public Monitor(Router router)
+  {
 
     super(router);
 
@@ -27,32 +29,29 @@ public class Monitor extends RestAPI {
 
   }
 
-  public Monitor(JsonArray monitorArray){   //will trigger at start of the Application
+  public Monitor(JsonArray monitorArray)   //will trigger at start of the Application
+  {
 
-    for(Object data : monitorArray)
-    {
-      divideAndSchedule((JsonObject) data);
-    }
+      callScheduler( monitorArray);
 
   }
 
-  private void createMonitor(RoutingContext routingContext) {
+  private void createMonitor(RoutingContext routingContext)
+  {
 
-
-    vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,routingContext.getBodyAsJson().put(Constant.IDENTITY,Constant.CREATE_MONITOR), messageAsyncResult -> {
+    vertx.eventBus().<JsonArray>request(Constant.INSERT_TO_DATABASE,routingContext.getBodyAsJson().put(Constant.IDENTITY,Constant.CREATE_MONITOR), messageAsyncResult -> {
 
       if(messageAsyncResult.succeeded())
       {
+          callScheduler(messageAsyncResult.result().body());
 
-        divideAndSchedule(messageAsyncResult.result().body()).onComplete(event->{
           routingContext.response().end(messageAsyncResult.result().body().encodePrettily());
-        });
 
       }
       else
       {
 
-        LOGGER.error(messageAsyncResult.cause().getMessage());
+        LOGGER.error("hello error {}",messageAsyncResult.cause().getMessage());
 
         routingContext.response().end(messageAsyncResult.cause().getMessage());
 
@@ -63,20 +62,23 @@ public class Monitor extends RestAPI {
 
   }
 
-  private void validateDiscoveryStatus(RoutingContext routingContext) {
+  private void validateDiscoveryStatus(RoutingContext routingContext)
+  {
 
     JsonObject provisionData = new JsonObject().put(Constant.DISCOVERY_ID,routingContext.pathParam(Constant.ID)).put(Constant.IDENTITY,Constant.PROVISION_VALIDATION);
 
     vertx.eventBus().<JsonObject>request(Constant.INSERT_TO_DATABASE,provisionData,replyMessage->{
 
-      if(replyMessage.succeeded()){
+      if(replyMessage.succeeded() && replyMessage.result().body() != null)
+      {
 
         routingContext.setBody(replyMessage.result().body().toBuffer());
 
         routingContext.next();
 
       }
-      else {
+      else
+      {
 
         LOGGER.error(Constant.NOT_DISCOVERED);
 
@@ -92,67 +94,35 @@ public class Monitor extends RestAPI {
     return Entity.MONITOR;
   }
 
-  public Future<Void> divideAndSchedule(JsonObject jsonObject){
 
-    Promise<Void> promise = Promise.promise();
+  private void callScheduler(JsonArray array)
+  {
+    try {
 
-    if (Constant.NETWORK_DEVICE.equals(jsonObject.getString(Constant.JSON_KEY_METRIC_TYPE)))
+
+      for (Object data : array) {
+        LOGGER.info("Trigger Scheduler -> {} ", data);
+        JsonObject metricData = (JsonObject) data;
+
+        metricData.put(Constant.CREDENTIAL_ID, Integer.parseInt(metricData.getString(Constant.CREDENTIAL_ID)));
+
+        if (metricData.getString(Constant.METRIC_TIME) != null) {
+
+          metricData.put(Constant.TIME, Integer.parseInt(metricData.getString(Constant.METRIC_TIME)));
+
+          metricData.put(Constant.DEFAULT_TIME, Integer.parseInt(metricData.getString(Constant.METRIC_TIME)));
+
+        }
+
+
+        vertx.eventBus().send(Constant.EA_SCHEDULING, metricData);
+      }
+    }
+    catch (Exception exception)
     {
-
-      jsonObject.put(Constant.TIME, jsonObject.getInteger(Constant.INTERFACE))
-        .put(Constant.METRIC_GROUP, Constant.INTERFACE)
-        .put(Constant.DEFAULT_TIME, jsonObject.getInteger(Constant.INTERFACE));
-
-      callScheduler(jsonObject);
-
-    } else {
-
-      jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.CPU))
-        .put(Constant.METRIC_GROUP,Constant.CPU)
-        .put(Constant.DEFAULT_TIME,jsonObject.getInteger(Constant.CPU));
-
-      callScheduler(jsonObject);
-
-      jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.MEMORY))
-        .put(Constant.METRIC_GROUP,Constant.MEMORY)
-        .put(Constant.DEFAULT_TIME,jsonObject.getInteger(Constant.MEMORY));
-
-      callScheduler(jsonObject);
-
-      jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.DISK))
-        .put(Constant.METRIC_GROUP,Constant.DISK)
-        .put(Constant.DEFAULT_TIME,jsonObject.getInteger(Constant.DISK));
-
-      callScheduler(jsonObject);
-
-      jsonObject.put(Constant.TIME, jsonObject.getInteger(Constant.PROCESS))
-        .put(Constant.METRIC_GROUP, Constant.PROCESS)
-        .put(Constant.DEFAULT_TIME, jsonObject.getInteger(Constant.PROCESS));
-
-      callScheduler(jsonObject);
+      LOGGER.error(exception.getMessage());
 
     }
-    jsonObject.put(Constant.TIME,jsonObject.getInteger(Constant.SYSTEM))
-      .put(Constant.METRIC_GROUP,Constant.SYSTEM)
-      .put(Constant.DEFAULT_TIME,jsonObject.getInteger(Constant.SYSTEM));
-
-    callScheduler(jsonObject);
-
-    jsonObject.put(Constant.TIME,0)
-      .put(Constant.METRIC_GROUP,Constant.PING)
-      .put(Constant.DEFAULT_TIME,60);
-    callScheduler(jsonObject);
-
-promise.complete();
-return promise.future();
-
-  }
-
-  private void callScheduler(JsonObject jsonObject) {
-
-    LOGGER.info("Trigger Scheduler -> {} ",jsonObject);
-    vertx.eventBus().send(Constant.EA_SCHEDULING,jsonObject);
-
 
   }
 

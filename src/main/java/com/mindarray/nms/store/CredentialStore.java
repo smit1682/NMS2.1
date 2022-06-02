@@ -1,5 +1,6 @@
 package com.mindarray.nms.store;
 
+import com.mindarray.nms.Bootstrap;
 import com.mindarray.nms.util.Constant;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
@@ -14,190 +15,269 @@ public class CredentialStore implements CrudStore {
   private static final Logger LOGGER = LoggerFactory.getLogger(CredentialStore.class);
 
   @Override
-  public void create(JsonObject jsonObject, Promise<Object> databaseHandler) {
+  public void create(JsonObject entries, Promise<Object> databaseHandler) {
 
 
-    try (Connection connection = createConnection()){
+    try (Connection connection = createConnection();PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_CREDENTIAL_INSERT))
+    {
 
-      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `NMS2.1`.`credential`\n" +
-        "(`credential.name`,\n" +
-        "`protocol`,\n" +
-        "`username`,\n" +
-        "`password`,\n" +
-        "`version`) VALUES (?,?,?,?,?)");
+     // PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_CREDENTIAL_INSERT);
 
-      System.out.println(jsonObject.getString(Constant.CREDENTIAL_NAME));
-      //System.out.println("hello misfortune ..." + jsonObject.getString("smit"));
-      preparedStatement.setString(1,jsonObject.getString(Constant.CREDENTIAL_NAME));
-      preparedStatement.setString(2,jsonObject.getString(Constant.PROTOCOL));
-      preparedStatement.setString(3,jsonObject.getString(Constant.JSON_KEY_USERNAME));
-      preparedStatement.setString(4,jsonObject.getString(Constant.JSON_KEY_PASSWORD));
-      preparedStatement.setString(5,jsonObject.getString(Constant.JSON_KEY_VERSION));
+      preparedStatement.setString(1,entries.getString(Constant.CREDENTIAL_NAME));
+      preparedStatement.setString(2,entries.getString(Constant.PROTOCOL));
+      preparedStatement.setString(3,entries.getString(Constant.JSON_KEY_USERNAME));
+      preparedStatement.setString(4,entries.getString(Constant.JSON_KEY_PASSWORD));
+      preparedStatement.setString(5,entries.getString(Constant.JSON_KEY_VERSION));
+      preparedStatement.setString(6,entries.getString(Constant.COMMUNITY));
 
       preparedStatement.executeUpdate();
 
+      ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_ID);
 
-      ResultSet resultSet = connection.createStatement().executeQuery("SELECT MAX(`credential.id`) FROM credential;");
       int id=0;
-      while (resultSet.next()){
+      while (resultSet.next())
+      {
         id = resultSet .getInt(1);
       }
 
-      System.out.println(id);
       databaseHandler.complete(new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.MESSAGE,id));
 
+      Bootstrap.getVertex().eventBus().send(Constant.STORE_INITIAL_MAP,entries.put(Constant.CREDENTIAL_ID,id));  // notification for credential Cache in Scheduler
 
-
-    } catch (SQLException e) {
-      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
-     // return new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage());
 
     }
+    catch (Exception e)
+    {
+
+      LOGGER.error(e.getMessage());
+
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
+
+    }
+
+
 
   }
 
   @Override
-  public void read(JsonObject jsonObject,Promise<Object> databaseHandler) {
-    try (Connection connection = createConnection()){
-      ResultSet resultSet = connection.createStatement().executeQuery("select * from credential where `credential.id` = " + jsonObject.getString("id"));
+  public void read(JsonObject entries,Promise<Object> databaseHandler)
+  {
+
+    try (Connection connection = createConnection();ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ + entries.getString("id")))
+    {
+
+     // ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ + entries.getString("id"));
+
       JsonObject data = new JsonObject();
+
       while (resultSet.next())
       {
 
-        data.put("credential.id",resultSet.getInt("credential.id"));
-        data.put("credential.name",resultSet.getString("credential.name"));
-        data.put("protocol",resultSet.getString(Constant.PROTOCOL));
+        data.put(Constant.CREDENTIAL_ID,resultSet.getInt(Constant.CREDENTIAL_ID));
+        data.put(Constant.CREDENTIAL_NAME,resultSet.getString(Constant.CREDENTIAL_NAME));
+        data.put(Constant.PROTOCOL,resultSet.getString(Constant.PROTOCOL));
         data.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
         data.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
         data.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
+        data.put(Constant.COMMUNITY,resultSet.getString(Constant.COMMUNITY));
 
       }
-      databaseHandler.complete( data);
-    }catch (SQLException exception)
+
+
+      databaseHandler.complete( data );
+
+    }
+    catch (Exception exception)
     {
+
+      LOGGER.error(exception.getMessage());
 
       databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
+
     }
   }
 
   @Override
-  public void readAll(JsonObject jsonObject,Promise<Object> databaseHandler) {
-    try (Connection connection = createConnection()){
-      ResultSet resultSet = connection.createStatement().executeQuery("select * from credential");
-      JsonArray jsonArray = new JsonArray();
+  public void readAll(JsonObject entries,Promise<Object> databaseHandler)
+  {
+
+    try (Connection connection = createConnection();ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ_ALL))
+    {
+
+     // ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ_ALL);
+
+      JsonArray credentialData = new JsonArray();
+
       while (resultSet.next())
       {
+
         JsonObject data = new JsonObject();
-        data.put("credential.id",resultSet.getInt("credential.id"));
-        data.put("credential.name",resultSet.getString("credential.name"));
-        data.put("protocol",resultSet.getString(Constant.PROTOCOL));
+        data.put(Constant.CREDENTIAL_ID,resultSet.getInt(Constant.CREDENTIAL_ID));
+        data.put(Constant.CREDENTIAL_NAME,resultSet.getString(Constant.CREDENTIAL_NAME));
+        data.put(Constant.PROTOCOL,resultSet.getString(Constant.PROTOCOL));
         data.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
         data.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
         data.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
+        data.put(Constant.COMMUNITY,resultSet.getString(Constant.COMMUNITY));
 
-        jsonArray.add(data);
+        credentialData.add(data);
 
       }
-      databaseHandler.complete( new JsonObject().put("credential",jsonArray));
-    }catch (SQLException exception)
+
+      databaseHandler.complete( new JsonObject().put("credential",credentialData));
+
+    }
+    catch (Exception exception)
     {
 
+      LOGGER.error(exception.getMessage());
 
       databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
 
     }
+
   }
 
   @Override
-  public void update(JsonObject jsonObject,Promise<Object> databaseHandler) {
-    try (Connection connection = createConnection()){
+  public void update(JsonObject entries,Promise<Object> databaseHandler)
+  {
+
+    JsonObject credentialData = new JsonObject();
+
+    try (Connection connection = createConnection();
+          PreparedStatement preparedStatement = connection.prepareStatement("select * from credential where `credential.id` = ?"))
+    {
+
       StringBuilder queryInit = new StringBuilder();
-      for(Map.Entry<String,Object> data : jsonObject)
+
+      for(Map.Entry<String,Object> data : entries)
       {
         queryInit.append("`").append(data.getKey()).append("`").append(" = ").append("\"").append(data.getValue()).append("\"").append(",");
       }
+
       queryInit.deleteCharAt(queryInit.length()-1);
-      String query = "UPDATE credential SET " + queryInit + " WHERE `credential.id` = " + jsonObject.getString("credential.id");
-      System.out.println(query);
+
+      String query = "UPDATE credential SET " + queryInit + " WHERE `credential.id` = " + entries.getString(Constant.CREDENTIAL_ID);
+
       int affectedRows = connection.createStatement().executeUpdate(query);
 
-      System.out.println("affected rows  "+ affectedRows);
-
       if(affectedRows==0)throw new SQLException("id not exist");
-    }catch (SQLException exception){
+
+      //PreparedStatement preparedStatement = connection.prepareStatement("select * from credential where `credential.id` = ?");
+
+      preparedStatement.setString(1,entries.getString(Constant.CREDENTIAL_ID));
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next())
+        {
+
+          credentialData.put(Constant.CREDENTIAL_ID,resultSet.getInt(Constant.CREDENTIAL_ID));
+          credentialData.put(Constant.CREDENTIAL_NAME,resultSet.getString(Constant.CREDENTIAL_NAME));
+          credentialData.put(Constant.PROTOCOL,resultSet.getString(Constant.PROTOCOL));
+          credentialData.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
+          credentialData.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
+          credentialData.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
+          credentialData.put(Constant.COMMUNITY,resultSet.getString(Constant.COMMUNITY));
+
+        }
+
+    }
+    catch (SQLException exception)
+    {
+
+      LOGGER.error(exception.getMessage());
+
       databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
 
     }
 
-    // System.out.println(query);
-    databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+    Bootstrap.getVertex().eventBus().send(Constant.STORE_INITIAL_MAP,credentialData); // notification for credential Cache in Scheduler
+
+    databaseHandler.complete( credentialData.put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+
 
   }
 
   @Override
-  public void delete(JsonObject string,Promise<Object> databaseHandler) {
-    try (Connection connection = createConnection()){
-      int master = connection.createStatement().executeUpdate("delete from credential where `credential.id` = "+string.getString("id"));
-      System.out.println("delete from credential where credential.id = "+string);
+  public void delete(JsonObject entries,Promise<Object> databaseHandler)
+  {
+
+    try (Connection connection = createConnection())
+    {
+
+      connection.createStatement().executeUpdate("delete from credential where `credential.id` = "+entries.getString("id"));
+
       databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
 
-    }catch (SQLException exception){
-      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
-
     }
-  }
-
-  public void intialRead(JsonObject body,Promise<Object> databaseHandler) {
-
-    try (Connection connection = createConnection()){
-      ResultSet resultSet = connection.createStatement().executeQuery("select * from monitor left join credential on monitor.`credential.id` = credential.`credential.id` ");
-      JsonArray jsonArray = new JsonArray();
-      while (resultSet.next())
-      {
-        JsonObject data = new JsonObject();
-        data.put("monitor.id",resultSet.getInt("monitor.id"));
-        data.put("monitor.name",resultSet.getString("monitor.name"));
-        data.put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST));
-        data.put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT));
-        data.put(Constant.CREDENTIAL_ID,resultSet.getString(Constant.CREDENTIAL_ID));
-        data.put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE));
-        data.put(Constant.CPU,resultSet.getInt(Constant.CPU));
-        data.put(Constant.MEMORY,resultSet.getInt(Constant.MEMORY));
-        data.put(Constant.DISK,resultSet.getInt(Constant.DISK));
-        data.put(Constant.SYSTEM,resultSet.getInt(Constant.SYSTEM));
-        data.put(Constant.PROCESS,resultSet.getInt(Constant.PROCESS));
-        data.put(Constant.INTERFACE,resultSet.getInt(Constant.INTERFACE));
-        data.put(Constant.JSON_KEY_USERNAME,resultSet.getString(Constant.JSON_KEY_USERNAME));
-        data.put(Constant.JSON_KEY_PASSWORD,resultSet.getString(Constant.JSON_KEY_PASSWORD));
-        data.put(Constant.JSON_KEY_VERSION,resultSet.getString(Constant.JSON_KEY_VERSION));
-
-        jsonArray.add(data);
-
-      }
-
-      if (!jsonArray.isEmpty())
-      {
-        databaseHandler.complete(jsonArray);
-      }
-      else {
-        databaseHandler.fail(jsonArray.encodePrettily());
-      }
-    }catch (SQLException exception)
+    catch (Exception exception)
     {
+
+      LOGGER.error(exception.getMessage());
+
       databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
 
     }
   }
 
-  private static Connection createConnection() throws SQLException {
+  public void intialRead(Promise<Object> databaseHandler)
+  {
+
+    try (Connection connection = createConnection())
+    {
+
+      ResultSet resultSet = connection.createStatement().executeQuery("select * from metric left join monitor on metric.`monitor.id` = monitor.`monitor.id`");
+      JsonArray array = new JsonArray();
+      while (resultSet.next()){
+        JsonObject data = new JsonObject();
+        data.put(Constant.MONITOR_ID,resultSet.getInt(Constant.MONITOR_ID))
+          .put(Constant.METRIC_GROUP,resultSet.getString(Constant.METRIC_GROUP))
+          .put(Constant.DEFAULT_TIME,resultSet.getInt(Constant.METRIC_TIME))
+          .put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST))
+          .put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT))
+          .put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE))
+          .put(Constant.CREDENTIAL_ID,resultSet.getInt(Constant.CREDENTIAL_ID))
+          .put(Constant.MONITOR_NAME,resultSet.getString(Constant.MONITOR_NAME));
+
+        if(resultSet.getString(Constant.METRIC_GROUP).equals(Constant.PING))
+        {
+          data.put(Constant.TIME,0);
+        }
+        else
+        {
+          data.put(Constant.TIME,resultSet.getInt(Constant.METRIC_TIME));
+        }
+
+        array.add(data);
+
+      }
+
+        databaseHandler.complete(array);
+
+    }
+    catch (Exception exception)
+    {
+
+      LOGGER.error(exception.getMessage());
+
+      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
+
+    }
+  }
+
+  private static Connection createConnection() throws SQLException
+  {
 
     try{
       return DriverManager.getConnection(Constant.DATABASE_CONNECTION_URL, Constant.DATABASE_CONNECTION_USER, Constant.DATABASE_CONNECTION_PASSWORD);
     }
 
     catch (SQLException sqlException){
+
       throw new SQLException(Constant.CONNECTION_REFUSED);
     }
+
   }
 
 }

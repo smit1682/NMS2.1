@@ -9,7 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class APIRouter extends AbstractVerticle {
+public class APIRouter extends AbstractVerticle
+{
 
   private static final Logger LOGGER = LoggerFactory.getLogger(APIRouter.class);
 
@@ -33,15 +34,20 @@ public class APIRouter extends AbstractVerticle {
 
     new ReportingApi(subRoute);
 
+    new Metric(subRoute);
+
     vertx.createHttpServer().requestHandler(mainRouter).listen(Constant.HTTP_PORT).onComplete(http -> {
 
-      if (http.succeeded()) {
+      if (http.succeeded())
+      {
 
         LOGGER.info("HTTP server started on port {}",Constant.HTTP_PORT);
 
-      } else {
+      }
+      else
+      {
 
-        startPromise.fail(http.cause());
+        LOGGER.error("HTTP server not started");
 
       }
 

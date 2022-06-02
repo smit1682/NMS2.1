@@ -5,15 +5,14 @@ import com.mindarray.nms.util.Constant;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 
 public class DataStoreHandler extends AbstractVerticle {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DataStoreHandler.class);
 
   private final DiscoveryStore discoveryStore = new DiscoveryStore();
+  private final MetricStore metricStore = new MetricStore();
 
   private final CredentialStore credentialStore = new CredentialStore();
 
@@ -22,11 +21,12 @@ public class DataStoreHandler extends AbstractVerticle {
   private final UtilStore utilStore = new UtilStore();
 
   @Override
-  public void start(Promise<Void> startPromise) {
+  public void start(Promise<Void> startPromise)
+  {
 
 
 
-    vertx.eventBus().<JsonObject>consumer(Constant.INSERT_TO_DATABASE, message->{
+    vertx.eventBus().<JsonObject>localConsumer(Constant.INSERT_TO_DATABASE, message->{
 
       JsonObject dataMessage = message.body();
 
@@ -84,15 +84,21 @@ public class DataStoreHandler extends AbstractVerticle {
           case Constant.MONITOR_READ:
               monitorStore.read(dataMessage,databaseHandler);
               break;
-
+          case Constant.METRIC_READ:
+            metricStore.read(dataMessage,databaseHandler);
+              break;
           case Constant.MONITOR_READ_ALL:
               monitorStore.readAll(dataMessage,databaseHandler);
               break;
 
-          case Constant.MONITOR_UPDATE:
+          case Constant.METRIC_UPDATE:
               dataMessage.remove(Constant.IDENTITY);
-              monitorStore.update(dataMessage,databaseHandler);
+              metricStore.update(dataMessage,databaseHandler);
               break;
+
+          case Constant.MONITOR_UPDATE:
+            dataMessage.remove(Constant.IDENTITY);
+            monitorStore.update(dataMessage,databaseHandler);
 
           case Constant.TOP_FIVE:
               utilStore.topFive(dataMessage,databaseHandler);
@@ -103,7 +109,7 @@ public class DataStoreHandler extends AbstractVerticle {
               break;
 
           case Constant.VALIDATE_ID:
-              utilStore.checkIP(dataMessage.getString(Constant.ID),dataMessage.getString("table.name"),databaseHandler);
+              utilStore.checkId(dataMessage.getString(Constant.ID),dataMessage.getString(Constant.TABLE_NAME),databaseHandler);
               break;
 
           case Constant.UPDATE_AFTER_RUN_DISCOVERY:
@@ -119,7 +125,7 @@ public class DataStoreHandler extends AbstractVerticle {
               break;
 
           case Constant.PICK_UP_DATA_INITAL:
-              credentialStore.intialRead(dataMessage,databaseHandler);
+              credentialStore.intialRead(databaseHandler);
               break;
 
           case Constant.DUMP_METRIC_DATA:
@@ -129,8 +135,7 @@ public class DataStoreHandler extends AbstractVerticle {
           case Constant.RUN_DISCOVERY_DATA_COLLECT:
               discoveryStore.mergeData(dataMessage,databaseHandler);
               break;
-          case Constant.CREATE_CONTEXT:
-            monitorStore.createContext(dataMessage,databaseHandler);
+
         }
 
       }, insertResult->{
@@ -139,7 +144,8 @@ public class DataStoreHandler extends AbstractVerticle {
         {
           message.reply(insertResult.result());
         }
-        else {
+        else
+        {
           message.fail(300,insertResult.cause().getMessage());
         }
 
