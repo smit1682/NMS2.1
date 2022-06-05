@@ -1,15 +1,14 @@
 package com.mindarray.nms.util;
 
-public enum Entity {
+public enum Entity
+{
   DISCOVERY("/discovery","discovery.id"),
 
   CREDENTIAL("/credential","credential.id"),
 
   MONITOR("/monitor","monitor.id"),
 
-  METRIC("/metric","monitor.id"),
-
-  RUN_DISCOVERY("/discovery/:id","discovery.id");
+  METRIC("/metric","monitor.id");
 
   private final String path;
 

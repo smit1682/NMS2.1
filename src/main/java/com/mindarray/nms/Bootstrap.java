@@ -51,14 +51,11 @@ public class Bootstrap
 
           System.exit(0);
         }
-
       });
-
   }
 
   public static Future<Void> start(String vertical)
   {
-
     Promise<Void> promise = Promise.promise();
 
     vertex.deployVerticle(vertical).onComplete(result -> {
@@ -71,10 +68,8 @@ public class Bootstrap
       {
         promise.fail(result.cause());
       }
-
     });
 
     return promise.future();
   }
-
 }

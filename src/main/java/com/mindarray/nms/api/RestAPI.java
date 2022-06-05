@@ -18,11 +18,10 @@ public abstract class RestAPI
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RestAPI.class);
 
-  public RestAPI() {}
+  protected RestAPI() {}
 
-  public RestAPI(Router router)
+  protected RestAPI(Router router)
   {
-
     router.post(getEntity().getPath()).setName("post").handler(this::validate).handler(this::create);
 
     router.put(getEntity().getPath() + "/:id").setName("put").handler(this::validateId).handler(this::validate).handler(this::update);
@@ -32,49 +31,46 @@ public abstract class RestAPI
     router.delete(getEntity().getPath() + "/:id").setName("delete").handler(this::validateId).handler(this::delete);
 
     router.get(getEntity().getPath() + "/:id").setName("get").handler(this::validateId).handler(this::read);
-
   }
 
    protected abstract Entity getEntity();
 
    public void validateId(RoutingContext routingContext)
    {
+     Util.validateId(routingContext.pathParam(Constant.ID), getEntity()).onComplete(result -> {
 
-       Util.validateId(routingContext.pathParam(Constant.ID), getEntity()).onComplete(result -> {
-
-         try {
-
-           if (result.succeeded() && getEntity().equals(Entity.METRIC) && routingContext.getBodyAsJson() != null)   //for monitor id validation which also fetch metric.type
-           {
-             routingContext.setBody(routingContext.getBodyAsJson().mergeIn(result.result()).toBuffer());
-
-             routingContext.next();
-           }
-           else if (result.succeeded() && getEntity().equals(Entity.CREDENTIAL) && routingContext.getBodyAsJson() != null)  //for credential id validation which also fetch protocol to validate update field
-           {
-             routingContext.setBody(routingContext.getBodyAsJson().mergeIn(result.result()).toBuffer());
-
-             routingContext.next();
-           }
-           else if (result.succeeded())  //for get and getAll validation
-           {
-             routingContext.next();
-           }
-           else
-           {
-             routingContext.response().end(new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, Constant.NOT_VALID).encodePrettily());
-           }
-
-         }
-         catch (Exception exception)
+       try
+       {
+         if (result.succeeded() && getEntity().equals(Entity.METRIC) && routingContext.getBodyAsJson() != null)  //for monitor id validation which also fetch metric.type
          {
-           LOGGER.error(exception.getMessage());
+           routingContext.setBody(routingContext.getBodyAsJson().mergeIn(result.result()).toBuffer());
 
-           routingContext.response().setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, exception.getMessage()).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
+           routingContext.next();
          }
+         else if (result.succeeded() && getEntity().equals(Entity.CREDENTIAL) && routingContext.getBodyAsJson() != null)    //for credential id validation which also fetch protocol to validate update field
+         {
+           routingContext.setBody(routingContext.getBodyAsJson().mergeIn(result.result()).toBuffer());
 
-       });
+           routingContext.next();
+         }
+         else if (result.succeeded())   //for get and getAll validation
+         {
+           routingContext.next();
+         }
+         else
+         {
+           LOGGER.error(Constant.NOT_VALID);
 
+           routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).put(Constant.ERROR, Constant.NOT_VALID).encodePrettily());
+         }
+       }
+       catch (Exception exception)
+       {
+         LOGGER.error(exception.getMessage());
+
+         routingContext.response().setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, exception.getMessage()).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
+       }
+     });
    }
 
    public void validate(RoutingContext routingContext)
@@ -102,11 +98,11 @@ public abstract class RestAPI
    {
      JsonObject readData = new JsonObject();
 
-    readData.put(Constant.ID,routingContext.pathParam(Constant.ID)).put(Constant.IDENTITY,getEntity() + Constant.READ);
+     readData.put(Constant.ID,routingContext.pathParam(Constant.ID)).put(Constant.IDENTITY,getEntity() + Constant.READ);
 
-    routingContext.setBody(readData.toBuffer());
+     routingContext.setBody(readData.toBuffer());
 
-    eventBusToDB(readData,routingContext);
+     eventBusToDB(readData,routingContext);
    }
 
    private void update(RoutingContext routingContext)
@@ -137,35 +133,33 @@ public abstract class RestAPI
    private void eventBusToDB(JsonObject data,RoutingContext routingContext)
    {
 
-     vertx.eventBus().request(Constant.DATABASE_HANDLER ,data,replayMessage->{
+     vertx.eventBus().<JsonObject>request(Constant.DATABASE_HANDLER ,data,replayMessage->{
+      try
+      {
+        if (replayMessage.succeeded() && replayMessage.result().body() != null)
+        {
+          if (Constant.METRIC_UPDATE.equals(data.getString(Constant.IDENTITY)) || Constant.MONITOR_UPDATE.equals(data.getString(Constant.IDENTITY)))
+          {
+            vertx.eventBus().send(Constant.UPDATE_SCHEDULING, data);
+          }
+          else if (Constant.MONITOR_DELETE.equals(data.getString(Constant.IDENTITY)))
+          {
+            vertx.eventBus().send(Constant.DELETE_SCHEDULING, data);
+          }
 
-       if(replayMessage.succeeded() && replayMessage.result().body() != null)
-       {
+          routingContext.response().putHeader(Constant.CONTENT_TYPE, Constant.APPLICATION_JSON).end(replayMessage.result().body().encodePrettily());
+        }
+        else
+        {
+          routingContext.response().putHeader(Constant.CONTENT_TYPE, Constant.APPLICATION_JSON).end(replayMessage.cause().getMessage());
+        }
+      }
+      catch (Exception exception)
+      {
+        LOGGER.error(exception.getMessage());
 
-         if(Constant.METRIC_UPDATE.equals(data.getString(Constant.IDENTITY)))
-         {
-           vertx.eventBus().send(Constant.UPDATE_SCHEDULING,data);
-         }
-
-         if(Constant.MONITOR_UPDATE.equals(data.getString(Constant.IDENTITY)))
-         {
-           vertx.eventBus().send(Constant.UPDATE_SCHEDULING, data);
-         }
-
-         if(Constant.MONITOR_DELETE.equals(data.getString(Constant.IDENTITY)))
-         {
-           vertx.eventBus().send(Constant.DELETE_SCHEDULING, data);
-         }
-
-        routingContext.response().end( replayMessage.result().body().toString());
-
-       }
-       else
-       {
-         routingContext.response().end(replayMessage.cause().getMessage());
-       }
-
+        routingContext.response().setStatusCode(Constant.INTERNAL_SERVER_ERROR).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, exception.getMessage()).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).encodePrettily());
+      }
      });
    }
-
 }

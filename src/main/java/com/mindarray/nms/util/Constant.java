@@ -1,12 +1,8 @@
 package com.mindarray.nms.util;
 
 public class Constant {
- public static final int HTTP_PORT = 8888;
-  public static final String ROUTE_DISCOVERY_PATH = "/discovery";
+  public static final int HTTP_PORT = 8888;
   public static final String EVENTBUS_ADDRESS_DISCOVERY = "discovery.engine";
-  public static final String EVENTBUS_ADDRESS_CHECK_IP = "checkIP";
-  public static final String EVENTBUS_ADDRESS_DISCOVERY_DATABASE = "discovery.database";
-
   public static final String JSON_KEY_METRIC_TYPE = "metric.type";
   public static final String JSON_KEY_PASSWORD = "password";
   public static final String JSON_KEY_PORT = "port";
@@ -15,17 +11,14 @@ public class Constant {
   public static final String JSON_KEY_VERSION = "version";
 
   public static final String STATUS = "status";
+
   public static final String ERROR = "error";
+  public static final String FAIL = "fail";
   public static final String SUCCESS = "success";
-
   public static final String DISCOVERED = "Already Discovered";
-
   public static final String NOT_DISCOVERED = "Not Discovered";
-
-  public static final String PLUGIN_PATH = "./plugin.exe";
-
+  public static final String PLUGIN_PATH = "./mainPlugin";
   public static final String DISCOVERY_AND_DATABASE_SUCCESS = "Discovery Success and stored in database";
-
   public static final String DISCOVERY_SUCCESS_DATABASE_FAILED = "Discovery Success but did not stored in database";
 
   public static final String INTERRUPTED_EXCEPTION = "INTERRUPTED_EXCEPTION";
@@ -33,9 +26,9 @@ public class Constant {
   public static final String IO_EXCEPTION = "IO_EXCEPTION";
 
   public static final Integer BAD_REQUEST = 400;
+  public static final Integer NOT_FOUND = 404;
   public static final String NO_INPUT = "NO JSON INPUT";
   public static final String INVALID_INPUT = "INVALID JSON INPUT";
-
   public static final String PING_DOWN = "Ping down";
   public static final String PING_UP = "Ping up";
 
@@ -45,28 +38,22 @@ public class Constant {
   public static final String WINDOWS = "windows";
   public static final String NETWORK_DEVICE = "network.device";
 
-public static final String ILLEGAL_ARGUMENT_EXCEPTION = "IllegalArgumentException";
-public static final Integer OK =200;
-public static final Integer INTERNAL_SERVER_ERROR  =500;
-public static final Integer ALREADY_AVAILABLE = 600;
+  public static final String ILLEGAL_ARGUMENT_EXCEPTION = "IllegalArgumentException";
+  public static final Integer OK =200;
+  public static final Integer INTERNAL_SERVER_ERROR  =500;
+  public static final Integer ALREADY_AVAILABLE = 600;
 
-public static final String QUERY_INSERT_TO_DISCOVERY_TABLE = "INSERT INTO credentials VALUES (?,?,?,?,?,?)";
-public static final String QUERY_CHECK_IP = "select * from credentials where host = ?";
-public static final String DATABASE_CONNECTION_URL = "jdbc:mysql://localhost:3306/NMS2.2";
-public static final String DATABASE_CONNECTION_USER = "root";
-public static final String DATABASE_CONNECTION_PASSWORD = "smit1682";
-public static final String CONNECTION_REFUSED = "Connection Refused";
-
+  public static final String QUERY_INSERT_TO_DISCOVERY_TABLE = "INSERT INTO credentials VALUES (?,?,?,?,?,?)";
+  public static final String QUERY_CHECK_IP = "select * from credentials where host = ?";
+  public static final String DATABASE_CONNECTION_URL = "jdbc:mysql://localhost:3306/NMS2.2";
+  public static final String DATABASE_CONNECTION_USER = "root";
+  public static final String DATABASE_CONNECTION_PASSWORD = "smit1682";
+  public static final String CONNECTION_REFUSED = "Connection Refused";
   public static final String zeroTo255 = "(\\d{1,2}|([01])\\" + "d{2}|2[0-4]\\d|25[0-5])";
 
- public static final String REGEX_IP = zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255;
-
-
-
-public static final String CREDENTIAL_NAME = "credential.name";
-public static final String PROTOCOL = "protocol";
-
-
+  public static final String REGEX_IP = zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255;
+  public static final String CREDENTIAL_NAME = "credential.name";
+  public static final String PROTOCOL = "protocol";
   public static final String MESSAGE = "message";
   public static final String DISCOVERY_NAME = "discovery.name";
   public static final String CREDENTIAL_ID = "credential.id" ;
@@ -163,4 +150,12 @@ public static final String PROTOCOL = "protocol";
   public static final String PROTOCOL_VALIDATION = "protocolValidation";
   public static final String METRIC_TYPE_VALIDATION = "metric.typeValidation";
     public static final String RESULT = "result";
+    public static final String CONTENT_TYPE = "content-type";
+    public static final String APPLICATION_JSON = "application/json";
+    public static final String REMOVE_EXTRA_FIELD = "Remove extra fields";
+
+
+  public static final String DO_NOT_UPDATE = "This field is not updatable";
+  public static final String QUERY_INTIAL_READ = "select * from metric left join monitor on metric.`monitor.id` = monitor.`monitor.id`";
+  public static final String METRIC_READ_ALL = "METRICReadAll";
 }

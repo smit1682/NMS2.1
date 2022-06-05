@@ -24,38 +24,52 @@ public class Scheduler extends AbstractVerticle
 
     vertx.eventBus().<JsonObject>localConsumer(Constant.EA_SCHEDULING, message -> schedulingQueue.add(message.body()));
 
-    vertx.eventBus().<JsonObject>localConsumer(Constant.STORE_INITIAL_MAP,message -> credentialCache.put(message.body().getInteger(Constant.CREDENTIAL_ID),message.body()));
-
-    vertx.eventBus().<JsonObject>localConsumer(Constant.UPDATE_SCHEDULING, message -> {
-
-      for(JsonObject metricData : schedulingQueue)
+    vertx.eventBus().<JsonObject>localConsumer(Constant.STORE_INITIAL_MAP,message -> {
+      try
       {
-        if(metricData.getString(Constant.MONITOR_ID).equals(message.body().getString(Constant.MONITOR_ID)))
+        if (message.body() != null && message.body().containsKey(Constant.CREDENTIAL_ID))
         {
-           if(message.body().containsKey(Constant.JSON_KEY_PORT) && message.body().containsKey(Constant.CREDENTIAL_ID))
-           {
-              metricData.put(Constant.JSON_KEY_PORT,message.body().getInteger(Constant.JSON_KEY_PORT));
-              metricData.put(Constant.CREDENTIAL_ID,message.body().getInteger(Constant.CREDENTIAL_ID));
-           }
-           else if(message.body().containsKey(Constant.CREDENTIAL_ID))
-           {
-             metricData.put(Constant.CREDENTIAL_ID,message.body().getInteger(Constant.CREDENTIAL_ID));
-
-           }
-           else if(message.body().containsKey(Constant.JSON_KEY_PORT))
-           {
-             metricData.put(Constant.JSON_KEY_PORT,message.body().getInteger(Constant.JSON_KEY_PORT));
-
-           }
-           else if(message.body().containsKey(Constant.METRIC_GROUP) && message.body().getString(Constant.METRIC_GROUP).equals(metricData.getString(Constant.METRIC_GROUP)))
-           {
-              metricData.put(Constant.DEFAULT_TIME,message.body().getInteger(Constant.TIME));
-              break;
-           }
+          credentialCache.put(message.body().getInteger(Constant.CREDENTIAL_ID), message.body());
         }
       }
+      catch (Exception exception)
+      {
+        LOGGER.error(exception.getMessage(),exception);
+      }
+    });
 
-
+    vertx.eventBus().<JsonObject>localConsumer(Constant.UPDATE_SCHEDULING, message -> {
+      try
+      {
+        for(JsonObject metricData : schedulingQueue)
+        {
+          if(metricData.getString(Constant.MONITOR_ID).equals(message.body().getString(Constant.MONITOR_ID)))
+          {
+             if(message.body().containsKey(Constant.JSON_KEY_PORT) && message.body().containsKey(Constant.CREDENTIAL_ID))
+              {
+                metricData.put(Constant.JSON_KEY_PORT,message.body().getInteger(Constant.JSON_KEY_PORT));
+                metricData.put(Constant.CREDENTIAL_ID,message.body().getInteger(Constant.CREDENTIAL_ID));
+              }
+              else if(message.body().containsKey(Constant.CREDENTIAL_ID))
+              {
+                metricData.put(Constant.CREDENTIAL_ID,message.body().getInteger(Constant.CREDENTIAL_ID));
+              }
+              else if(message.body().containsKey(Constant.JSON_KEY_PORT))
+              {
+                metricData.put(Constant.JSON_KEY_PORT,message.body().getInteger(Constant.JSON_KEY_PORT));
+              }
+              else if(message.body().containsKey(Constant.METRIC_GROUP) && message.body().getString(Constant.METRIC_GROUP).equals(metricData.getString(Constant.METRIC_GROUP)))
+              {
+                metricData.put(Constant.DEFAULT_TIME,message.body().getInteger(Constant.TIME));
+                break;
+              }
+          }
+        }
+      }
+      catch (Exception exception)
+      {
+        LOGGER.error(exception.getMessage(),exception);
+      }
     });
 
     vertx.eventBus().<JsonObject>localConsumer(Constant.DELETE_SCHEDULING, message->{
@@ -67,7 +81,6 @@ public class Scheduler extends AbstractVerticle
       {
         LOGGER.error(exception.getMessage(),exception);
       }
-
     });
 
 
@@ -79,22 +92,20 @@ public class Scheduler extends AbstractVerticle
 
         if (waitTime <= 0)
         {
-            metricData.mergeIn(credentialCache.get(metricData.getInteger(Constant.CREDENTIAL_ID)));
+          metricData.mergeIn(credentialCache.get(metricData.getInteger(Constant.CREDENTIAL_ID)));
 
-            vertx.eventBus().send(Constant.EA_PULLING, metricData);
+          vertx.eventBus().send(Constant.EA_PULLING, metricData);
 
-            metricData.put(Constant.TIME, metricData.getInteger(Constant.DEFAULT_TIME));
+          metricData.put(Constant.TIME, metricData.getInteger(Constant.DEFAULT_TIME));
         }
         else
         {
-            metricData.put(Constant.TIME, waitTime);
+          metricData.put(Constant.TIME, waitTime);
         }
-
       }
       LOGGER.info("********** waiting for 10 seconds **********");
     });
 
     startPromise.complete();
   }
-
 }

@@ -11,14 +11,15 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.Map;
 
-public class CredentialStore implements CrudStore {
+public class CredentialStore implements CrudStore
+{
   private static final Logger LOGGER = LoggerFactory.getLogger(CredentialStore.class);
 
   @Override
-  public void create(JsonObject entries, Promise<Object> databaseHandler) {
-
-
-    try (Connection connection = createConnection();PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_CREDENTIAL_INSERT))
+  public void create(JsonObject entries, Promise<Object> databaseHandler)
+  {
+    try ( Connection connection = createConnection();
+          PreparedStatement preparedStatement = connection.prepareStatement(Constant.QUERY_CREDENTIAL_INSERT))
     {
 
       preparedStatement.setString(1,entries.getString(Constant.CREDENTIAL_NAME));
@@ -31,38 +32,43 @@ public class CredentialStore implements CrudStore {
       preparedStatement.executeUpdate();
 
       int id = 0;
-      try(ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_ID)) {
 
-        while (resultSet.next()) {
+      try(ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_ID))
+      {
+        while (resultSet.next())
+        {
           id = resultSet.getInt(1);
         }
       }
-      databaseHandler.complete(new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.MESSAGE,id));
+
+      databaseHandler.complete(new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.MESSAGE,id).put(Constant.STATUS_CODE,Constant.OK));
 
       Bootstrap.getVertex().eventBus().send(Constant.STORE_INITIAL_MAP,entries.put(Constant.CREDENTIAL_ID,id));  // notification for credential Cache in Scheduler
-
-
     }
-    catch (Exception e)
+    catch (SQLException sqlException)
     {
+      LOGGER.error(sqlException.getMessage(),sqlException);
 
-      LOGGER.error(e.getMessage());
-
-      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,e.getMessage()).encodePrettily());
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+                                           .put(Constant.STATUS_CODE,Constant.BAD_REQUEST)
+                                           .put(Constant.ERROR,sqlException.getMessage()).encodePrettily());
     }
+    catch (Exception exception)
+    {
+      LOGGER.error(exception.getMessage(),exception);
 
-
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR)
+        .put(Constant.ERROR,exception.getMessage()).encodePrettily());
+    }
   }
 
   @Override
   public void read(JsonObject entries,Promise<Object> databaseHandler)
   {
-
-    try (Connection connection = createConnection();ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ + entries.getString("id")))
+    try ( Connection connection = createConnection();
+          ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ + entries.getString("id")))
     {
-
       JsonObject data = new JsonObject();
 
       while (resultSet.next())
@@ -78,17 +84,25 @@ public class CredentialStore implements CrudStore {
 
       }
 
+      databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS)
+                                                .put(Constant.STATUS_CODE,Constant.OK)
+                                                .put(Constant.RESULT,data));
+    }
+    catch (SQLException sqlException)
+    {
+      LOGGER.error(sqlException.getMessage(),sqlException);
 
-      databaseHandler.complete( data );
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.BAD_REQUEST)
+        .put(Constant.ERROR,sqlException.getMessage()).encodePrettily());
     }
     catch (Exception exception)
     {
+      LOGGER.error(exception.getMessage(),exception);
 
-      LOGGER.error(exception.getMessage());
-
-      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR)
+        .put(Constant.ERROR,exception.getMessage()).encodePrettily());
     }
   }
 
@@ -96,9 +110,9 @@ public class CredentialStore implements CrudStore {
   public void readAll(JsonObject entries,Promise<Object> databaseHandler)
   {
 
-    try (Connection connection = createConnection();ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ_ALL))
+    try ( Connection connection = createConnection();
+          ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_CREDENTIAL_READ_ALL))
     {
-
       JsonArray credentialData = new JsonArray();
 
       while (resultSet.next())
@@ -114,19 +128,28 @@ public class CredentialStore implements CrudStore {
         data.put(Constant.COMMUNITY,resultSet.getString(Constant.COMMUNITY));
 
         credentialData.add(data);
-
       }
 
-      databaseHandler.complete( new JsonObject().put("credential",credentialData));
+      databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS)
+                                                .put(Constant.STATUS_CODE,Constant.OK)
+                                                .put(Constant.RESULT,credentialData));
 
+    }
+    catch (SQLException sqlException)
+    {
+      LOGGER.error(sqlException.getMessage(),sqlException);
+
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.BAD_REQUEST)
+        .put(Constant.ERROR,sqlException.getMessage()).encodePrettily());
     }
     catch (Exception exception)
     {
+      LOGGER.error(exception.getMessage(),exception);
 
-      LOGGER.error(exception.getMessage());
-
-      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR)
+        .put(Constant.ERROR,exception.getMessage()).encodePrettily());
     }
 
   }
@@ -134,13 +157,11 @@ public class CredentialStore implements CrudStore {
   @Override
   public void update(JsonObject entries,Promise<Object> databaseHandler)
   {
-
     JsonObject credentialData = new JsonObject();
 
-    try (Connection connection = createConnection();
+    try ( Connection connection = createConnection();
           PreparedStatement preparedStatement = connection.prepareStatement("select * from credential where `credential.id` = ?"))
     {
-
       StringBuilder queryInit = new StringBuilder();
 
       for(Map.Entry<String,Object> data : entries)
@@ -158,9 +179,10 @@ public class CredentialStore implements CrudStore {
 
       preparedStatement.setString(1,entries.getString(Constant.CREDENTIAL_ID));
 
-      try(ResultSet resultSet = preparedStatement.executeQuery()) {
-
-        while (resultSet.next()) {
+      try(ResultSet resultSet = preparedStatement.executeQuery())
+      {
+        while (resultSet.next())
+        {
 
           credentialData.put(Constant.CREDENTIAL_ID, resultSet.getInt(Constant.CREDENTIAL_ID));
           credentialData.put(Constant.CREDENTIAL_NAME, resultSet.getString(Constant.CREDENTIAL_NAME));
@@ -172,66 +194,80 @@ public class CredentialStore implements CrudStore {
 
         }
       }
+
       Bootstrap.getVertex().eventBus().send(Constant.STORE_INITIAL_MAP,credentialData); // notification for credential Cache in Scheduler
 
-      databaseHandler.complete( credentialData.put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+      databaseHandler.complete( credentialData.put(Constant.STATUS,Constant.SUCCESS)
+                                              .put(Constant.STATUS_CODE,Constant.OK)
+                                              .put(Constant.STATUS_CODE,Constant.OK));
 
     }
-    catch (SQLException exception)
+    catch (SQLException sqlException)
     {
+      LOGGER.error(sqlException.getMessage(),sqlException);
 
-      LOGGER.error(exception.getMessage());
-
-      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.BAD_REQUEST)
+        .put(Constant.ERROR,sqlException.getMessage()).encodePrettily());
     }
+    catch (Exception exception)
+    {
+      LOGGER.error(exception.getMessage(),exception);
 
-
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR)
+        .put(Constant.ERROR,exception.getMessage()).encodePrettily());
+    }
   }
 
   @Override
   public void delete(JsonObject entries,Promise<Object> databaseHandler)
   {
-
-    try (Connection connection = createConnection();Statement statement = connection.createStatement())
+    try ( Connection connection = createConnection();
+          Statement statement = connection.createStatement())
     {
-
-
       statement.executeUpdate("delete from credential where `credential.id` = "+entries.getString("id"));
 
       databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+    }
+    catch (SQLException sqlException)
+    {
+      LOGGER.error(sqlException.getMessage(),sqlException);
 
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.BAD_REQUEST)
+        .put(Constant.ERROR,sqlException.getMessage()).encodePrettily());
     }
     catch (Exception exception)
     {
+      LOGGER.error(exception.getMessage(),exception);
 
-      LOGGER.error(exception.getMessage());
-
-      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR)
+        .put(Constant.ERROR,exception.getMessage()).encodePrettily());
     }
   }
 
   public void intialRead(Promise<Object> databaseHandler)
   {
 
-    try (Connection connection = createConnection();
-         ResultSet resultSet = connection.createStatement().executeQuery("select * from metric left join monitor on metric.`monitor.id` = monitor.`monitor.id`"))
+    try ( Connection connection = createConnection();
+          ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_INTIAL_READ))
     {
-
-
       JsonArray array = new JsonArray();
-      while (resultSet.next()){
+
+      while (resultSet.next())
+      {
         JsonObject data = new JsonObject();
+
         data.put(Constant.MONITOR_ID,resultSet.getInt(Constant.MONITOR_ID))
-          .put(Constant.METRIC_GROUP,resultSet.getString(Constant.METRIC_GROUP))
-          .put(Constant.DEFAULT_TIME,resultSet.getInt(Constant.METRIC_TIME))
-          .put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST))
-          .put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT))
-          .put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE))
-          .put(Constant.CREDENTIAL_ID,resultSet.getInt(Constant.CREDENTIAL_ID))
-          .put(Constant.MONITOR_NAME,resultSet.getString(Constant.MONITOR_NAME));
+            .put(Constant.METRIC_GROUP,resultSet.getString(Constant.METRIC_GROUP))
+            .put(Constant.DEFAULT_TIME,resultSet.getInt(Constant.METRIC_TIME))
+            .put(Constant.JSON_KEY_HOST,resultSet.getString(Constant.JSON_KEY_HOST))
+            .put(Constant.JSON_KEY_PORT,resultSet.getString(Constant.JSON_KEY_PORT))
+            .put(Constant.JSON_KEY_METRIC_TYPE,resultSet.getString(Constant.JSON_KEY_METRIC_TYPE))
+            .put(Constant.CREDENTIAL_ID,resultSet.getInt(Constant.CREDENTIAL_ID))
+            .put(Constant.MONITOR_NAME,resultSet.getString(Constant.MONITOR_NAME));
 
         if(resultSet.getString(Constant.METRIC_GROUP).equals(Constant.PING))
         {
@@ -243,19 +279,25 @@ public class CredentialStore implements CrudStore {
         }
 
         array.add(data);
-
       }
 
-        databaseHandler.complete(array);
+      databaseHandler.complete(array);
+    }
+    catch (SQLException sqlException)
+    {
+      LOGGER.error(sqlException.getMessage(),sqlException);
 
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.BAD_REQUEST)
+        .put(Constant.ERROR,sqlException.getMessage()).encodePrettily());
     }
     catch (Exception exception)
     {
+      LOGGER.error(exception.getMessage(),exception);
 
-      LOGGER.error(exception.getMessage());
-
-      databaseHandler.fail( new JsonObject().put(Constant.STATUS,Constant.ERROR).put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR).put(Constant.ERROR,exception.getMessage()).encodePrettily());
-
+      databaseHandler.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL)
+        .put(Constant.STATUS_CODE,Constant.INTERNAL_SERVER_ERROR)
+        .put(Constant.ERROR,exception.getMessage()).encodePrettily());
     }
   }
 
@@ -269,8 +311,5 @@ public class CredentialStore implements CrudStore {
     {
       throw new SQLException(Constant.CONNECTION_REFUSED);
     }
-
   }
-
-
 }

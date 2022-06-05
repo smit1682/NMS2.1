@@ -5,7 +5,6 @@ import io.vertx.ext.web.Router;
 
 public class Credential extends RestAPI
 {
-
   public Credential(Router router)
   {
     super(router);
@@ -16,5 +15,4 @@ public class Credential extends RestAPI
   {
     return Entity.CREDENTIAL;
   }
-
 }

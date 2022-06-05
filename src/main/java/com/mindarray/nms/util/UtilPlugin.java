@@ -54,15 +54,30 @@ public class UtilPlugin {
 
         discoveryStatus = new JsonObject(outputJsonString);   //DecodeException
 
-        promise.complete( discoveryStatus);
+        if(dataToDiscover.getString(Constant.CATEGORY).equals(Constant.PULLING))
+        {
+          if(discoveryStatus.containsKey(Constant.STATUS) && Constant.SUCCESS.equals(discoveryStatus.getString(Constant.STATUS)))
+          {
+            promise.complete(discoveryStatus);
+          }
+          else
+          {
+            promise.fail(discoveryStatus.encodePrettily());
+          }
+        }
+        else
+        {
+          promise.complete( discoveryStatus);
+        }
+
 
       } catch (DecodeException exception) {
-        promise.fail(new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.STATUS, outputJsonString).encodePrettily());
+        promise.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.STATUS, outputJsonString).encodePrettily());
       }
 
     } catch (Exception exception)
     {
-      promise.fail( new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, exception.getMessage()).encodePrettily());
+      promise.fail( new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, exception.getMessage()).encodePrettily());
     }
     finally
     {

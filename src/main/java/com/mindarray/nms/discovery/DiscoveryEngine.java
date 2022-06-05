@@ -19,8 +19,8 @@ public class DiscoveryEngine extends AbstractVerticle
   {
     vertx.eventBus().<JsonObject>localConsumer(Constant.EVENTBUS_ADDRESS_DISCOVERY, message -> {
 
-      try {
-
+      try
+      {
         JsonObject discoveryData = message.body();  //may throw nullPointerException or DecodeException
 
         String ipAddress = discoveryData.getString(Constant.JSON_KEY_HOST);
@@ -73,7 +73,6 @@ public class DiscoveryEngine extends AbstractVerticle
 
                             message.reply(databaseReply.result().body().put(Constant.STATUS, Constant.DISCOVERY_SUCCESS_DATABASE_FAILED));
                         }
-
                   }
                   else
                   {
@@ -82,45 +81,36 @@ public class DiscoveryEngine extends AbstractVerticle
                     message.fail(696, databaseReply.cause().getMessage());
                   }
                 });
-
               }
               else
               {
+                LOGGER.error(pluginEventResult.cause().getMessage());
 
-                  LOGGER.error(pluginEventResult.cause().getMessage());
+                vertx.eventBus().send(Constant.DATABASE_HANDLER,discoveryData.put(Constant.RESULT,pluginEventResult.cause().getMessage()).put(Constant.STATUS,Constant.FAIL).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
 
-                  vertx.eventBus().send(Constant.DATABASE_HANDLER,discoveryData.put(Constant.RESULT,pluginEventResult.cause().getMessage()).put(Constant.STATUS,Constant.ERROR).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
-
-                  message.fail(696, pluginEventResult.cause().getMessage());
+                message.fail(696, pluginEventResult.cause().getMessage());
               }
             });
-
-
           }
           else
           {
             LOGGER.debug(Constant.PING_DOWN);
 
-            vertx.eventBus().send(Constant.DATABASE_HANDLER,discoveryData.put(Constant.RESULT,Constant.PING_DOWN).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY).put(Constant.STATUS,Constant.ERROR));
+            vertx.eventBus().send(Constant.DATABASE_HANDLER,discoveryData.put(Constant.RESULT,Constant.PING_DOWN).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY).put(Constant.STATUS,Constant.FAIL));
 
-            message.fail(400, new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, pingEventResult.cause().getMessage()).put(Constant.STATUS_CODE, Constant.BAD_REQUEST).toString());
+            message.fail(400, new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, pingEventResult.cause().getMessage()).put(Constant.STATUS_CODE, Constant.BAD_REQUEST).toString());
           }
 
         });
-
-
       }
       catch (Exception exception)
       {
-          LOGGER.error(exception.getMessage());
+        LOGGER.error(exception.getMessage(),exception);
 
-          message.fail(500,new JsonObject().put(Constant.STATUS, Constant.ERROR).put(Constant.ERROR, exception.getMessage()).toString());
+        message.fail(500,new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, exception.getMessage()).toString());
       }
-
     });
 
     startPromise.complete();
-
   }
-
 }
