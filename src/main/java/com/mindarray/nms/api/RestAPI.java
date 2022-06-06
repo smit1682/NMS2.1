@@ -33,7 +33,11 @@ public abstract class RestAPI
     router.get(getEntity().getPath() + "/:id").setName("get").handler(this::validateId).handler(this::read);
   }
 
-   protected abstract Entity getEntity();
+
+
+  protected abstract Entity getEntity();
+
+  protected abstract void validate(RoutingContext routingContext);
 
    public void validateId(RoutingContext routingContext)
    {
@@ -73,10 +77,12 @@ public abstract class RestAPI
      });
    }
 
-   public void validate(RoutingContext routingContext)
+
+   /*public void validate(RoutingContext routingContext)
    {
      Util.validate(routingContext,getEntity());
-   }
+   }*/
+
 
    private void create( RoutingContext routingContext)
    {

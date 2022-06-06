@@ -5,12 +5,15 @@ import com.mindarray.nms.util.Constant;
 
 import com.mindarray.nms.util.Entity;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.DecodeException;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 
 public class Monitor extends RestAPI
@@ -92,6 +95,88 @@ public class Monitor extends RestAPI
   protected Entity getEntity()
   {
     return Entity.MONITOR;
+  }
+
+  @Override
+  protected void validate(RoutingContext routingContext)
+  {
+    try
+    {
+      JsonObject rawData = routingContext.getBodyAsJson();
+
+      if (routingContext.currentRoute().getName().equals("put"))
+      {
+        if (rawData == null)
+        {
+          routingContext.response().setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, Constant.NO_INPUT).put(Constant.STATUS_CODE, Constant.BAD_REQUEST).encodePrettily());
+        }
+        else
+        {
+          for (Map.Entry<String, Object> data : rawData)
+          {
+            if (data.getValue() instanceof String)
+            {
+              rawData.put(data.getKey(), ((String) data.getValue()).trim());
+            }
+          }
+          {
+              System.out.println("raw data in port" + rawData);
+
+              if(rawData.containsKey(Constant.JSON_KEY_PORT) && rawData.containsKey(Constant.CREDENTIAL_ID))
+              {
+                if(rawData.getInteger(Constant.JSON_KEY_PORT) <= 65535 && rawData.getInteger(Constant.CREDENTIAL_ID) >= 0)
+                {
+                  routingContext.next();
+                }
+                else
+                {
+                  routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).put(Constant.ERROR,Constant.DO_NOT_UPDATE).encodePrettily());
+
+                }
+
+              }
+              else if (rawData.containsKey(Constant.JSON_KEY_PORT) && rawData.getInteger(Constant.JSON_KEY_PORT) <= 65535 && rawData.size() == 1)
+              {
+                routingContext.next();
+              }
+              else if (rawData.containsKey(Constant.CREDENTIAL_ID) && rawData.getInteger(Constant.CREDENTIAL_ID) >= 0 && rawData.size() == 1)
+              {
+                routingContext.next();
+              }
+              else
+              {
+                routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).put(Constant.ERROR, Constant.DO_NOT_UPDATE).encodePrettily());
+              }
+          }
+        }
+      }
+      else if(routingContext.currentRoute().getName().equals("getAll"))
+      {
+        routingContext.next();
+      }
+      else
+      {
+        routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.NOT_FOUND).end("PAGE NOT FOUND");
+      }
+    }
+    catch (DecodeException decodeException)
+    {
+      LOGGER.error(decodeException.getMessage());
+
+      routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.INTERNAL_SERVER_ERROR).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, decodeException.getMessage()).put(Constant.STATUS_CODE, Constant.INTERNAL_SERVER_ERROR).encodePrettily());
+    }
+    catch (ClassCastException classCastException)
+    {
+      LOGGER.error("Invalid value : {}",classCastException.getMessage());
+
+      routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.INTERNAL_SERVER_ERROR).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, Constant.INVALID_INPUT).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
+    }
+    catch (Exception exception)
+    {
+      LOGGER.error(exception.getMessage(),exception);
+
+      routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.INTERNAL_SERVER_ERROR).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, exception.getMessage()).put(Constant.STATUS_CODE, Constant.INTERNAL_SERVER_ERROR).encodePrettily());
+    }
   }
 
 

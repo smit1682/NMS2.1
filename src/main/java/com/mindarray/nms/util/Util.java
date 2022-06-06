@@ -19,16 +19,17 @@ import java.util.Set;
 
 public class Util
 {
-  private static final Set<String> snmpMetricFields = Set.of("interface", "system", "ping");
+  /*private static final Set<String> snmpMetricFields = Set.of("interface", "system", "ping");
   private static final Set<String> otherMetricFields = Set.of("cpu", "disk", "process", "memory", "system", "ping");
   private static final Set<String> credentialFields = Set.of("credential.name", "protocol", "username", "password", "community", "version", "protocolValidation");
   private static final Set<String> discoveryFields = Set.of("discovery.name", "host", "port", "metric.type", "credential.id", "metric.typeValidation");
-
+*/
 
   private static final Vertx vertx = Bootstrap.getVertex();
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
+  /*
   public static void validate(RoutingContext routingContext, Entity entity)
   {
 
@@ -340,7 +341,7 @@ public class Util
 
       routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.INTERNAL_SERVER_ERROR).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, exception.getMessage()).put(Constant.STATUS_CODE, Constant.INTERNAL_SERVER_ERROR).encodePrettily());
     }
-  }
+  }*/
 
   public static Future<JsonObject> validateId(String id, Entity table)
   {
@@ -410,11 +411,9 @@ public class Util
 
 
     });
-
-
   }
 
-  private static boolean numberValidate(Integer data)
+  /*private static boolean numberValidate(Integer data)
   {
     try
     {
@@ -429,6 +428,6 @@ public class Util
     }
 
     return true;
-  }
+  }*/
 
 }
