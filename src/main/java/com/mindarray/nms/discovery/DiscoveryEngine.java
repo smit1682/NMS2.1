@@ -25,54 +25,50 @@ public class DiscoveryEngine extends AbstractVerticle
 
         String ipAddress = discoveryData.getString(Constant.JSON_KEY_HOST);
 
-        vertx.executeBlocking(pingEvent -> {
+        vertx.executeBlocking(discoveryEvent -> {
 
           if (UtilPlugin.pingStatus(ipAddress))
           {
-            pingEvent.complete(Constant.PING_UP);
-          }
-          else
-          {
-            pingEvent.fail(Constant.PING_DOWN);
-          }
-
-        }, pingEventResult -> {
-
-          if (pingEventResult.succeeded())
-          {
             LOGGER.debug(Constant.PING_UP);
 
-            vertx.executeBlocking(pluginEvent -> UtilPlugin.pluginEngine(discoveryData.put(Constant.CATEGORY,Constant.DISCOVERY)).onComplete(discoveryEventResult->{
+            UtilPlugin.pluginEngine(discoveryData.put(Constant.CATEGORY,Constant.DISCOVERY)).onComplete(pluginEventResult->{
 
-              if(discoveryEventResult.succeeded() && Constant.SUCCESS.equals(discoveryEventResult.result().getString(Constant.STATUS)))
+              if(pluginEventResult.succeeded() && Constant.SUCCESS.equals(pluginEventResult.result().getString(Constant.STATUS)))
               {
-                pluginEvent.complete(discoveryData.mergeIn(discoveryEventResult.result()).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
+                discoveryEvent.complete(discoveryData.mergeIn(pluginEventResult.result()).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
               }
               else
               {
-                pluginEvent.fail(discoveryEventResult.result().encodePrettily());
+                discoveryEvent.fail(pluginEventResult.result().encodePrettily());
               }
+            });
+          }
+          else
+          {
+            discoveryEvent.fail(Constant.PING_DOWN);
+          }
 
-            }), pluginEventResult -> {
+        }, discoveryEventResult -> {
 
-              if (pluginEventResult.succeeded())
-              {
-                vertx.eventBus().<JsonObject>request(Constant.DATABASE_HANDLER, pluginEventResult.result(), databaseReply -> {
+          if (discoveryEventResult.succeeded())
+          {
+
+                vertx.eventBus().<JsonObject>request(Constant.DATABASE_HANDLER, discoveryEventResult.result(), databaseReply -> {
 
                   if (databaseReply.succeeded())
                   {
-                        if((Constant.SUCCESS).equals(databaseReply.result().body().getString(Constant.STATUS)))
-                        {
-                            LOGGER.info("Discovery happened and stored in database");
+                    if((Constant.SUCCESS).equals(databaseReply.result().body().getString(Constant.STATUS)))
+                    {
+                      LOGGER.info("Discovery happened and stored in database");
 
-                            message.reply(databaseReply.result().body().put(Constant.STATUS, Constant.DISCOVERY_AND_DATABASE_SUCCESS));
-                        }
-                        else
-                        {
-                            LOGGER.debug("Discovery happened but did not stored in database");
+                      message.reply(databaseReply.result().body().put(Constant.STATUS, Constant.DISCOVERY_AND_DATABASE_SUCCESS));
+                    }
+                    else
+                    {
+                      LOGGER.debug("Discovery happened but did not stored in database");
 
-                            message.reply(databaseReply.result().body().put(Constant.STATUS, Constant.DISCOVERY_SUCCESS_DATABASE_FAILED));
-                        }
+                      message.reply(databaseReply.result().body().put(Constant.STATUS, Constant.DISCOVERY_SUCCESS_DATABASE_FAILED));
+                    }
                   }
                   else
                   {
@@ -81,27 +77,18 @@ public class DiscoveryEngine extends AbstractVerticle
                     message.fail(696, databaseReply.cause().getMessage());
                   }
                 });
-              }
-              else
-              {
-                LOGGER.error(pluginEventResult.cause().getMessage());
-
-                vertx.eventBus().send(Constant.DATABASE_HANDLER,discoveryData.put(Constant.RESULT,pluginEventResult.cause().getMessage()).put(Constant.STATUS,Constant.FAIL).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
-
-                message.fail(696, pluginEventResult.cause().getMessage());
-              }
-            });
           }
           else
           {
-            LOGGER.debug(Constant.PING_DOWN);
+                LOGGER.error(discoveryEventResult.cause().getMessage());
 
-            vertx.eventBus().send(Constant.DATABASE_HANDLER,discoveryData.put(Constant.RESULT,Constant.PING_DOWN).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY).put(Constant.STATUS,Constant.FAIL));
+                vertx.eventBus().send(Constant.DATABASE_HANDLER,discoveryData.put(Constant.RESULT,discoveryEventResult.cause().getMessage()).put(Constant.STATUS,Constant.FAIL).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
 
-            message.fail(400, new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, pingEventResult.cause().getMessage()).put(Constant.STATUS_CODE, Constant.BAD_REQUEST).toString());
+                message.fail(400, new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, discoveryEventResult.cause().getMessage()).put(Constant.STATUS_CODE, Constant.BAD_REQUEST).toString());
           }
-
         });
+
+
       }
       catch (Exception exception)
       {
