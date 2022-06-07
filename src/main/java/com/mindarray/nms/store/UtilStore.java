@@ -1,6 +1,5 @@
 package com.mindarray.nms.store;
 
-import com.mindarray.nms.api.RestAPI;
 import com.mindarray.nms.util.Constant;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
@@ -16,7 +15,7 @@ public class UtilStore
 
   public  void checkId(String ip, String identity, Promise<Object> databaseHandler)
   {
-    System.out.println(ip);
+
     boolean output ;
     PreparedStatement preparedStatement = null;
     try (Connection connection = createConnection())
@@ -103,7 +102,7 @@ public class UtilStore
   public void getLastInstance(JsonObject jsonMessage,Promise<Object> databaseHandler)
   {
     try(Connection connection = createConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("select `monitor.id`,`monitor.name`,`metric.group`,`data`,`timestamp` from metric_store  where `metric.group` =  ?  AND  `monitor.id` = ? order by `metric.store.id` DESC limit 1;");
+        PreparedStatement preparedStatement = connection.prepareStatement("select `monitor.id`,`monitor.name`,`metric.group`,`data`,`timestamp` from metric_store  where `metric.group` =  ?  AND  `monitor.id` = ? order by `metric.store.id` DESC limit 1;")
        )
     {
       preparedStatement.setString(1,jsonMessage.getString(Constant.METRIC_GROUP));

@@ -16,11 +16,9 @@ import java.util.Set;
 
 public class Discovery extends RestAPI
 {
-
   private static final Logger LOGGER = LoggerFactory.getLogger(Discovery.class);
 
   private static final Set<String> discoveryFields = Set.of("discovery.name", "host", "port", "metric.type", "credential.id", "metric.typeValidation");
-
 
   private final Vertx vertx = Bootstrap.getVertex();
 
@@ -43,7 +41,7 @@ public class Discovery extends RestAPI
     {
       JsonObject rawData = routingContext.getBodyAsJson();
 
-      if (routingContext.currentRoute().getName().equals("post"))
+      if (Constant.HTTP_POST.equals(routingContext.currentRoute().getName()))
       {
         if (rawData == null)
         {
@@ -80,7 +78,7 @@ public class Discovery extends RestAPI
           }
         }
       }
-      else if (routingContext.currentRoute().getName().equals("put"))
+      else if (Constant.HTTP_PUT.equals(routingContext.currentRoute().getName()))
       {
         if (rawData == null)
         {
@@ -135,7 +133,7 @@ public class Discovery extends RestAPI
             }
         }
       }
-      else if(routingContext.currentRoute().getName().equals("getAll"))
+      else if(Constant.HTTP_GET_ALL.equals(routingContext.currentRoute().getName()))
       {
         routingContext.next();
       }
@@ -182,7 +180,7 @@ public class Discovery extends RestAPI
             }
             else
             {
-              routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).end(messageAsyncResult.cause().getMessage());
+              routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(messageAsyncResult.cause().getMessage());
             }
           });
         }
@@ -201,5 +199,4 @@ public class Discovery extends RestAPI
       }
       });
   }
-
 }

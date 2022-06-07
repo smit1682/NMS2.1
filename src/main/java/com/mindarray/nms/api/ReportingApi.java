@@ -19,9 +19,9 @@ public class ReportingApi
 
   public ReportingApi(Router router)
   {
-    router.get("/metric/topFive/:metricGroup").handler(this::getTop);
+    router.get("/report/topFive/:metricGroup").handler(this::getTop);
 
-    router.get("/metric/:metricGroup/:id").handler(this::validateID).handler(this::getLastInstance);
+    router.get("/report/:metricGroup/:id").handler(this::validateID).handler(this::getLastInstance);
   }
 
   private void validateID(RoutingContext routingContext)

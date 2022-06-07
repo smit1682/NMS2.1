@@ -144,7 +144,7 @@ public class DataStoreHandler extends AbstractVerticle
         }
         else
         {
-          message.fail(300,databaseHandlerResult.cause().getMessage());
+          message.fail(400,databaseHandlerResult.cause().getMessage());
         }
 
       });

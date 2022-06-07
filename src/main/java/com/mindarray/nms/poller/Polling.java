@@ -21,7 +21,7 @@ public class Polling extends AbstractVerticle
 
   public void start(Promise<Void> startPromise) throws Exception
   {
-    vertx.eventBus().<JsonObject>localConsumer(Constant.EA_PULLING, message -> {
+    vertx.eventBus().<JsonObject>localConsumer(Constant.EA_POLLING, message -> {
       try
       {
         if (Constant.PING.equals(message.body().getString(Constant.METRIC_GROUP)))
@@ -46,7 +46,7 @@ public class Polling extends AbstractVerticle
         }
         else
         {
-          vertx.<JsonObject>executeBlocking(pluginEvent -> UtilPlugin.pluginEngine(message.body().put(Constant.CATEGORY, Constant.PULLING)).onComplete(pollingEvent -> {
+          vertx.<JsonObject>executeBlocking(pluginEvent -> UtilPlugin.pluginEngine(message.body().put(Constant.CATEGORY, Constant.POLLING)).onComplete(pollingEvent -> {
 
             if (pollingEvent.succeeded())
             {
@@ -64,17 +64,17 @@ public class Polling extends AbstractVerticle
 
                 if (replyHandler.succeeded())
                 {
-                  LOGGER.info("Pulling Data Dumped in DB ,HOST: {} ,metric.group: {} ", message.body().getString(Constant.JSON_KEY_HOST), message.body().getString(Constant.METRIC_GROUP));
+                  LOGGER.info("Polling Data Dumped in DB ,HOST: {} ,metric.group: {} ", message.body().getString(Constant.JSON_KEY_HOST), message.body().getString(Constant.METRIC_GROUP));
                 }
                 else
                 {
-                  LOGGER.info("Pulling Data Not Dumped in DB ,host: {} ,metric.group: {} ", message.body().getString(Constant.JSON_KEY_HOST), message.body().getString(Constant.METRIC_GROUP));
+                  LOGGER.info("Polling Data Not Dumped in DB ,host: {} ,metric.group: {} ", message.body().getString(Constant.JSON_KEY_HOST), message.body().getString(Constant.METRIC_GROUP));
                 }
               });
             }
             else
             {
-              LOGGER.error("Pulling Failed , HOST: {}   ERROR: {}", message.body().getString(Constant.JSON_KEY_HOST), pluginEventResult.cause().getMessage());
+              LOGGER.error("Polling Failed , HOST: {}   ERROR: {}", message.body().getString(Constant.JSON_KEY_HOST), pluginEventResult.cause().getMessage());
             }
           });
         }

@@ -14,21 +14,26 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+
 public class UtilPlugin {
   private static final Logger LOGGER = LoggerFactory.getLogger(UtilPlugin.class);
 
-  public static Future<JsonObject> pluginEngine(JsonObject dataToDiscover)  {
-
+  public static Future<JsonObject> pluginEngine(JsonObject dataToDiscover)
+  {
     Promise<JsonObject> promise = Promise.promise();
 
     String encodedJsonString = Base64.getEncoder().encodeToString(dataToDiscover.toString().getBytes());
 
     ProcessBuilder processBuilder = new ProcessBuilder().command(Constant.PLUGIN_PATH, encodedJsonString);
+
     InputStreamReader inputStreamReader = null;
+
     BufferedReader bufferedReader = null ;
+
     Process process = null;
 
-    try {
+    try
+    {
        process = processBuilder.start();
 
       if(dataToDiscover.getString(Constant.CATEGORY).equals(Constant.DISCOVERY))
@@ -40,9 +45,10 @@ public class UtilPlugin {
          inputStreamReader = new InputStreamReader(process.getInputStream()); //read the output
       }
 
-       bufferedReader = new BufferedReader(inputStreamReader);
+      bufferedReader = new BufferedReader(inputStreamReader);
 
-      String outputString = bufferedReader.readLine();
+       String outputString = bufferedReader.readLine();
+
 
       String outputJsonString = new String(Base64.getDecoder().decode(outputString.getBytes())); //IllegalArgumentException
 
@@ -50,11 +56,15 @@ public class UtilPlugin {
 
       process.waitFor();
 
-      try {
+      try
+      {
 
-        discoveryStatus = new JsonObject(outputJsonString);   //DecodeException
+        if(!outputString.isEmpty())
+        {
+          discoveryStatus = new JsonObject(outputJsonString);   //DecodeException
 
-        if(dataToDiscover.getString(Constant.CATEGORY).equals(Constant.PULLING))
+
+        if(dataToDiscover.getString(Constant.CATEGORY).equals(Constant.POLLING))
         {
           if(discoveryStatus.containsKey(Constant.STATUS) && Constant.SUCCESS.equals(discoveryStatus.getString(Constant.STATUS)))
           {
@@ -68,14 +78,15 @@ public class UtilPlugin {
         else
         {
           promise.complete( discoveryStatus);
-        }
+        }}
 
 
       } catch (DecodeException exception) {
         promise.fail(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.STATUS, outputJsonString).encodePrettily());
       }
 
-    } catch (Exception exception)
+    }
+    catch (Exception exception)
     {
       promise.fail( new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, exception.getMessage()).encodePrettily());
     }
@@ -100,11 +111,7 @@ public class UtilPlugin {
       {
         LOGGER.error(exception.getMessage());
       }
-
-
     }
-
-
 
     return promise.future();
 

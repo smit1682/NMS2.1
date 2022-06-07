@@ -36,7 +36,7 @@ public class Metric extends RestAPI
     {
       JsonObject rawData = routingContext.getBodyAsJson();
 
-      if (routingContext.currentRoute().getName().equals("put"))
+      if (Constant.HTTP_PUT.equals(routingContext.currentRoute().getName()))
       {
         if (rawData == null)
         {
@@ -58,7 +58,7 @@ public class Metric extends RestAPI
 
                 return;
               }
-              if (rawData.getString(Constant.METRIC_TYPE_VALIDATION).equals(Constant.NETWORK_DEVICE))
+              if (Constant.NETWORK_DEVICE.equals(rawData.getString(Constant.METRIC_TYPE_VALIDATION)))
               {
                 if (snmpMetricFields.contains(rawData.getString(Constant.METRIC_GROUP)) && numberValidate(rawData.getInteger(Constant.TIME)))
                 {
@@ -84,7 +84,7 @@ public class Metric extends RestAPI
           }
         }
       }
-      else if(routingContext.currentRoute().getName().equals("getAll"))
+      else if(Constant.HTTP_GET_ALL.equals(routingContext.currentRoute().getName()))
       {
         routingContext.next();
       }
@@ -117,9 +117,9 @@ public class Metric extends RestAPI
   {
     try
     {
-      if (data <86400 && data >=10 && data % 10 != 0  )
+      if (data <86400  && data % 10 == 0  )
       {
-        return false;
+        return true;
       }
     }
     catch (ClassCastException exception)
@@ -127,6 +127,6 @@ public class Metric extends RestAPI
       return false;
     }
 
-    return true;
+    return false;
   }
 }

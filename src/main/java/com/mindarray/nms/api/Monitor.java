@@ -80,7 +80,7 @@ public class Monitor extends RestAPI
         {
           LOGGER.error(Constant.NOT_DISCOVERED);
 
-          routingContext.response().putHeader(Constant.CONTENT_TYPE, Constant.APPLICATION_JSON).end(new JsonObject().put(Constant.STATUS, Constant.FAIL).put(Constant.ERROR, Constant.NOT_DISCOVERED).encodePrettily());
+          routingContext.response().putHeader(Constant.CONTENT_TYPE, Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS, Constant.FAIL).put(Constant.ERROR, Constant.NOT_DISCOVERED).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
         }
       }
       catch (Exception exception)
@@ -104,7 +104,7 @@ public class Monitor extends RestAPI
     {
       JsonObject rawData = routingContext.getBodyAsJson();
 
-      if (routingContext.currentRoute().getName().equals("put"))
+      if (Constant.HTTP_PUT.equals(routingContext.currentRoute().getName()))
       {
         if (rawData == null)
         {
@@ -150,7 +150,7 @@ public class Monitor extends RestAPI
           }
         }
       }
-      else if(routingContext.currentRoute().getName().equals("getAll"))
+      else if(Constant.HTTP_GET_ALL.equals(routingContext.currentRoute().getName()))
       {
         routingContext.next();
       }

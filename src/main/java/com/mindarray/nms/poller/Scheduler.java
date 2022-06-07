@@ -94,7 +94,7 @@ public class Scheduler extends AbstractVerticle
         {
           metricData.mergeIn(credentialCache.get(metricData.getInteger(Constant.CREDENTIAL_ID)));
 
-          vertx.eventBus().send(Constant.EA_PULLING, metricData);
+          vertx.eventBus().send(Constant.EA_POLLING, metricData);
 
           metricData.put(Constant.TIME, metricData.getInteger(Constant.DEFAULT_TIME));
         }

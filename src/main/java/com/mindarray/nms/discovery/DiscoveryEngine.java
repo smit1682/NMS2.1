@@ -44,7 +44,7 @@ public class DiscoveryEngine extends AbstractVerticle
 
             vertx.executeBlocking(pluginEvent -> UtilPlugin.pluginEngine(discoveryData.put(Constant.CATEGORY,Constant.DISCOVERY)).onComplete(discoveryEventResult->{
 
-              if(discoveryEventResult.succeeded() && discoveryEventResult.result().getString(Constant.STATUS).equals(Constant.SUCCESS))
+              if(discoveryEventResult.succeeded() && Constant.SUCCESS.equals(discoveryEventResult.result().getString(Constant.STATUS)))
               {
                 pluginEvent.complete(discoveryData.mergeIn(discoveryEventResult.result()).put(Constant.IDENTITY,Constant.UPDATE_AFTER_RUN_DISCOVERY));
               }

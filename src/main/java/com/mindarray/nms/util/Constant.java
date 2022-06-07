@@ -39,8 +39,8 @@ public class Constant {
   public static final String NETWORK_DEVICE = "network.device";
 
   public static final String ILLEGAL_ARGUMENT_EXCEPTION = "IllegalArgumentException";
-  public static final Integer OK =200;
-  public static final Integer INTERNAL_SERVER_ERROR  =500;
+  public static final Integer OK = 200;
+  public static final Integer INTERNAL_SERVER_ERROR = 500;
   public static final Integer ALREADY_AVAILABLE = 600;
 
   public static final String QUERY_INSERT_TO_DISCOVERY_TABLE = "INSERT INTO credentials VALUES (?,?,?,?,?,?)";
@@ -56,7 +56,7 @@ public class Constant {
   public static final String PROTOCOL = "protocol";
   public static final String MESSAGE = "message";
   public static final String DISCOVERY_NAME = "discovery.name";
-  public static final String CREDENTIAL_ID = "credential.id" ;
+  public static final String CREDENTIAL_ID = "credential.id";
   //public static final String CREDENTIAL_PROFILE = "credential.i";
 
   public static final String CREDENTIAL_INSERT = "CREDENTIALInsert";
@@ -73,20 +73,20 @@ public class Constant {
   public static final String MONITOR_DELETE = "MONITORDelete";
   public static final String MONITOR_READ = "MONITORRead";
   public static final String CPU = "cpu";
-  public static final String MEMORY ="memory" ;
+  public static final String MEMORY = "memory";
 
   public static final String MONITOR_READ_ALL = "MONITORReadAll";
-  public static final String MONITOR_UPDATE ="MONITORUpdate" ;
-  public static final String METRIC_UPDATE ="METRICUpdate" ;
+  public static final String MONITOR_UPDATE = "MONITORUpdate";
+  public static final String METRIC_UPDATE = "METRICUpdate";
   public static final String ID = "id";
 
   public static final String IDENTITY = "identity";
-  public static final String DATABASE_HANDLER ="InsertToDatabase" ;
+  public static final String DATABASE_HANDLER = "InsertToDatabase";
   public static final String INSERT = "Insert";
   public static final String READ_ALL = "ReadAll";
   public static final String READ = "Read";
   public static final String UPDATE = "Update";
-  public static final String DELETE ="Delete" ;
+  public static final String DELETE = "Delete";
 
   public static final String UPDATE_SCHEDULING = "updateScheduling";
   public static final String DELETE_SCHEDULING = "deleteScheduling";
@@ -98,11 +98,10 @@ public class Constant {
   public static final String TIME = "time";
   public static final String DEFAULT_TIME = "default.time";
   public static final String METRIC_GROUP = "metric.group";
-  public static final String PATH_PROVISION_WITH_ID ="/provision/:id" ;
+  public static final String PATH_PROVISION_WITH_ID = "/provision/:id";
   public static final String EA_SCHEDULING = "scheduling";
-  public static final String EA_PULLING = "pulling";
+  public static final String EA_POLLING = "pulling";
   public static final String TOP_FIVE = "topFive";
-
 
 
   public static final String GET_LAST_INSTANCE = "getLastInstance";
@@ -114,8 +113,6 @@ public class Constant {
   public static final String UPDATE_AFTER_RUN_DISCOVERY = "updateAfterRunDiscovery";
   public static final String PICK_UP_DATA_INITAL = "pickupData";
   public static final String DUMP_METRIC_DATA = "dumpMetricData";
-  public static final String PULLING_FAIL = "Pulling Failed";
-
   public static final String INVALID_METRIC_GROUP = "Invalid metric group";
   public static final String SNMP = "snmp";
   public static final String TABLE_NAME = "table.name";
@@ -125,11 +122,11 @@ public class Constant {
   public static final String NOT_VALID = "Not Valid ID";
   public static final String PATH_MOUNT_POINT = "/api/v1";
 
-  public static final String  CATEGORY= "category";
+  public static final String CATEGORY = "category";
 
   public static final String DISCOVERY = "discovery";
 
-    public static final String PULLING = "pulling";
+  public static final String POLLING = "pulling";
 
   public static final String PING = "ping";
   public static final String STORE_INITIAL_MAP = "store.in.map";
@@ -149,13 +146,27 @@ public class Constant {
   public static final String METRIC_READ = "METRICRead";
   public static final String PROTOCOL_VALIDATION = "protocolValidation";
   public static final String METRIC_TYPE_VALIDATION = "metric.typeValidation";
-    public static final String RESULT = "result";
-    public static final String CONTENT_TYPE = "content-type";
-    public static final String APPLICATION_JSON = "application/json";
-    public static final String REMOVE_EXTRA_FIELD = "Remove extra fields";
+  public static final String RESULT = "result";
+  public static final String CONTENT_TYPE = "content-type";
+  public static final String APPLICATION_JSON = "application/json";
+  public static final String REMOVE_EXTRA_FIELD = "Remove extra fields";
 
 
   public static final String DO_NOT_UPDATE = "This field is not updatable";
   public static final String QUERY_INTIAL_READ = "select * from metric left join monitor on metric.`monitor.id` = monitor.`monitor.id`";
   public static final String METRIC_READ_ALL = "METRICReadAll";
+  public static final String HTTP_PUT = "put";
+  public static final String HTTP_POST = "post";
+  public static final String HTTP_GET_ALL = "getAll";
+
+  public static final String QUERY_DUMP_IN_DB = "INSERT INTO `NMS2.2`.`metric_store`\n" + "(`monitor.id`,\n" + "`metric.group`,\n" + "`metric.type`,\n" + "`data`,\n" + "`timestamp`,`monitor.name`) VALUES (?,?,?,?,?,?)";
+  public static final String QUERY_CREDENTIAL_LEFT_JOIN_DISCOVERY = "select * from discovery left join credential on discovery.`credential.id` = credential.`credential.id` where discovery.`discovery.id` = ";
+  public static final String QUERY_INSERT_MONITOR = "INSERT INTO `NMS2.2`.`monitor` (`monitor.name`, `host`, `port`, `metric.type`, `credential.id`) VALUES (?,?,?,?,?)";
+  public static final String QUERY_MAX_MONITOR_ID = "SELECT MAX(`monitor.id`) FROM monitor;";
+  public static final String QUERY_METRIC_LEFT_JOIN_MONITOR = "select * from metric left join monitor on metric.`monitor.id` = monitor.`monitor.id` where metric.`monitor.id` = ";
+  public static final String QUERY_DELETE_MONITOR = "delete from monitor where `monitor.id` = ";
+  public static final String QUERY_DELETE_CREDENTIAL = "delete from credential where `credential.id` = ";
+  public static final String QUERY_READ_DISCOVERY = "select * from discovery where `discovery.id` = ";
+
+  public static final String QUERY_DELETE_DISCOVERY = "delete from discovery where `discovery.id` = ";
 }

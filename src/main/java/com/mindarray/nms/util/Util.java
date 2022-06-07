@@ -5,16 +5,12 @@ import com.mindarray.nms.api.Monitor;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
-import io.vertx.core.json.DecodeException;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.web.RoutingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import java.util.Map;
-import java.util.Set;
 
 
 public class Util
@@ -347,9 +343,9 @@ public class Util
   {
     Promise<JsonObject> promise = Promise.promise();
 
-    JsonObject jsonObject = new JsonObject().put(Constant.ID, id).put(Constant.TABLE_NAME, table).put(Constant.IDENTITY, Constant.VALIDATE_ID);
+    JsonObject entries = new JsonObject().put(Constant.ID, id).put(Constant.TABLE_NAME, table).put(Constant.IDENTITY, Constant.VALIDATE_ID);
 
-    vertx.eventBus().<JsonObject>request(Constant.DATABASE_HANDLER, jsonObject, messageAsyncResult -> {
+    vertx.eventBus().<JsonObject>request(Constant.DATABASE_HANDLER, entries, messageAsyncResult -> {
 
       if (messageAsyncResult.succeeded() && messageAsyncResult.result().body().containsKey(Constant.METRIC_TYPE_VALIDATION) )
       {
@@ -408,8 +404,6 @@ public class Util
           }
         });
       }
-
-
     });
   }
 

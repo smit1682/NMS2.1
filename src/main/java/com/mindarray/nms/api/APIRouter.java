@@ -8,16 +8,13 @@ import io.vertx.ext.web.handler.BodyHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class APIRouter extends AbstractVerticle
 {
-
   private static final Logger LOGGER = LoggerFactory.getLogger(APIRouter.class);
 
   @Override
   public void start(Promise<Void> startPromise)
   {
-
     Router mainRouter = Router.router(vertx);
 
     Router subRoute = Router.router(vertx);
@@ -46,11 +43,8 @@ public class APIRouter extends AbstractVerticle
       {
         LOGGER.error("HTTP server not started");
       }
-
     });
 
     startPromise.complete();
-
   }
-
 }

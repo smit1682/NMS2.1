@@ -64,7 +64,7 @@ public class DiscoveryStore implements CrudStore
   public void read(JsonObject jsonObject,Promise<Object> databaseHandler)
   {
     try (Connection connection = createConnection();
-         ResultSet resultSet = connection.createStatement().executeQuery("select * from discovery where `discovery.id` = "+ jsonObject.getString("id"))
+         ResultSet resultSet = connection.createStatement().executeQuery(Constant.QUERY_READ_DISCOVERY+ jsonObject.getString("id"))
     )
     {
       JsonObject data = new JsonObject();
@@ -200,13 +200,15 @@ public class DiscoveryStore implements CrudStore
   }
 
   @Override
-  public void delete(JsonObject string,Promise<Object> databaseHandler)
+  public void delete(JsonObject entries,Promise<Object> databaseHandler)
   {
     try (Connection connection = createConnection();Statement statement = connection.createStatement())
     {
-       statement.executeUpdate("delete from discovery where `discovery.id` = "+string.getString("id"));
+       statement.executeUpdate(Constant.QUERY_DELETE_DISCOVERY + entries.getString(Constant.ID));
 
       databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+
+      LOGGER.info("DISCOVERY ID {} DELETED",entries.getString(Constant.ID));
 
     }
     catch (SQLException sqlException)

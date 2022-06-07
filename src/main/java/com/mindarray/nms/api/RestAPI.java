@@ -33,8 +33,6 @@ public abstract class RestAPI
     router.get(getEntity().getPath() + "/:id").setName("get").handler(this::validateId).handler(this::read);
   }
 
-
-
   protected abstract Entity getEntity();
 
   protected abstract void validate(RoutingContext routingContext);
@@ -45,13 +43,13 @@ public abstract class RestAPI
 
        try
        {
-         if (result.succeeded() && getEntity().equals(Entity.METRIC) && routingContext.getBodyAsJson() != null)  //for monitor id validation which also fetch metric.type
+         if (result.succeeded() && Entity.METRIC.equals(getEntity()) && routingContext.getBodyAsJson() != null)  //for monitor id validation which also fetch metric.type
          {
            routingContext.setBody(routingContext.getBodyAsJson().mergeIn(result.result()).toBuffer());
 
            routingContext.next();
          }
-         else if (result.succeeded() && getEntity().equals(Entity.CREDENTIAL) && routingContext.getBodyAsJson() != null)    //for credential id validation which also fetch protocol to validate update field
+         else if (result.succeeded() && Entity.CREDENTIAL.equals(getEntity()) && routingContext.getBodyAsJson() != null)    //for credential id validation which also fetch protocol to validate update field
          {
            routingContext.setBody(routingContext.getBodyAsJson().mergeIn(result.result()).toBuffer());
 
@@ -157,7 +155,7 @@ public abstract class RestAPI
         }
         else
         {
-          routingContext.response().putHeader(Constant.CONTENT_TYPE, Constant.APPLICATION_JSON).end(replayMessage.cause().getMessage());
+          routingContext.response().putHeader(Constant.CONTENT_TYPE, Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(replayMessage.cause().getMessage());
         }
       }
       catch (Exception exception)

@@ -26,5 +26,4 @@ public enum Entity
     return path;
   }
   public String getId(){return id;}
-
 }

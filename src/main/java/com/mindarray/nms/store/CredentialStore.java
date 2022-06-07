@@ -226,9 +226,11 @@ public class CredentialStore implements CrudStore
     try ( Connection connection = createConnection();
           Statement statement = connection.createStatement())
     {
-      statement.executeUpdate("delete from credential where `credential.id` = "+entries.getString("id"));
+      statement.executeUpdate(Constant.QUERY_DELETE_CREDENTIAL +entries.getString(Constant.ID));
 
       databaseHandler.complete( new JsonObject().put(Constant.STATUS,Constant.SUCCESS).put(Constant.STATUS_CODE,Constant.OK));
+
+      LOGGER.info("CREDENTIAL ID {} DELETED",entries.getString(Constant.ID));
     }
     catch (SQLException sqlException)
     {

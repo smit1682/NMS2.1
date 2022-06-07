@@ -36,7 +36,7 @@ public class Credential extends RestAPI
     {
       JsonObject rawData = routingContext.getBodyAsJson();
 
-      if (routingContext.currentRoute().getName().equals("post"))
+      if (Constant.HTTP_POST.equals(routingContext.currentRoute().getName()))
       {
         if (rawData == null)
         {
@@ -54,16 +54,16 @@ public class Credential extends RestAPI
           routingContext.setBody(rawData.toBuffer());
 
           {
-              if (!rawData.containsKey(Constant.CREDENTIAL_NAME) || !rawData.containsKey(Constant.PROTOCOL))
-              {   //contains validation
+              if (!rawData.containsKey(Constant.CREDENTIAL_NAME) || !rawData.containsKey(Constant.PROTOCOL))  //contains validation
+              {
                 routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, Constant.INVALID_INPUT).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
               }
-              else if (rawData.getString(Constant.CREDENTIAL_NAME).isEmpty() || rawData.getString(Constant.PROTOCOL).isEmpty())
-              {   //isEmpty validation
+              else if (rawData.getString(Constant.CREDENTIAL_NAME).isEmpty() || rawData.getString(Constant.PROTOCOL).isEmpty()) //isEmpty validation
+              {
                 routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, Constant.INVALID_INPUT).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
               }
-              else if (rawData.getString(Constant.PROTOCOL).equalsIgnoreCase(Constant.SNMP))
-              { //protocol validation
+              else if (Constant.SNMP.equalsIgnoreCase(rawData.getString(Constant.PROTOCOL))) //protocol validation
+              {
                 if (rawData.containsKey(Constant.JSON_KEY_VERSION) && rawData.containsKey(Constant.COMMUNITY))
                 {
                   routingContext.next();
@@ -73,7 +73,7 @@ public class Credential extends RestAPI
                   routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, Constant.INVALID_INPUT).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
                 }
               }
-              else if (!rawData.getString(Constant.PROTOCOL).equals(Constant.SNMP))
+              else if (!Constant.SNMP.equals(rawData.getString(Constant.PROTOCOL)))
               {
                 if (rawData.containsKey(Constant.JSON_KEY_USERNAME) && !(rawData.getString(Constant.JSON_KEY_USERNAME).isEmpty()) && rawData.containsKey(Constant.JSON_KEY_PASSWORD) && !rawData.getString(Constant.JSON_KEY_PASSWORD).isEmpty())
                 {
@@ -92,7 +92,7 @@ public class Credential extends RestAPI
           }
         }
       }
-      else if (routingContext.currentRoute().getName().equals("put"))
+      else if (Constant.HTTP_PUT.equals(routingContext.currentRoute().getName()))
       {
         if (rawData == null)
         {
@@ -106,6 +106,11 @@ public class Credential extends RestAPI
             {
               rawData.put(data.getKey(), ((String) data.getValue()).trim());
             }
+            if (!credentialFields.contains(data.getKey()))
+            {
+              routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).put(Constant.ERROR, Constant.REMOVE_EXTRA_FIELD).encodePrettily());
+              return;
+            }
           }
 
           {
@@ -114,27 +119,13 @@ public class Credential extends RestAPI
                 routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).put(Constant.ERROR, Constant.NO_INPUT).encodePrettily());
                 return;
               }
-              System.out.println("raw data: " + rawData);
-              for (Map.Entry<String, Object> data : rawData)
-              {
-
-                if (data.getValue() instanceof String) {
-                  rawData.put(data.getKey(), ((String) data.getValue()).trim());
-                }
-                if (!credentialFields.contains(data.getKey()))
-                {
-                  routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).put(Constant.ERROR, Constant.REMOVE_EXTRA_FIELD).encodePrettily());
-                  return;
-                }
-
-              }
 
               if (rawData.containsKey(Constant.CREDENTIAL_ID) || rawData.containsKey(Constant.PROTOCOL))
               {
                 routingContext.response().putHeader(Constant.CONTENT_TYPE,Constant.APPLICATION_JSON).setStatusCode(Constant.BAD_REQUEST).end(new JsonObject().put(Constant.STATUS,Constant.FAIL).put(Constant.ERROR, Constant.INVALID_INPUT).put(Constant.STATUS_CODE,Constant.BAD_REQUEST).encodePrettily());
                 return;
               }
-              if (rawData.getString(Constant.PROTOCOL_VALIDATION).equalsIgnoreCase(Constant.SNMP))
+              if (Constant.SNMP.equalsIgnoreCase(rawData.getString(Constant.PROTOCOL_VALIDATION)))
               {
                 if (rawData.containsKey(Constant.JSON_KEY_PASSWORD) || rawData.containsKey(Constant.JSON_KEY_USERNAME))
                 {
@@ -165,12 +156,10 @@ public class Credential extends RestAPI
                   routingContext.next();
                 }
               }
-
-
-            }
+          }
         }
       }
-      else if(routingContext.currentRoute().getName().equals("getAll"))
+      else if(Constant.HTTP_GET_ALL.equals(routingContext.currentRoute().getName()))
       {
         routingContext.next();
       }
